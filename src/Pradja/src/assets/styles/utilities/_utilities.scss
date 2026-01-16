@@ -1,0 +1,393 @@
+// ============================================================================
+// UTILITIES STYLES
+// Version: 2.0.0
+// Loading states, placeholders, and common utilities
+// ============================================================================
+
+@use '../abstracts' as *;
+
+// ============================================================================
+// LOADING CONTAINER & SPINNER
+// ============================================================================
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  padding: $spacing-8;
+  
+  p {
+    margin-top: $spacing-4;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+  }
+}
+
+.loading-spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid $neutral-200;
+  border-top-color: $color-primary;
+  border-radius: $radius-full;
+  animation: spin $duration-slow linear infinite;
+  
+  &--small {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-width: 2px;
+  }
+  
+  &--large {
+    width: 4rem;
+    height: 4rem;
+    border-width: 4px;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ============================================================================
+// PAGE PLACEHOLDER
+// ============================================================================
+
+.page-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: $spacing-12 $spacing-6;
+  background: linear-gradient(135deg, $primary-50 0%, $neutral-50 100%);
+  
+  h1 {
+    @include heading(1);
+    margin-bottom: $spacing-4;
+    color: $color-text-primary;
+  }
+  
+  p {
+    font-size: $font-size-xl;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-8;
+  }
+  
+  .button {
+    margin-top: $spacing-6;
+  }
+}
+
+// ============================================================================
+// ALERT COMPONENT
+// ============================================================================
+
+.alert {
+  padding: $spacing-4 $spacing-6;
+  border-radius: $radius-md;
+  border: 1px solid transparent;
+  margin-bottom: $spacing-4;
+  
+  p {
+    margin: 0;
+    line-height: $line-height-normal;
+  }
+  
+  &--success {
+    background-color: $success-50;
+    border-color: $success-200;
+    color: $success-800;
+  }
+  
+  &--error {
+    background-color: $error-50;
+    border-color: $error-200;
+    color: $error-800;
+  }
+  
+  &--warning {
+    background-color: $warning-50;
+    border-color: $warning-200;
+    color: $warning-800;
+  }
+  
+  &--info {
+    background-color: $info-50;
+    border-color: $info-200;
+    color: $info-800;
+  }
+}
+
+// ============================================================================
+// DEMO CREDENTIALS (for login page)
+// ============================================================================
+
+.demo-credentials {
+  padding: $spacing-4;
+  background-color: $neutral-50;
+  border-radius: $radius-md;
+  border: 1px solid $color-border;
+  font-size: $font-size-sm;
+  
+  p {
+    margin: $spacing-2 0;
+    color: $color-text-secondary;
+    
+    strong {
+      color: $color-text-primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+}
+
+// ============================================================================
+// PASSWORD INPUT TOGGLE
+// ============================================================================
+
+.password-input {
+  position: relative;
+  
+  &__toggle {
+    @include button-reset;
+    position: absolute;
+    right: $spacing-3;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-text-secondary;
+    border-radius: $radius-md;
+    @include transition(all);
+    
+    &:hover {
+      background-color: $neutral-100;
+      color: $color-text-primary;
+    }
+    
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+  
+  input {
+    padding-right: 3.5rem;
+  }
+}
+
+// ============================================================================
+// CHECKBOX COMPONENT
+// ============================================================================
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  cursor: pointer;
+  user-select: none;
+  
+  &__input {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid $color-border;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    @include transition(all);
+    
+    &:checked {
+      background-color: $color-primary;
+      border-color: $color-primary;
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: $focus-ring;
+    }
+  }
+  
+  &__label {
+    font-size: $font-size-sm;
+    color: $color-text-primary;
+    cursor: pointer;
+  }
+}
+
+// ============================================================================
+// TEXT UTILITIES
+// ============================================================================
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// ============================================================================
+// VISIBILITY UTILITIES
+// ============================================================================
+
+.hidden {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// ============================================================================
+// ANIMATION UTILITIES
+// ============================================================================
+
+.animate-fade-in {
+  animation: fadeIn $duration-base $ease-in-out;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp $duration-base $ease-out;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown $duration-base $ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight $duration-base $ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft $duration-base $ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+// ============================================================================
+// SCROLL UTILITIES
+// ============================================================================
+
+.no-scroll {
+  overflow: hidden;
+}
+
+// ============================================================================
+// FORM UTILITIES
+// ============================================================================
+
+.form {
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-4;
+    margin-bottom: $spacing-4;
+    
+    @include respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  &__field {
+    margin-bottom: $spacing-4;
+  }
+  
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    margin-bottom: $spacing-2;
+    
+    svg {
+      width: 1rem;
+      height: 1rem;
+      color: $color-text-secondary;
+    }
+  }
+  
+  &__input,
+  &__select,
+  &__textarea {
+    @include input-base;
+    width: 100%;
+  }
+  
+  &__input,
+  &__select {
+    height: $input-height-md;
+  }
+  
+  &__textarea {
+    min-height: 6rem;
+    resize: vertical;
+    padding: $spacing-3 $input-padding-x;
+  }
+}

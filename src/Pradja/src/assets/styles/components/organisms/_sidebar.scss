@@ -1,0 +1,258 @@
+// ============================================================================
+// SIDEBAR COMPONENT - ORGANISM
+// Version: 2.0.0
+// Admin sidebar navigation with collapse functionality
+// ============================================================================
+
+@use '../../abstracts' as *;
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: $sidebar-width;
+  height: 100vh;
+  background-color: $color-primary;
+  color: $color-white;
+  @include transition(width);
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+  
+  // ============================================================================
+  // COLLAPSED STATE
+  // ============================================================================
+  
+  &--collapsed {
+    width: $sidebar-width-collapsed;
+    
+    .sidebar__brand {
+      justify-content: center;
+    }
+    
+    .sidebar__title {
+      display: none;
+    }
+    
+    .sidebar__link-text,
+    .sidebar__logout-text {
+      opacity: 0;
+      width: 0;
+      overflow: hidden;
+    }
+  }
+  
+  // ============================================================================
+  // HEADER
+  // ============================================================================
+  
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $sidebar-padding;
+    border-bottom: 1px solid rgba($color-white, 0.1);
+    min-height: $navbar-height;
+  }
+  
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    flex: 1;
+  }
+  
+  &__logo {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: $color-white;
+    border-radius: $radius-md;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    
+    &--centered {
+      margin: 0 auto;
+    }
+  }
+  
+  &__logo-icon {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+  }
+  
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-white;
+    margin: 0;
+    white-space: nowrap;
+  }
+  
+  &__toggle {
+    @include button-reset;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-white;
+    background-color: rgba($color-white, 0.1);
+    border-radius: $radius-sm;
+    @include transition(all);
+    flex-shrink: 0;
+    
+    &:hover {
+      background-color: rgba($color-white, 0.2);
+    }
+    
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+  
+  // ============================================================================
+  // NAVIGATION
+  // ============================================================================
+  
+  &__nav {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: $spacing-4 0;
+    @include custom-scrollbar(4px, rgba($color-white, 0.1), rgba($color-white, 0.3));
+  }
+  
+  &__menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  &__menu-item {
+    margin-bottom: $spacing-1;
+    padding: 0 $spacing-3;
+  }
+  
+  &__link {
+    @include button-reset;
+    @include flex(row, flex-start, center);
+    width: 100%;
+    gap: $spacing-3;
+    padding: $spacing-3 $spacing-4;
+    color: $primary-100;
+    background-color: transparent;
+    border-radius: $radius-md;
+    @include transition(all);
+    text-align: left;
+    
+    &:hover {
+      background-color: rgba($color-white, 0.1);
+      color: $color-white;
+    }
+    
+    &--active {
+      background-color: rgba($color-white, 0.15);
+      color: $color-white;
+      font-weight: $font-weight-semibold;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background-color: $color-white;
+        border-radius: 0 $radius-sm $radius-sm 0;
+      }
+    }
+  }
+  
+  &__link-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+    
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+  
+  &__link-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @include transition(opacity);
+  }
+  
+  // ============================================================================
+  // FOOTER (LOGOUT)
+  // ============================================================================
+  
+  &__footer {
+    padding: $spacing-4;
+    border-top: 1px solid rgba($color-white, 0.1);
+  }
+  
+  &__logout {
+    @include button-reset;
+    @include flex(row, flex-start, center);
+    width: 100%;
+    gap: $spacing-3;
+    padding: $spacing-3 $spacing-4;
+    color: $primary-100;
+    background-color: transparent;
+    border-radius: $radius-md;
+    @include transition(all);
+    
+    &:hover {
+      background-color: rgba($error-500, 0.2);
+      color: $color-white;
+    }
+  }
+  
+  &__logout-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+    
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+  
+  &__logout-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    @include transition(opacity);
+  }
+  
+  // ============================================================================
+  // RESPONSIVE
+  // ============================================================================
+  
+  @include respond-below(lg) {
+    position: fixed;
+    z-index: $z-fixed;
+    transform: translateX(-100%);
+    
+    &--open {
+      transform: translateX(0);
+    }
+  }
+}

@@ -1,0 +1,234 @@
+// ============================================================================
+// FLEXBOX UTILITIES
+// Version: 2.0.0
+// Flexible layout system utilities
+// ============================================================================
+
+@use '../abstracts' as *;
+
+// ============================================================================
+// FLEX CONTAINER
+// ============================================================================
+
+.flex {
+  display: flex;
+  
+  &--inline {
+    display: inline-flex;
+  }
+}
+
+// ============================================================================
+// FLEX DIRECTION
+// ============================================================================
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-col-reverse {
+  flex-direction: column-reverse;
+}
+
+// ============================================================================
+// FLEX WRAP
+// ============================================================================
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flex-wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+// ============================================================================
+// JUSTIFY CONTENT
+// ============================================================================
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+// ============================================================================
+// ALIGN ITEMS
+// ============================================================================
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-baseline {
+  align-items: baseline;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+// ============================================================================
+// ALIGN CONTENT
+// ============================================================================
+
+.content-start {
+  align-content: flex-start;
+}
+
+.content-end {
+  align-content: flex-end;
+}
+
+.content-center {
+  align-content: center;
+}
+
+.content-between {
+  align-content: space-between;
+}
+
+.content-around {
+  align-content: space-around;
+}
+
+.content-stretch {
+  align-content: stretch;
+}
+
+// ============================================================================
+// ALIGN SELF
+// ============================================================================
+
+.self-auto {
+  align-self: auto;
+}
+
+.self-start {
+  align-self: flex-start;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.self-baseline {
+  align-self: baseline;
+}
+
+.self-stretch {
+  align-self: stretch;
+}
+
+// ============================================================================
+// FLEX GROW & SHRINK
+// ============================================================================
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+.flex-initial {
+  flex: 0 1 auto;
+}
+
+.flex-none {
+  flex: none;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.grow-0 {
+  flex-grow: 0;
+}
+
+.shrink {
+  flex-shrink: 1;
+}
+
+.shrink-0 {
+  flex-shrink: 0;
+}
+
+// ============================================================================
+// GAP UTILITIES
+// ============================================================================
+
+.gap-0 { gap: 0; }
+.gap-1 { gap: $spacing-1; }
+.gap-2 { gap: $spacing-2; }
+.gap-3 { gap: $spacing-3; }
+.gap-4 { gap: $spacing-4; }
+.gap-5 { gap: $spacing-5; }
+.gap-6 { gap: $spacing-6; }
+.gap-8 { gap: $spacing-8; }
+.gap-10 { gap: $spacing-10; }
+.gap-12 { gap: $spacing-12; }
+
+// Row gap
+.gap-x-0 { column-gap: 0; }
+.gap-x-1 { column-gap: $spacing-1; }
+.gap-x-2 { column-gap: $spacing-2; }
+.gap-x-3 { column-gap: $spacing-3; }
+.gap-x-4 { column-gap: $spacing-4; }
+.gap-x-5 { column-gap: $spacing-5; }
+.gap-x-6 { column-gap: $spacing-6; }
+.gap-x-8 { column-gap: $spacing-8; }
+
+// Column gap
+.gap-y-0 { row-gap: 0; }
+.gap-y-1 { row-gap: $spacing-1; }
+.gap-y-2 { row-gap: $spacing-2; }
+.gap-y-3 { row-gap: $spacing-3; }
+.gap-y-4 { row-gap: $spacing-4; }
+.gap-y-5 { row-gap: $spacing-5; }
+.gap-y-6 { row-gap: $spacing-6; }
+.gap-y-8 { row-gap: $spacing-8; }

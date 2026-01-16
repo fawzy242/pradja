@@ -1,0 +1,356 @@
+// ============================================================================
+// ABOUT PAGE
+// Version: 2.0.0 - Complete Professional Styling
+// Company information and team showcase
+// ============================================================================
+
+@use '../abstracts' as *;
+
+.about-page {
+  // ============================================================================
+  // HERO SECTION
+  // ============================================================================
+
+  &__hero {
+    background: linear-gradient(135deg, $color-primary 0%, $primary-900 100%);
+    color: $color-white;
+    padding: $spacing-20 0 $spacing-12;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    // Decorative circles
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      border-radius: $radius-full;
+      background: rgba($color-white, 0.05);
+    }
+
+    &::before {
+      width: 400px;
+      height: 400px;
+      top: -200px;
+      left: -100px;
+    }
+
+    &::after {
+      width: 300px;
+      height: 300px;
+      bottom: -150px;
+      right: -75px;
+    }
+  }
+
+  &__title {
+    font-size: $font-size-5xl;
+    font-weight: $font-weight-bold;
+    margin: 0 0 $spacing-6 0;
+    position: relative;
+    z-index: 1;
+
+    @include respond-below(md) {
+      font-size: $font-size-4xl;
+    }
+  }
+
+  &__subtitle {
+    font-size: $font-size-xl;
+    opacity: 0.95;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+
+    @include respond-below(md) {
+      font-size: $font-size-lg;
+    }
+  }
+
+  // ============================================================================
+  // OVERVIEW SECTION
+  // ============================================================================
+
+  &__overview-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-16;
+    align-items: center;
+
+    @include respond-below(lg) {
+      grid-template-columns: 1fr;
+      gap: $spacing-12;
+    }
+  }
+
+  &__overview-text {
+    h2 {
+      font-size: $font-size-4xl;
+      font-weight: $font-weight-bold;
+      color: $color-text-primary;
+      margin: 0 0 $spacing-6 0;
+    }
+
+    p {
+      font-size: $font-size-lg;
+      line-height: $line-height-relaxed;
+      color: $color-text-secondary;
+      margin: 0 0 $spacing-6 0;
+
+      &:last-of-type {
+        margin-bottom: $spacing-8;
+      }
+    }
+  }
+
+  &__overview-image {
+    position: relative;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, $color-primary 0%, $primary-900 100%);
+    @include flex(column, center, center);
+    gap: $spacing-4;
+    color: rgba($color-white, 0.8);
+
+    svg {
+      color: rgba($color-white, 0.3);
+    }
+
+    p {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-semibold;
+      margin: 0;
+    }
+  }
+
+  // ============================================================================
+  // VALUES SECTION
+  // ============================================================================
+
+  &__values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-8;
+
+    @include respond-below(lg) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-6;
+    }
+
+    @include respond-below(sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__value-card {
+    text-align: center;
+    padding: $spacing-10;
+    @include transition(all);
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: $shadow-2xl;
+    }
+  }
+
+  &__value-icon {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto $spacing-6;
+    @include flex(row, center, center);
+    background-color: $color-primary-light;
+    color: $color-primary;
+    border-radius: $radius-full;
+    font-size: 2rem;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  &__value-title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-4 0;
+  }
+
+  &__value-description {
+    font-size: $font-size-base;
+    line-height: $line-height-relaxed;
+    color: $color-text-secondary;
+    margin: 0;
+  }
+
+  // ============================================================================
+  // TEAM SECTION
+  // ============================================================================
+
+  &__team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-8;
+
+    @include respond-below(lg) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-6;
+    }
+
+    @include respond-below(sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__team-card {
+    text-align: center;
+    padding: $spacing-8;
+    @include transition(all);
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: $shadow-2xl;
+
+      .about-page__team-photo {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  &__team-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: $radius-full;
+    overflow: hidden;
+    margin: 0 auto $spacing-6;
+    border: 4px solid $color-border;
+    @include flex(row, center, center);
+    @include transition(transform);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    span {
+      font-size: 3rem;
+      font-weight: $font-weight-bold;
+      color: rgba($color-white, 0.9);
+    }
+  }
+
+  &__team-name {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin: 0 0 $spacing-2 0;
+  }
+
+  &__team-position {
+    color: $color-primary;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    margin: 0 0 $spacing-3 0;
+  }
+
+  &__team-description {
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    margin: 0;
+  }
+
+  // ============================================================================
+  // STATS SECTION
+  // ============================================================================
+
+  &__stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-12;
+
+    @include respond-below(lg) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: $spacing-8;
+    }
+
+    @include respond-below(sm) {
+      grid-template-columns: 1fr;
+      gap: $spacing-6;
+    }
+  }
+
+  &__stat {
+    text-align: center;
+    color: $color-white;
+  }
+
+  &__stat-icon {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto $spacing-4;
+    @include flex(row, center, center);
+    background-color: rgba($color-white, 0.15);
+    border-radius: $radius-full;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+      color: $color-white;
+    }
+  }
+
+  &__stat-value {
+    font-size: $font-size-6xl;
+    font-weight: $font-weight-bold;
+    margin: 0 0 $spacing-2 0;
+
+    @include respond-below(md) {
+      font-size: $font-size-5xl;
+    }
+  }
+
+  &__stat-label {
+    font-size: $font-size-lg;
+    opacity: 0.9;
+    margin: 0;
+  }
+}
+
+// ============================================================================
+// SECTION UTILITIES
+// ============================================================================
+
+.section__title {
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  text-align: center;
+  margin: 0 0 $spacing-4 0;
+
+  @include respond-below(md) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.section__subtitle {
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
+  text-align: center;
+  margin: 0 0 $spacing-12 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}

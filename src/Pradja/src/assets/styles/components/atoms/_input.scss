@@ -1,0 +1,566 @@
+// ============================================================================
+// INPUT COMPONENT - ATOM
+// Version: 2.0.0
+// Complete input/textarea styling with variants and states
+// ============================================================================
+
+@use '../../abstracts' as *;
+
+// ============================================================================
+// BASE INPUT
+// ============================================================================
+
+.input {
+  @include input-base;
+  
+  // ============================================================================
+  // SIZES
+  // ============================================================================
+  
+  &--sm {
+    height: $input-height-sm;
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+  }
+  
+  &--md {
+    height: $input-height-md;
+    padding: $input-padding-y $input-padding-x;
+    font-size: $font-size-base;
+  }
+  
+  &--lg {
+    height: $input-height-lg;
+    padding: $spacing-4 $spacing-5;
+    font-size: $font-size-lg;
+  }
+  
+  // ============================================================================
+  // VARIANTS
+  // ============================================================================
+  
+  &--outlined {
+    border: 2px solid $color-border;
+    background-color: $color-surface;
+    
+    &:focus {
+      border-color: $color-primary;
+      background-color: $color-surface;
+    }
+  }
+  
+  &--filled {
+    border: 1px solid transparent;
+    background-color: $neutral-100;
+    
+    &:focus {
+      background-color: $color-surface;
+      border-color: $color-primary;
+    }
+    
+    &:hover:not(:disabled):not(:focus) {
+      background-color: $neutral-200;
+    }
+  }
+  
+  &--underlined {
+    border: none;
+    border-bottom: 2px solid $color-border;
+    border-radius: 0;
+    background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+    
+    &:focus {
+      border-bottom-color: $color-primary;
+    }
+  }
+  
+  // ============================================================================
+  // STATES
+  // ============================================================================
+  
+  // Success
+  &--success {
+    border-color: $color-success;
+    
+    &:focus {
+      border-color: $success-600;
+      box-shadow: 0 0 0 3px rgba($success-500, 0.1);
+    }
+  }
+  
+  // Error
+  &--error {
+    border-color: $color-error;
+    
+    &:focus {
+      border-color: $error-600;
+      box-shadow: 0 0 0 3px rgba($error-500, 0.1);
+    }
+  }
+  
+  // Warning
+  &--warning {
+    border-color: $color-warning;
+    
+    &:focus {
+      border-color: $warning-600;
+      box-shadow: 0 0 0 3px rgba($warning-500, 0.1);
+    }
+  }
+  
+  // Disabled
+  &:disabled,
+  &.is-disabled {
+    background-color: $neutral-100;
+    border-color: $neutral-200;
+    color: $color-text-disabled;
+    cursor: not-allowed;
+    opacity: $disabled-opacity;
+  }
+  
+  // Read-only
+  &:read-only {
+    background-color: $neutral-50;
+    cursor: default;
+  }
+  
+  // ============================================================================
+  // WITH ICONS
+  // ============================================================================
+  
+  &--with-icon-left {
+    padding-left: 2.75rem;
+  }
+  
+  &--with-icon-right {
+    padding-right: 2.75rem;
+  }
+  
+  // ============================================================================
+  // MODIFIERS
+  // ============================================================================
+  
+  &--full-width {
+    width: 100%;
+  }
+  
+  &--rounded {
+    border-radius: $radius-full;
+  }
+  
+  // ============================================================================
+  // INPUT WRAPPER
+  // ============================================================================
+  
+  &-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    
+    &--full-width {
+      width: 100%;
+    }
+  }
+  
+  // ============================================================================
+  // INPUT ICONS
+  // ============================================================================
+  
+  &-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $neutral-500;
+    pointer-events: none;
+    
+    &--left {
+      left: $spacing-3;
+    }
+    
+    &--right {
+      right: $spacing-3;
+    }
+    
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+  
+  // ============================================================================
+  // INPUT ADDON (Prefix/Suffix text)
+  // ============================================================================
+  
+  &-addon {
+    display: flex;
+    align-items: center;
+    padding: 0 $spacing-3;
+    background-color: $neutral-100;
+    border: $border-base;
+    color: $neutral-600;
+    font-size: $font-size-sm;
+    white-space: nowrap;
+    
+    &--left {
+      border-right: none;
+      border-top-left-radius: $input-border-radius;
+      border-bottom-left-radius: $input-border-radius;
+    }
+    
+    &--right {
+      border-left: none;
+      border-top-right-radius: $input-border-radius;
+      border-bottom-right-radius: $input-border-radius;
+    }
+  }
+  
+  // ============================================================================
+  // INPUT GROUP (with addons)
+  // ============================================================================
+  
+  &-group {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    
+    .input {
+      flex: 1;
+      min-width: 0;
+      
+      &:not(:first-child) {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      
+      &:not(:last-child) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+  }
+}
+
+// ============================================================================
+// TEXTAREA
+// ============================================================================
+
+.textarea {
+  @include input-base;
+  min-height: 6rem;
+  resize: vertical;
+  padding: $spacing-3 $input-padding-x;
+  line-height: $lh-relaxed;
+  
+  &--sm {
+    min-height: 4rem;
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+  }
+  
+  &--lg {
+    min-height: 8rem;
+    padding: $spacing-4 $spacing-5;
+    font-size: $font-size-lg;
+  }
+  
+  &--no-resize {
+    resize: none;
+  }
+  
+  &--auto-resize {
+    overflow: hidden;
+    resize: none;
+  }
+  
+  // States (inherit from input)
+  &--success { @extend .input--success; }
+  &--error { @extend .input--error; }
+  &--warning { @extend .input--warning; }
+}
+
+// ============================================================================
+// SELECT
+// ============================================================================
+
+.select {
+  @include input-base;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23616161' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right $spacing-3 center;
+  background-size: 12px;
+  padding-right: 2.5rem;
+  cursor: pointer;
+  
+  &--sm {
+    height: $input-height-sm;
+    padding: $spacing-2 2.5rem $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+  }
+  
+  &--md {
+    height: $input-height-md;
+    padding: $input-padding-y 2.5rem $input-padding-y $input-padding-x;
+  }
+  
+  &--lg {
+    height: $input-height-lg;
+    padding: $spacing-4 2.5rem $spacing-4 $spacing-5;
+    font-size: $font-size-lg;
+  }
+  
+  // Remove arrow for multiple select
+  &[multiple] {
+    height: auto;
+    background-image: none;
+    padding-right: $input-padding-x;
+  }
+  
+  // States
+  &--success { @extend .input--success; }
+  &--error { @extend .input--error; }
+  &--warning { @extend .input--warning; }
+  
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+// ============================================================================
+// CHECKBOX
+// ============================================================================
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  cursor: pointer;
+  user-select: none;
+  
+  &__input {
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid $color-border;
+    border-radius: $radius-sm;
+    background-color: $color-surface;
+    cursor: pointer;
+    position: relative;
+    @include transition(all);
+    flex-shrink: 0;
+    
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+    }
+    
+    &:checked {
+      background-color: $color-primary;
+      border-color: $color-primary;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 0.25rem;
+        height: 0.5rem;
+        border: solid $color-white;
+        border-width: 0 2px 2px 0;
+      }
+    }
+    
+    &:disabled {
+      opacity: $disabled-opacity;
+      cursor: not-allowed;
+    }
+    
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+  
+  &__label {
+    font-size: $font-size-base;
+    color: $color-text-primary;
+    cursor: pointer;
+  }
+  
+  &--sm {
+    .checkbox__input {
+      width: 1rem;
+      height: 1rem;
+    }
+    
+    .checkbox__label {
+      font-size: $font-size-sm;
+    }
+  }
+  
+  &--lg {
+    .checkbox__input {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    
+    .checkbox__label {
+      font-size: $font-size-lg;
+    }
+  }
+}
+
+// ============================================================================
+// RADIO
+// ============================================================================
+
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  cursor: pointer;
+  user-select: none;
+  
+  &__input {
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid $color-border;
+    border-radius: $radius-full;
+    background-color: $color-surface;
+    cursor: pointer;
+    position: relative;
+    @include transition(all);
+    flex-shrink: 0;
+    
+    &:hover:not(:disabled) {
+      border-color: $color-primary;
+    }
+    
+    &:checked {
+      border-color: $color-primary;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 0.625rem;
+        height: 0.625rem;
+        border-radius: $radius-full;
+        background-color: $color-primary;
+      }
+    }
+    
+    &:disabled {
+      opacity: $disabled-opacity;
+      cursor: not-allowed;
+    }
+    
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+  
+  &__label {
+    font-size: $font-size-base;
+    color: $color-text-primary;
+    cursor: pointer;
+  }
+  
+  &--sm {
+    .radio__input {
+      width: 1rem;
+      height: 1rem;
+      
+      &:checked::after {
+        width: 0.5rem;
+        height: 0.5rem;
+      }
+    }
+    
+    .radio__label {
+      font-size: $font-size-sm;
+    }
+  }
+  
+  &--lg {
+    .radio__input {
+      width: 1.5rem;
+      height: 1.5rem;
+      
+      &:checked::after {
+        width: 0.75rem;
+        height: 0.75rem;
+      }
+    }
+    
+    .radio__label {
+      font-size: $font-size-lg;
+    }
+  }
+}
+
+// ============================================================================
+// TOGGLE/SWITCH
+// ============================================================================
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  cursor: pointer;
+  user-select: none;
+  
+  &__input {
+    appearance: none;
+    width: 2.75rem;
+    height: 1.5rem;
+    background-color: $neutral-300;
+    border-radius: $radius-full;
+    position: relative;
+    cursor: pointer;
+    @include transition(background-color);
+    flex-shrink: 0;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 1.25rem;
+      height: 1.25rem;
+      background-color: $color-white;
+      border-radius: $radius-full;
+      @include transition(transform);
+    }
+    
+    &:checked {
+      background-color: $color-primary;
+      
+      &::after {
+        transform: translateX(1.25rem);
+      }
+    }
+    
+    &:disabled {
+      opacity: $disabled-opacity;
+      cursor: not-allowed;
+    }
+    
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+  
+  &__label {
+    font-size: $font-size-base;
+    color: $color-text-primary;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,509 @@
+// ============================================================================
+// CARD COMPONENT - MOLECULE
+// Version: 2.0.0
+// Versatile card component with header, body, footer
+// ============================================================================
+
+@use '../../abstracts' as *;
+
+// ============================================================================
+// BASE CARD
+// ============================================================================
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-surface;
+  border-radius: $card-border-radius;
+  border: $card-border;
+  box-shadow: $card-shadow;
+  overflow: hidden;
+  @include transition(box-shadow);
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+  }
+  
+  // ============================================================================
+  // VARIANTS
+  // ============================================================================
+  
+  &--flat {
+    box-shadow: none;
+    border: $border-base;
+    
+    &:hover {
+      box-shadow: none;
+      border-color: $color-primary;
+    }
+  }
+  
+  &--elevated {
+    border: none;
+    box-shadow: $shadow-lg;
+    
+    &:hover {
+      box-shadow: $shadow-xl;
+    }
+  }
+  
+  &--outlined {
+    box-shadow: none;
+    border: 2px solid $color-border;
+    
+    &:hover {
+      border-color: $color-primary;
+    }
+  }
+  
+  // ============================================================================
+  // INTERACTIVE
+  // ============================================================================
+  
+  &--interactive {
+    cursor: pointer;
+    @include transition((transform, box-shadow));
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-xl;
+    }
+    
+    &:active {
+      transform: translateY(0);
+      box-shadow: $shadow-md;
+    }
+  }
+  
+  &--clickable {
+    cursor: pointer;
+    
+    &:hover {
+      background-color: $neutral-50;
+    }
+  }
+  
+  // ============================================================================
+  // COLORS
+  // ============================================================================
+  
+  &--primary {
+    border-color: $color-primary;
+    
+    .card__header {
+      background-color: $primary-50;
+      border-bottom-color: $primary-200;
+    }
+  }
+  
+  &--secondary {
+    border-color: $color-secondary;
+    
+    .card__header {
+      background-color: $secondary-50;
+      border-bottom-color: $secondary-200;
+    }
+  }
+  
+  &--success {
+    border-color: $color-success;
+    
+    .card__header {
+      background-color: $success-50;
+      border-bottom-color: $success-200;
+    }
+  }
+  
+  &--warning {
+    border-color: $color-warning;
+    
+    .card__header {
+      background-color: $warning-50;
+      border-bottom-color: $warning-200;
+    }
+  }
+  
+  &--error {
+    border-color: $color-error;
+    
+    .card__header {
+      background-color: $error-50;
+      border-bottom-color: $error-200;
+    }
+  }
+  
+  // ============================================================================
+  // SIZES
+  // ============================================================================
+  
+  &--sm {
+    .card__header,
+    .card__body,
+    .card__footer {
+      padding: $spacing-3;
+    }
+  }
+  
+  &--lg {
+    .card__header,
+    .card__body,
+    .card__footer {
+      padding: $spacing-8;
+    }
+  }
+  
+  // ============================================================================
+  // ELEMENTS
+  // ============================================================================
+  
+  // Header
+  &__header {
+    padding: $card-padding;
+    border-bottom: 1px solid $color-divider;
+    background-color: $neutral-50;
+    
+    &--no-border {
+      border-bottom: none;
+      background-color: transparent;
+    }
+  }
+  
+  // Body
+  &__body {
+    padding: $card-padding;
+    flex: 1;
+  }
+  
+  // Footer
+  &__footer {
+    padding: $card-padding;
+    border-top: 1px solid $color-divider;
+    background-color: $neutral-50;
+    
+    &--no-border {
+      border-top: none;
+      background-color: transparent;
+    }
+  }
+  
+  // Title
+  &__title {
+    margin: 0;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    line-height: $line-height-tight;
+  }
+  
+  // Subtitle
+  &__subtitle {
+    margin: $spacing-1 0 0;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    line-height: $line-height-normal;
+  }
+  
+  // Description/Text
+  &__text {
+    margin: 0;
+    color: $color-text-secondary;
+    line-height: $lh-relaxed;
+  }
+  
+  // Image
+  &__image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    
+    &--top {
+      border-radius: $card-border-radius $card-border-radius 0 0;
+    }
+    
+    &--bottom {
+      border-radius: 0 0 $card-border-radius $card-border-radius;
+    }
+  }
+  
+  // Image container with aspect ratio
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    
+    &--16-9 {
+      @include aspect-ratio(16, 9);
+    }
+    
+    &--4-3 {
+      @include aspect-ratio(4, 3);
+    }
+    
+    &--square {
+      @include aspect-ratio(1, 1);
+    }
+    
+    img {
+      @include absolute-cover;
+      @include image-cover;
+    }
+  }
+  
+  // Actions (button group in footer)
+  &__actions {
+    display: flex;
+    gap: $spacing-2;
+    align-items: center;
+    
+    &--space-between {
+      justify-content: space-between;
+    }
+    
+    &--end {
+      justify-content: flex-end;
+    }
+    
+    &--center {
+      justify-content: center;
+    }
+  }
+  
+  // Badge
+  &__badge {
+    position: absolute;
+    top: $spacing-3;
+    right: $spacing-3;
+    z-index: 1;
+  }
+  
+  // Meta information
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-3;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+  
+  &__meta-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+  }
+}
+
+// ============================================================================
+// CARD GRID
+// ============================================================================
+
+.card-grid {
+  @include grid-auto(280px, $spacing-6);
+  
+  &--2-col {
+    @include grid(2, $spacing-6);
+    
+    @include respond-below(md) {
+      @include grid(1, $spacing-4);
+    }
+  }
+  
+  &--3-col {
+    @include grid(3, $spacing-6);
+    
+    @include respond-below(lg) {
+      @include grid(2, $spacing-4);
+    }
+    
+    @include respond-below(md) {
+      @include grid(1, $spacing-4);
+    }
+  }
+  
+  &--4-col {
+    @include grid(4, $spacing-6);
+    
+    @include respond-below(xl) {
+      @include grid(3, $spacing-4);
+    }
+    
+    @include respond-below(lg) {
+      @include grid(2, $spacing-4);
+    }
+    
+    @include respond-below(md) {
+      @include grid(1, $spacing-4);
+    }
+  }
+}
+
+// ============================================================================
+// SPECIFIC CARD TYPES
+// ============================================================================
+
+// Property Card (Real Estate specific)
+.property-card {
+  @extend .card;
+  @extend .card--interactive;
+  
+  &__badge-group {
+    position: absolute;
+    top: $spacing-3;
+    left: $spacing-3;
+    right: $spacing-3;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+  }
+  
+  &__price {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    margin-bottom: $spacing-2;
+  }
+  
+  &__location {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    margin-bottom: $spacing-3;
+  }
+  
+  &__features {
+    display: flex;
+    gap: $spacing-4;
+    padding: $spacing-3 0;
+    border-top: 1px solid $color-divider;
+    font-size: $font-size-sm;
+  }
+  
+  &__feature {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    color: $color-text-secondary;
+  }
+}
+
+// Agent Card
+.agent-card {
+  @extend .card;
+  text-align: center;
+  
+  &__avatar {
+    width: 5rem;
+    height: 5rem;
+    margin: 0 auto $spacing-4;
+  }
+  
+  &__name {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-1;
+  }
+  
+  &__role {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-3;
+  }
+  
+  &__stats {
+    display: flex;
+    justify-content: space-around;
+    padding: $spacing-3 0;
+    border-top: 1px solid $color-divider;
+  }
+  
+  &__stat {
+    text-align: center;
+    
+    &-value {
+      display: block;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $color-primary;
+    }
+    
+    &-label {
+      display: block;
+      font-size: $font-size-xs;
+      color: $color-text-secondary;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+}
+
+// Stat Card (Dashboard)
+.stat-card {
+  @extend .card;
+  
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  &__info {
+    flex: 1;
+  }
+  
+  &__label {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-2;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  &__value {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    line-height: 1;
+  }
+  
+  &__icon {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-lg;
+    background-color: $primary-50;
+    color: $color-primary;
+    
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+  
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    margin-top: $spacing-3;
+    padding-top: $spacing-3;
+    border-top: 1px solid $color-divider;
+    font-size: $font-size-sm;
+  }
+  
+  &__trend {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    
+    &--up {
+      color: $color-success;
+    }
+    
+    &--down {
+      color: $color-error;
+    }
+  }
+}

@@ -1,0 +1,356 @@
+// ============================================================================
+// SCSS FUNCTIONS - PT PRADJA ARTHA SEJAHTERA
+// Version: 2.0.0
+// Pure functions for calculations and utilities
+// ============================================================================
+
+@use 'sass:math';
+@use 'sass:color';
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:map';
+
+// ============================================================================
+// SPACING FUNCTIONS
+// ============================================================================
+
+/// Convert px to rem
+/// @param {Number} $px - Pixel value
+/// @param {Number} $base [16px] - Base font size
+/// @return {Number} - rem value
+/// @example scss - Usage
+///   font-size: px-to-rem(24px); // 1.5rem
+@function px-to-rem($px, $base: 16px) {
+  @if math.is-unitless($px) {
+    $px: $px * 1px;
+  }
+  @if math.is-unitless($base) {
+    $base: $base * 1px;
+  }
+  @return math.div($px, $base) * 1rem;
+}
+
+/// Convert rem to px
+/// @param {Number} $rem - rem value
+/// @param {Number} $base [16px] - Base font size
+/// @return {Number} - Pixel value
+@function rem-to-px($rem, $base: 16px) {
+  @if math.is-unitless($base) {
+    $base: $base * 1px;
+  }
+  @return math.div($rem, 1rem) * $base;
+}
+
+/// Get spacing value by multiplier
+/// @param {Number} $multiplier - Spacing multiplier
+/// @param {Number} $base [8px] - Base spacing unit
+/// @return {Number} - Calculated spacing
+/// @example scss - Usage
+///   margin: spacing(2); // 16px (8px * 2)
+@function spacing($multiplier, $base: 8px) {
+  @return $base * $multiplier;
+}
+
+// ============================================================================
+// COLOR FUNCTIONS
+// ============================================================================
+
+/// Lighten color by percentage
+/// @param {Color} $color - Base color
+/// @param {Number} $percentage - Percentage to lighten
+/// @return {Color} - Lightened color
+@function lighten-color($color, $percentage) {
+  @return color.adjust($color, $lightness: $percentage);
+}
+
+/// Darken color by percentage
+/// @param {Color} $color - Base color
+/// @param {Number} $percentage - Percentage to darken
+/// @return {Color} - Darkened color
+@function darken-color($color, $percentage) {
+  @return color.adjust($color, $lightness: -$percentage);
+}
+
+/// Add transparency to color
+/// @param {Color} $color - Base color
+/// @param {Number} $alpha - Alpha value (0-1)
+/// @return {Color} - Color with transparency
+@function alpha($color, $alpha) {
+  @return rgba($color, $alpha);
+}
+
+/// Mix two colors
+/// @param {Color} $color1 - First color
+/// @param {Color} $color2 - Second color
+/// @param {Number} $weight [50%] - Weight of first color
+/// @return {Color} - Mixed color
+@function mix-colors($color1, $color2, $weight: 50%) {
+  @return color.mix($color1, $color2, $weight);
+}
+
+/// Tint color (mix with white)
+/// @param {Color} $color - Base color
+/// @param {Number} $percentage - Percentage of white to mix
+/// @return {Color} - Tinted color
+@function tint($color, $percentage) {
+  @return mix-colors(#fff, $color, $percentage);
+}
+
+/// Shade color (mix with black)
+/// @param {Color} $color - Base color
+/// @param {Number} $percentage - Percentage of black to mix
+/// @return {Color} - Shaded color
+@function shade($color, $percentage) {
+  @return mix-colors(#000, $color, $percentage);
+}
+
+/// Get contrast color (black or white) based on background
+/// @param {Color} $color - Background color
+/// @param {Color} $dark [#000] - Dark color option
+/// @param {Color} $light [#fff] - Light color option
+/// @return {Color} - Contrasting color
+@function contrast-color($color, $dark: #000, $light: #fff) {
+  $lightness: color.lightness($color);
+  
+  @if $lightness > 50% {
+    @return $dark;
+  } @else {
+    @return $light;
+  }
+}
+
+// ============================================================================
+// STRING FUNCTIONS
+// ============================================================================
+
+/// Replace substring in string
+/// @param {String} $string - Original string
+/// @param {String} $search - Substring to search
+/// @param {String} $replace - Replacement string
+/// @return {String} - Modified string
+@function str-replace($string, $search, $replace: '') {
+  $index: string.index($string, $search);
+  
+  @if $index {
+    @return string.slice($string, 1, $index - 1) + $replace + 
+            str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+  }
+  
+  @return $string;
+}
+
+/// Convert to lowercase
+/// @param {String} $string - String to convert
+/// @return {String} - Lowercase string
+@function to-lower($string) {
+  @return string.to-lower-case($string);
+}
+
+/// Convert to uppercase
+/// @param {String} $string - String to convert
+/// @return {String} - Uppercase string
+@function to-upper($string) {
+  @return string.to-upper-case($string);
+}
+
+// ============================================================================
+// MATH FUNCTIONS
+// ============================================================================
+
+/// Strip unit from number
+/// @param {Number} $number - Number with unit
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+  @if math.is-unitless($number) {
+    @return $number;
+  }
+  @return math.div($number, $number * 0 + 1);
+}
+
+/// Power function
+/// @param {Number} $base - Base number
+/// @param {Number} $exponent - Exponent
+/// @return {Number} - Result
+@function pow($base, $exponent) {
+  $result: 1;
+  
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $result: $result * $base;
+    }
+  } @else if $exponent < 0 {
+    @for $i from $exponent through -1 {
+      $result: math.div($result, $base);
+    }
+  }
+  
+  @return $result;
+}
+
+/// Calculate percentage
+/// @param {Number} $value - Part value
+/// @param {Number} $total - Total value
+/// @return {Number} - Percentage
+@function percentage($value, $total) {
+  @return math.div($value, $total) * 100%;
+}
+
+/// Clamp value between min and max
+/// @param {Number} $value - Value to clamp
+/// @param {Number} $min - Minimum value
+/// @param {Number} $max - Maximum value
+/// @return {Number} - Clamped value
+@function clamp-value($value, $min, $max) {
+  @return math.max($min, math.min($value, $max));
+}
+
+// ============================================================================
+// LIST FUNCTIONS
+// ============================================================================
+
+/// Get first item from list
+/// @param {List} $list - List
+/// @return {*} - First item
+@function first($list) {
+  @return list.nth($list, 1);
+}
+
+/// Get last item from list
+/// @param {List} $list - List
+/// @return {*} - Last item
+@function last($list) {
+  @return list.nth($list, list.length($list));
+}
+
+/// Reverse list
+/// @param {List} $list - List to reverse
+/// @return {List} - Reversed list
+@function reverse($list) {
+  $result: ();
+  
+  @for $i from list.length($list) through 1 {
+    $result: list.append($result, list.nth($list, $i));
+  }
+  
+  @return $result;
+}
+
+// ============================================================================
+// MAP FUNCTIONS
+// ============================================================================
+
+/// Deep get nested map value
+/// @param {Map} $map - Map
+/// @param {List} $keys - List of keys
+/// @return {*} - Value
+@function map-deep-get($map, $keys...) {
+  $value: $map;
+  
+  @each $key in $keys {
+    $value: map.get($value, $key);
+  }
+  
+  @return $value;
+}
+
+/// Check if map has deep key
+/// @param {Map} $map - Map
+/// @param {List} $keys - List of keys
+/// @return {Boolean} - Has key
+@function map-deep-has($map, $keys...) {
+  $value: $map;
+  
+  @each $key in $keys {
+    @if not map.has-key($value, $key) {
+      @return false;
+    }
+    $value: map.get($value, $key);
+  }
+  
+  @return true;
+}
+
+// ============================================================================
+// LAYOUT FUNCTIONS
+// ============================================================================
+
+/// Calculate grid column width
+/// @param {Number} $columns - Number of columns
+/// @param {Number} $total [12] - Total columns
+/// @return {Number} - Percentage width
+@function grid-width($columns, $total: 12) {
+  @return percentage(math.div($columns, $total));
+}
+
+/// Calculate fluid size (clamp)
+/// @param {Number} $min - Minimum size
+/// @param {Number} $preferred - Preferred size (vw)
+/// @param {Number} $max - Maximum size
+/// @return {String} - Clamp value
+@function fluid-size($min, $preferred, $max) {
+  @return clamp(#{$min}, #{$preferred}, #{$max});
+}
+
+/// Get z-index from layer name
+/// @param {String} $layer - Layer name
+/// @return {Number} - Z-index value
+@function z($layer) {
+  $z-layers: (
+    'base': 0,
+    'dropdown': 100,
+    'sticky': 200,
+    'fixed': 300,
+    'modal-backdrop': 400,
+    'modal': 500,
+    'popover': 600,
+    'tooltip': 700,
+    'toast': 800,
+    'maximum': 9999
+  );
+  
+  @if map.has-key($z-layers, $layer) {
+    @return map.get($z-layers, $layer);
+  } @else {
+    @warn "Unknown z-index layer: #{$layer}";
+    @return 0;
+  }
+}
+
+// ============================================================================
+// VALIDATION FUNCTIONS
+// ============================================================================
+
+/// Check if value is number
+/// @param {*} $value - Value to check
+/// @return {Boolean} - Is number
+@function is-number($value) {
+  @return type-of($value) == 'number';
+}
+
+/// Check if value is color
+/// @param {*} $value - Value to check
+/// @return {Boolean} - Is color
+@function is-color($value) {
+  @return type-of($value) == 'color';
+}
+
+/// Check if value is string
+/// @param {*} $value - Value to check
+/// @return {Boolean} - Is string
+@function is-string($value) {
+  @return type-of($value) == 'string';
+}
+
+/// Check if value is list
+/// @param {*} $value - Value to check
+/// @return {Boolean} - Is list
+@function is-list($value) {
+  @return type-of($value) == 'list';
+}
+
+/// Check if value is map
+/// @param {*} $value - Value to check
+/// @return {Boolean} - Is map
+@function is-map($value) {
+  @return type-of($value) == 'map';
+}

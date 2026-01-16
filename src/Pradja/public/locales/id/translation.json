@@ -1,0 +1,247 @@
+{
+  "app": {
+    "name": "PT Pradja Artha Sejahtera",
+    "tagline": "Mitra Properti Terpercaya Anda",
+    "copyright": "© 2025 PT Pradja Artha Sejahtera. Seluruh hak cipta dilindungi."
+  },
+  "nav": {
+    "home": "Beranda",
+    "properties": "Properti",
+    "agents": "Agen",
+    "about": "Tentang",
+    "contact": "Kontak",
+    "login": "Masuk",
+    "logout": "Keluar",
+    "dashboard": "Dashboard"
+  },
+  "home": {
+    "hero": {
+      "title": "Temukan Properti Impian Anda",
+      "subtitle": "Temukan rumah, kantor, atau properti investasi yang sempurna bersama perusahaan properti terkemuka di Indonesia",
+      "searchPlaceholder": "Cari berdasarkan lokasi, tipe properti...",
+      "searchButton": "Cari Properti"
+    },
+    "stats": {
+      "properties": "Properti",
+      "clients": "Klien Puas",
+      "agents": "Agen Ahli",
+      "experience": "Tahun Pengalaman"
+    },
+    "features": {
+      "title": "Mengapa Memilih Kami",
+      "property": {
+        "title": "Pilihan Luas",
+        "description": "Jelajahi ribuan properti berkualitas di seluruh Indonesia"
+      },
+      "price": {
+        "title": "Harga Terbaik",
+        "description": "Harga kompetitif dengan transaksi yang transparan"
+      },
+      "agent": {
+        "title": "Agen Profesional",
+        "description": "Agen profesional siap membantu Anda menemukan properti yang sempurna"
+      },
+      "consultation": {
+        "title": "Konsultasi Gratis",
+        "description": "Dapatkan saran ahli tentang investasi properti dan pembiayaan"
+      }
+    },
+    "featuredProperties": {
+      "title": "Properti Unggulan",
+      "subtitle": "Properti eksklusif pilihan khusus untuk Anda",
+      "viewAll": "Lihat Semua Properti"
+    },
+    "testimonials": {
+      "title": "Apa Kata Klien Kami",
+      "subtitle": "Pengalaman nyata dari klien yang puas"
+    },
+    "cta": {
+      "title": "Siap Menemukan Properti Impian Anda?",
+      "subtitle": "Biarkan agen ahli kami membantu Anda di setiap langkah",
+      "contact": "Hubungi Kami",
+      "browse": "Jelajahi Properti"
+    }
+  },
+  "properties": {
+    "title": "Properti",
+    "subtitle": "Temukan properti sempurna dari koleksi lengkap kami",
+    "filter": {
+      "title": "Filter Properti",
+      "type": "Tipe Properti",
+      "allTypes": "Semua Tipe",
+      "priceRange": "Rentang Harga",
+      "minPrice": "Harga Min",
+      "maxPrice": "Harga Maks",
+      "bedrooms": "Kamar Tidur",
+      "bathrooms": "Kamar Mandi",
+      "any": "Semua",
+      "orMore": "+ atau lebih",
+      "search": "Cari",
+      "searchPlaceholder": "Cari berdasarkan judul atau lokasi",
+      "clearFilters": "Hapus Filter"
+    },
+    "sort": {
+      "label": "Urutkan",
+      "newest": "Terbaru",
+      "oldest": "Terlama",
+      "priceLow": "Harga: Rendah ke Tinggi",
+      "priceHigh": "Harga: Tinggi ke Rendah"
+    },
+    "results": {
+      "showing": "Menampilkan {{count}} properti",
+      "noResults": "Tidak ada properti ditemukan",
+      "noResultsDesc": "Coba sesuaikan filter atau kriteria pencarian Anda"
+    },
+    "card": {
+      "forSale": "Dijual",
+      "forRent": "Disewakan",
+      "bedrooms": "Kamar Tidur",
+      "bathrooms": "Kamar Mandi",
+      "area": "Luas",
+      "viewDetails": "Lihat Detail"
+    }
+  },
+  "propertyDetail": {
+    "overview": "Ringkasan",
+    "features": "Fasilitas",
+    "location": "Lokasi",
+    "agent": "Hubungi Agen",
+    "share": "Bagikan",
+    "favorite": "Simpan",
+    "propertyInfo": {
+      "title": "Informasi Properti",
+      "type": "Tipe",
+      "status": "Status",
+      "yearBuilt": "Tahun Dibangun",
+      "propertyId": "ID Properti"
+    },
+    "specifications": {
+      "bedrooms": "Kamar Tidur",
+      "bathrooms": "Kamar Mandi",
+      "area": "Luas",
+      "landArea": "Luas Tanah",
+      "carSpace": "Tempat Parkir"
+    },
+    "contactForm": {
+      "title": "Tertarik dengan properti ini?",
+      "name": "Nama Lengkap",
+      "email": "Alamat Email",
+      "phone": "Nomor Telepon",
+      "message": "Pesan",
+      "messagePlaceholder": "Saya tertarik dengan properti ini...",
+      "submit": "Kirim Pesan",
+      "call": "Hubungi Agen",
+      "email": "Email Agen"
+    }
+  },
+  "contact": {
+    "title": "Hubungi Kami",
+    "subtitle": "Hubungi tim kami",
+    "info": {
+      "address": "Alamat",
+      "phone": "Telepon",
+      "email": "Email",
+      "hours": "Jam Operasional"
+    },
+    "form": {
+      "title": "Kirim Pesan",
+      "name": "Nama Anda",
+      "email": "Email Anda",
+      "phone": "Nomor Telepon (Opsional)",
+      "subject": "Subjek",
+      "message": "Pesan",
+      "submit": "Kirim Pesan",
+      "subjects": {
+        "general": "Pertanyaan Umum",
+        "property": "Informasi Properti",
+        "viewing": "Jadwalkan Kunjungan",
+        "partnership": "Peluang Kemitraan",
+        "other": "Lainnya"
+      }
+    },
+    "success": "Terima kasih telah menghubungi kami! Kami akan segera menghubungi Anda."
+  },
+  "footer": {
+    "description": "Perusahaan properti terkemuka yang menyediakan solusi properti premium di Indonesia. Mitra terpercaya Anda dalam menemukan rumah yang sempurna.",
+    "quickLinks": "Tautan Cepat",
+    "company": "Perusahaan",
+    "contact": "Kontak",
+    "followUs": "Ikuti Kami",
+    "aboutUs": "Tentang Kami",
+    "careers": "Karir",
+    "privacy": "Kebijakan Privasi",
+    "terms": "Syarat Layanan",
+    "allRightsReserved": "Hak Cipta Dilindungi",
+    "address": "Alamat",
+    "phone": "Telepon",
+    "email": "Email"
+  },
+  "admin": {
+    "menu": {
+      "dashboard": "Dashboard",
+      "properties": "Properti",
+      "agents": "Agen",
+      "companyInfo": "Info Perusahaan",
+      "profile": "Profil",
+      "logout": "Keluar"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Selamat datang kembali! Berikut ringkasan bisnis Anda",
+      "stats": {
+        "properties": "Total Properti",
+        "agents": "Total Agen",
+        "sales": "Total Penjualan",
+        "inquiries": "Pertanyaan"
+      },
+      "recentProperties": "Properti Terbaru",
+      "quickActions": {
+        "title": "Aksi Cepat",
+        "addProperty": "Tambah Properti",
+        "addAgent": "Tambah Agen",
+        "editCompany": "Edit Info Perusahaan"
+      }
+    },
+    "login": {
+      "title": "Login Admin",
+      "subtitle": "Masuk ke akun Anda",
+      "email": "Email",
+      "password": "Kata Sandi",
+      "rememberMe": "Ingat saya",
+      "forgotPassword": "Lupa kata sandi?",
+      "submit": "Masuk",
+      "demo": "Kredensial Demo",
+      "error": "Email atau kata sandi salah"
+    }
+  },
+  "common": {
+    "loading": "Memuat...",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "edit": "Edit",
+    "view": "Lihat",
+    "back": "Kembali",
+    "next": "Selanjutnya",
+    "previous": "Sebelumnya",
+    "submit": "Kirim",
+    "search": "Cari",
+    "filter": "Filter",
+    "clear": "Hapus",
+    "close": "Tutup",
+    "confirm": "Konfirmasi",
+    "yes": "Ya",
+    "no": "Tidak"
+  },
+  "errors": {
+    "notFound": {
+      "title": "Halaman Tidak Ditemukan",
+      "description": "Maaf, halaman yang Anda cari tidak ada. Mungkin telah dipindahkan atau dihapus.",
+      "goHome": "Ke Beranda",
+      "goBack": "Kembali",
+      "quickLinks": "Tautan Cepat:",
+      "searchPlaceholder": "Cari properti..."
+    },
+    "generic": "Terjadi kesalahan. Silakan coba lagi nanti."
+  }
+}

@@ -1,0 +1,155 @@
+@use '../../abstracts' as *;
+
+/**
+ * Stat Card Molecule Styles
+ * Statistics display card
+ *
+ * BEM: .stat-card
+ */
+
+.stat-card {
+  background-color: $white;
+  border: 1px solid $neutral-200;
+  border-radius: $radius-lg;
+  padding: $spacing-6;
+  transition: all $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-4;
+  }
+
+  &__title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $neutral-600;
+    margin: 0;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-md;
+    background-color: $primary-100;
+    color: $primary-700;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    // Color variants
+    &--primary {
+      background-color: $primary-100;
+      color: $primary-700;
+    }
+
+    &--success {
+      background-color: $success-100;
+      color: $success-700;
+    }
+
+    &--danger {
+      background-color: $error-100;
+      color: $error-700;
+    }
+
+    &--warning {
+      background-color: $warning-100;
+      color: $warning-700;
+    }
+
+    &--info {
+      background-color: $info-100;
+      color: $info-700;
+    }
+  }
+
+  &__value {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-900;
+    line-height: 1.2;
+    margin-bottom: $spacing-2;
+  }
+
+  &__change {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    &--positive {
+      color: $success-600;
+    }
+
+    &--negative {
+      color: $error-600;
+    }
+
+    &--neutral {
+      color: $neutral-600;
+    }
+  }
+
+  &__footer {
+    margin-top: $spacing-4;
+    padding-top: $spacing-4;
+    border-top: 1px solid $neutral-100;
+    font-size: $font-size-xs;
+    color: $neutral-600;
+  }
+
+  // Compact variant
+  &--compact {
+    padding: $spacing-4;
+
+    .stat-card__value {
+      font-size: $font-size-2xl;
+    }
+
+    .stat-card__icon {
+      width: 32px;
+      height: 32px;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  // With gradient
+  &--gradient {
+    background: linear-gradient(135deg, $primary-600, $primary-800);
+    border: none;
+    color: $white;
+
+    .stat-card__title,
+    .stat-card__value,
+    .stat-card__footer {
+      color: $white;
+    }
+
+    .stat-card__icon {
+      background-color: rgba($white, 0.2);
+      color: $white;
+    }
+  }
+}

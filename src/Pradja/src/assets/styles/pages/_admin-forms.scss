@@ -1,0 +1,490 @@
+// ============================================================================
+// ADMIN FORMS - PROPERTY & AGENT
+// Version: 1.0.0
+// Comprehensive form styling for admin create/edit pages
+// ============================================================================
+
+@use '../../abstracts' as *;
+
+// ============================================================================
+// COMMON FORM STYLES
+// ============================================================================
+
+.property-form-page,
+.agent-form-page {
+  padding: $spacing-6;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @include respond-below(md) {
+    padding: $spacing-4;
+  }
+}
+
+// ============================================================================
+// FORM LAYOUT
+// ============================================================================
+
+.property-form,
+.agent-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.agent-form__layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: $spacing-6;
+
+  @include respond-below(lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.agent-form__sidebar,
+.agent-form__main {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+// ============================================================================
+// FORM SECTIONS
+// ============================================================================
+
+.property-form__section,
+.agent-form__section {
+  margin-bottom: 0;
+}
+
+// ============================================================================
+// FORM GRID
+// ============================================================================
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: $spacing-4;
+
+  &__item {
+    &--full {
+      grid-column: span 12;
+    }
+
+    &--half {
+      grid-column: span 6;
+
+      @include respond-below(md) {
+        grid-column: span 12;
+      }
+    }
+
+    &--third {
+      grid-column: span 4;
+
+      @include respond-below(md) {
+        grid-column: span 12;
+      }
+    }
+
+    &--quarter {
+      grid-column: span 3;
+
+      @include respond-below(md) {
+        grid-column: span 6;
+      }
+
+      @include respond-below(sm) {
+        grid-column: span 12;
+      }
+    }
+  }
+}
+
+// ============================================================================
+// FORM LABELS
+// ============================================================================
+
+.form-label {
+  display: block;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-2;
+  font-size: $font-size-sm;
+
+  &__required {
+    color: $color-error;
+    margin-left: $spacing-1;
+  }
+}
+
+// ============================================================================
+// INPUT WITH ICON
+// ============================================================================
+
+.input-with-icon {
+  position: relative;
+
+  .input-icon {
+    position: absolute;
+    left: $spacing-3;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $color-text-secondary;
+    pointer-events: none;
+  }
+
+  input {
+    padding-left: $spacing-10;
+  }
+}
+
+// ============================================================================
+// FEATURES INPUT
+// ============================================================================
+
+.features-input,
+.languages-input {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.features-input__field,
+.languages-input__field {
+  display: flex;
+  gap: $spacing-3;
+
+  @include respond-below(sm) {
+    flex-direction: column;
+  }
+
+  input {
+    flex: 1;
+  }
+}
+
+.features-list,
+.language-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+}
+
+.feature-tag,
+.language-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-3;
+  background-color: $color-primary-light;
+  color: $color-primary;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+
+  &__remove {
+    @include button-reset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: $color-primary;
+    @include transition(color);
+
+    &:hover {
+      color: $color-error;
+    }
+
+    svg {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+  }
+}
+
+// ============================================================================
+// IMAGE UPLOAD
+// ============================================================================
+
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.image-upload__dropzone {
+  position: relative;
+  border: 2px dashed $color-border;
+  border-radius: $radius-lg;
+  padding: $spacing-8;
+  text-align: center;
+  @include transition(all);
+
+  &:hover {
+    border-color: $color-primary;
+    background-color: rgba($color-primary, 0.02);
+  }
+}
+
+.image-upload__input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.image-upload__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-3;
+  cursor: pointer;
+  color: $color-text-primary;
+
+  span {
+    font-weight: $font-weight-medium;
+  }
+}
+
+.image-upload__icon {
+  width: 3rem;
+  height: 3rem;
+  color: $color-primary;
+}
+
+.image-upload__hint {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+// ============================================================================
+// IMAGE PREVIEW GRID
+// ============================================================================
+
+.image-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: $spacing-4;
+}
+
+.image-preview {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  border: 1px solid $color-border;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__remove {
+    @include button-reset;
+    position: absolute;
+    top: $spacing-2;
+    right: $spacing-2;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba($color-error, 0.9);
+    color: $color-white;
+    border-radius: $radius-md;
+    @include transition(all);
+    opacity: 0;
+
+    &:hover {
+      background-color: $color-error;
+      transform: scale(1.1);
+    }
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  &:hover &__remove {
+    opacity: 1;
+  }
+}
+
+// ============================================================================
+// PHOTO UPLOAD (AGENT)
+// ============================================================================
+
+.photo-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.photo-upload__preview {
+  width: 200px;
+  height: 200px;
+  border-radius: $radius-full;
+  overflow: hidden;
+  border: 4px solid $color-border;
+  background-color: $color-background;
+}
+
+.photo-upload__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-upload__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-text-secondary;
+  background-color: $color-surface;
+}
+
+.photo-upload__input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.photo-upload__button {
+  @include button-reset;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-6;
+  background-color: $color-primary;
+  color: $color-white;
+  border-radius: $radius-md;
+  font-weight: $font-weight-medium;
+  @include transition(all);
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-primary-dark;
+    transform: translateY(-1px);
+    box-shadow: $shadow-md;
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+.photo-upload__hint {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  text-align: center;
+}
+
+// ============================================================================
+// AGENT STATUS
+// ============================================================================
+
+.agent-status {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  margin-top: $spacing-4;
+  padding-top: $spacing-4;
+  border-top: 1px solid $color-border;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+  }
+
+  span {
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+}
+
+// ============================================================================
+// FORM ACTIONS
+// ============================================================================
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-3;
+  padding: $spacing-6;
+  background-color: $color-surface;
+  border-radius: $radius-lg;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  box-shadow: $shadow-lg;
+
+  @include respond-below(sm) {
+    flex-direction: column-reverse;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+// ============================================================================
+// LOADING CONTAINER
+// ============================================================================
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: $spacing-4;
+
+  .spinner {
+    width: 3rem;
+    height: 3rem;
+    border: 4px solid $color-border;
+    border-top-color: $color-primary;
+    border-radius: $radius-full;
+    animation: spin 1s linear infinite;
+  }
+
+  p {
+    color: $color-text-secondary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ============================================================================
+// PAGE HEADER (INSIDE FORMS)
+// ============================================================================
+
+.property-form-page .page-header,
+.agent-form-page .page-header {
+  margin-bottom: $spacing-6;
+}

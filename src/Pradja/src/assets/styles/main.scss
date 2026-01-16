@@ -1,0 +1,221 @@
+// ============================================================================
+// MAIN STYLESHEET - PT PRADJA ARTHA SEJAHTERA
+// Version: 2.0.0 - Complete Enterprise Design System
+// 
+// This is the master SCSS file that orchestrates all design system layers.
+// Import this file once in your main.jsx entry point.
+//
+// Architecture: ITCSS (Inverted Triangle CSS) + Atomic Design
+// ============================================================================
+
+// ============================================================================
+// LAYER 1: ABSTRACTS
+// Settings, variables, functions, mixins - NO CSS OUTPUT
+// ============================================================================
+
+@use 'abstracts' as *;
+
+// ============================================================================
+// LAYER 2: VENDORS
+// Third-party CSS (Bootstrap grid only, no full Bootstrap)
+// ============================================================================
+
+// Note: We use Bootstrap 5+ grid system only
+// Bootstrap is imported via CDN or npm in main application
+// Here we only define what we need
+
+// ============================================================================
+// LAYER 3: BASE
+// Reset, normalize, global styles, typography
+// ============================================================================
+
+@use 'base';
+
+// ============================================================================
+// LAYER 4: LAYOUT
+// Container, grid, flexbox utilities
+// ============================================================================
+
+@use 'layout';
+
+// ============================================================================
+// LAYER 5: COMPONENTS (Atomic Design)
+// Following Brad Frost's Atomic Design methodology
+// ============================================================================
+
+// Atoms - Smallest building blocks
+@use 'components/atoms/button';
+@use 'components/atoms/input';
+@use 'components/atoms/badge';
+@use 'components/atoms/avatar';
+@use 'components/atoms/spinner';
+@use 'components/atoms/divider';
+@use 'components/atoms/icon';
+
+// Molecules - Simple component groups
+@use 'components/molecules/card';
+@use 'components/molecules/form-field';
+@use 'components/molecules/modal';
+@use 'components/molecules/toast';
+@use 'components/molecules/dropdown';
+@use 'components/molecules/breadcrumb';
+@use 'components/molecules/pagination';
+@use 'components/molecules/tooltip';
+@use 'components/molecules/stat-card';
+
+// Organisms - Complex components
+@use 'components/organisms/navbar';
+@use 'components/organisms/footer';
+@use 'components/organisms/sidebar';
+@use 'components/organisms/topbar';
+@use 'components/organisms/hero-section';
+@use 'components/organisms/property-card';
+@use 'components/organisms/property-grid';
+@use 'components/organisms/property-filter';
+@use 'components/organisms/agent-card';
+@use 'components/organisms/contact-form';
+@use 'components/organisms/data-table';
+@use 'components/organisms/chart-wrapper';
+@use 'components/organisms/file-upload';
+
+// ============================================================================
+// LAYER 6: PAGES
+// Page-specific styles
+// ============================================================================
+
+@use 'pages/home';
+@use 'pages/properties';
+@use 'pages/property-detail';
+@use 'pages/contact';
+@use 'pages/errors';
+
+// Note: Additional page styles (agents, about, admin pages)
+// will be added as those pages are implemented
+
+// ============================================================================
+// LAYER 7: UTILITIES
+// Utility/helper classes (last to have highest specificity)
+// ============================================================================
+
+@use 'utilities/utilities';
+
+// ============================================================================
+// DEVELOPMENT HELPERS
+// Remove in production
+// ============================================================================
+
+// Show breakpoint indicator in development
+@if $environment == 'development' {
+  body::before {
+    content: 'XS';
+    position: fixed;
+    bottom: $spacing-2;
+    right: $spacing-2;
+    padding: $spacing-1 $spacing-2;
+    background-color: $neutral-900;
+    color: $color-white;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    border-radius: $radius-sm;
+    z-index: $z-maximum;
+    opacity: 0.5;
+    pointer-events: none;
+    
+    @include respond-to(sm) {
+      content: 'SM';
+    }
+    
+    @include respond-to(md) {
+      content: 'MD';
+    }
+    
+    @include respond-to(lg) {
+      content: 'LG';
+    }
+    
+    @include respond-to(xl) {
+      content: 'XL';
+    }
+    
+    @include respond-to(2xl) {
+      content: '2XL';
+    }
+  }
+}
+
+// ============================================================================
+// CUSTOM SCROLLBAR FOR ENTIRE APP
+// ============================================================================
+
+* {
+  @include custom-scrollbar(8px, $neutral-200, $neutral-400);
+}
+
+// ============================================================================
+// GLOBAL FOCUS STYLES
+// ============================================================================
+
+:focus-visible {
+  outline: $focus-ring-width solid $focus-ring-color;
+  outline-offset: $focus-ring-offset;
+}
+
+// ============================================================================
+// PRINT STYLES
+// ============================================================================
+
+@media print {
+  // Hide non-essential elements
+  .navbar,
+  .sidebar,
+  .footer,
+  .button,
+  .no-print {
+    display: none !important;
+  }
+  
+  // Optimize for printing
+  body {
+    background: $color-white;
+    color: $color-black;
+  }
+  
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  a[href]::after {
+    content: ' (' attr(href) ')';
+  }
+}
+
+// ============================================================================
+// ACCESSIBILITY ENHANCEMENTS
+// ============================================================================
+
+// Reduced motion support
+@include prefers-reduced-motion {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// High contrast mode support
+@include high-contrast {
+  * {
+    border-color: currentColor !important;
+  }
+}
+
+// ============================================================================
+// ENVIRONMENT VARIABLE (for development helpers)
+// ============================================================================
+
+// Note: $environment is now defined in abstracts/_variables.scss
+// Set to 'development' in vite.config.js to enable debug helpers

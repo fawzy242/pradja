@@ -1,0 +1,22 @@
+@use '../abstracts' as *;
+
+/**
+ * Admin Login Page Styles
+ */
+
+.page-admin-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $primary-900, $primary-700);
+
+  &__card {
+    background-color: $white;
+    border-radius: $radius-xl;
+    padding: $spacing-8;
+    box-shadow: $shadow-2xl;
+    max-width: 450px;
+    width: 100%;
+  }
+}

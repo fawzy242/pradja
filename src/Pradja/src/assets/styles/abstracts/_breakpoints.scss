@@ -1,0 +1,253 @@
+// ============================================================================
+// BREAKPOINTS - PT PRADJA ARTHA SEJAHTERA
+// Version: 2.0.0
+// Responsive breakpoint configuration and utilities
+// ============================================================================
+
+@use 'variables' as *;
+
+// ============================================================================
+// BREAKPOINT MAP
+// ============================================================================
+
+$breakpoints: (
+  'xs': $breakpoint-xs,
+  'sm': $breakpoint-sm,
+  'md': $breakpoint-md,
+  'lg': $breakpoint-lg,
+  'xl': $breakpoint-xl,
+  '2xl': $breakpoint-2xl,
+  '3xl': $breakpoint-3xl
+);
+
+// ============================================================================
+// DEVICE ALIASES
+// ============================================================================
+
+$mobile-portrait: $breakpoint-xs;     // 375px
+$mobile-landscape: $breakpoint-sm;    // 640px
+$tablet-portrait: $breakpoint-md;     // 768px
+$tablet-landscape: $breakpoint-lg;    // 1024px
+$desktop: $breakpoint-xl;             // 1280px
+$desktop-large: $breakpoint-2xl;      // 1536px
+$desktop-xlarge: $breakpoint-3xl;     // 1920px
+
+// ============================================================================
+// CONTAINER BREAKPOINTS
+// ============================================================================
+
+$containers: (
+  'xs': $container-xs,
+  'sm': $container-sm,
+  'md': $container-md,
+  'lg': $container-lg,
+  'xl': $container-xl,
+  '2xl': $container-2xl
+);
+
+// ============================================================================
+// MEDIA QUERY HELPERS
+// ============================================================================
+
+/// Get breakpoint value
+/// @param {String} $name - Breakpoint name
+/// @return {Number} - Breakpoint value
+@function get-breakpoint($name) {
+  @if map-has-key($breakpoints, $name) {
+    @return map-get($breakpoints, $name);
+  } @else {
+    @warn "Breakpoint '#{$name}' not found. Available: #{map-keys($breakpoints)}";
+    @return null;
+  }
+}
+
+/// Get next breakpoint name
+/// @param {String} $name - Current breakpoint name
+/// @return {String|null} - Next breakpoint name
+@function breakpoint-next($name) {
+  $breakpoint-names: map-keys($breakpoints);
+  $index: index($breakpoint-names, $name);
+  
+  @if $index and $index < length($breakpoint-names) {
+    @return nth($breakpoint-names, $index + 1);
+  }
+  
+  @return null;
+}
+
+/// Get minimum breakpoint value
+/// @param {String} $name - Breakpoint name
+/// @return {Number|null} - Minimum value
+@function breakpoint-min($name) {
+  $min: get-breakpoint($name);
+  @return if($min != 0, $min, null);
+}
+
+/// Get maximum breakpoint value
+/// @param {String} $name - Breakpoint name
+/// @return {Number|null} - Maximum value
+@function breakpoint-max($name) {
+  $next: breakpoint-next($name);
+  @return if($next, get-breakpoint($next) - 0.02, null);
+}
+
+/// Get breakpoint infix for class names
+/// @param {String} $name - Breakpoint name
+/// @return {String} - Infix string
+@function breakpoint-infix($name) {
+  @return if(breakpoint-min($name) == null, '', '-#{$name}');
+}
+
+// ============================================================================
+// MEDIA QUERY PRESETS
+// ============================================================================
+
+/// Mobile only (below tablet)
+@mixin mobile-only {
+  @media (max-width: #{$tablet-portrait - 1}) {
+    @content;
+  }
+}
+
+/// Tablet only (tablet portrait to tablet landscape)
+@mixin tablet-only {
+  @media (min-width: #{$tablet-portrait}) and (max-width: #{$desktop - 1}) {
+    @content;
+  }
+}
+
+/// Desktop and above
+@mixin desktop-up {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+/// Tablet and above
+@mixin tablet-up {
+  @media (min-width: #{$tablet-portrait}) {
+    @content;
+  }
+}
+
+/// Mobile landscape and above
+@mixin landscape-up {
+  @media (min-width: #{$mobile-landscape}) {
+    @content;
+  }
+}
+
+// ============================================================================
+// ORIENTATION MEDIA QUERIES
+// ============================================================================
+
+/// Portrait orientation
+@mixin portrait {
+  @media (orientation: portrait) {
+    @content;
+  }
+}
+
+/// Landscape orientation
+@mixin landscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+// ============================================================================
+// DEVICE-SPECIFIC MEDIA QUERIES
+// ============================================================================
+
+/// Retina/HiDPI screens
+@mixin retina {
+  @media (-webkit-min-device-pixel-ratio: 2),
+         (min-resolution: 192dpi),
+         (min-resolution: 2dppx) {
+    @content;
+  }
+}
+
+/// Touch devices
+@mixin touch {
+  @media (hover: none) and (pointer: coarse) {
+    @content;
+  }
+}
+
+/// Non-touch devices (mouse/trackpad)
+@mixin no-touch {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+// ============================================================================
+// ACCESSIBILITY MEDIA QUERIES
+// ============================================================================
+
+/// Prefers reduced motion
+@mixin prefers-reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+/// Prefers dark color scheme
+@mixin prefers-dark {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+/// Prefers light color scheme
+@mixin prefers-light {
+  @media (prefers-color-scheme: light) {
+    @content;
+  }
+}
+
+/// High contrast mode
+@mixin high-contrast {
+  @media (prefers-contrast: high) {
+    @content;
+  }
+}
+
+/// Print media query
+@mixin print {
+  @media print {
+    @content;
+  }
+}
+
+// ============================================================================
+// UTILITY: Generate responsive classes
+// ============================================================================
+
+/// Generate utility classes for each breakpoint
+/// @param {String} $property - CSS property
+/// @param {String} $class-prefix - Class name prefix
+/// @param {Map} $values - Map of values
+/// @example scss - Usage
+///   @include generate-responsive('display', 'd', ('block': block, 'flex': flex));
+///   // Generates: .d-block, .d-sm-block, .d-md-block, etc.
+@mixin generate-responsive($property, $class-prefix, $values) {
+  @each $key, $value in $values {
+    .#{$class-prefix}-#{$key} {
+      #{$property}: $value;
+    }
+  }
+
+  @each $breakpoint-name, $breakpoint-value in $breakpoints {
+    @if $breakpoint-value > 0 {
+      @media (min-width: $breakpoint-value) {
+        @each $key, $value in $values {
+          .#{$class-prefix}-#{$breakpoint-name}-#{$key} {
+            #{$property}: $value;
+          }
+        }
+      }
+    }
+  }
+}

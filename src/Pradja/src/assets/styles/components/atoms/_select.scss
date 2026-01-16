@@ -1,0 +1,163 @@
+@use '../../abstracts' as *;
+
+/**
+ * Select Atom Styles
+ * Custom styled select dropdown component
+ *
+ * BEM: .select
+ */
+
+.select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  // Select element
+  &__field {
+    width: 100%;
+    padding: $spacing-3 $spacing-10 $spacing-3 $spacing-4;
+    font-size: $font-size-base;
+    font-family: $font-family-base;
+    color: $neutral-900;
+    background-color: $white;
+    border: 1px solid $neutral-300;
+    border-radius: $radius-md;
+    appearance: none;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+      border-color: $neutral-400;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary-600;
+      box-shadow: 0 0 0 3px rgba($primary-600, 0.1);
+    }
+
+    &:disabled {
+      background-color: $neutral-100;
+      color: $neutral-500;
+      cursor: not-allowed;
+      border-color: $neutral-300;
+    }
+
+    // Placeholder
+    option[value=""][disabled] {
+      color: $neutral-500;
+    }
+  }
+
+  // Arrow icon
+  &__icon {
+    position: absolute;
+    right: $spacing-4;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: $neutral-600;
+    transition: transform $transition-base;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  // Open state
+  &__field:focus ~ &__icon {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  // Size variants
+  &--sm {
+    .select__field {
+      padding: $spacing-2 $spacing-8 $spacing-2 $spacing-3;
+      font-size: $font-size-sm;
+    }
+
+    .select__icon {
+      right: $spacing-3;
+
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+
+  &--lg {
+    .select__field {
+      padding: $spacing-4 $spacing-12 $spacing-4 $spacing-5;
+      font-size: $font-size-lg;
+    }
+
+    .select__icon {
+      right: $spacing-5;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  // With icon (left)
+  &--with-icon {
+    .select__field {
+      padding-left: $spacing-10;
+    }
+
+    .select__prefix-icon {
+      position: absolute;
+      left: $spacing-4;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: $neutral-600;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  // Error state
+  &--error {
+    .select__field {
+      border-color: $error-600;
+
+      &:focus {
+        border-color: $error-600;
+        box-shadow: 0 0 0 3px rgba($error-600, 0.1);
+      }
+    }
+
+    .select__icon {
+      color: $error-600;
+    }
+  }
+
+  // Success state
+  &--success {
+    .select__field {
+      border-color: $success-600;
+
+      &:focus {
+        border-color: $success-600;
+        box-shadow: 0 0 0 3px rgba($success-600, 0.1);
+      }
+    }
+
+    .select__icon {
+      color: $success-600;
+    }
+  }
+
+  // Full width
+  &--full-width {
+    width: 100%;
+  }
+}

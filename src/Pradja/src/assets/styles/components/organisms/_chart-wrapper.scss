@@ -1,0 +1,144 @@
+@use '../../abstracts' as *;
+
+/**
+ * Chart Wrapper Organism Styles
+ * Container for chart components
+ *
+ * BEM: .chart-wrapper
+ */
+
+.chart-wrapper {
+  background-color: $white;
+  border: 1px solid $neutral-200;
+  border-radius: $radius-lg;
+  padding: $spacing-6;
+
+  @include respond-below(md) {
+    padding: $spacing-4;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-6;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+  }
+
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-900;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: $font-size-sm;
+    color: $neutral-600;
+  }
+
+  &__controls {
+    display: flex;
+    gap: $spacing-2;
+    align-items: center;
+  }
+
+  &__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+    margin-bottom: $spacing-4;
+  }
+
+  &__legend-item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-sm;
+    color: $neutral-700;
+
+    &-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: $radius-sm;
+      flex-shrink: 0;
+    }
+  }
+
+  &__container {
+    position: relative;
+    height: 300px;
+    margin-bottom: $spacing-4;
+
+    @include respond-to(lg) {
+      height: 400px;
+    }
+
+    canvas {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  &__footer {
+    padding-top: $spacing-4;
+    border-top: 1px solid $neutral-100;
+    font-size: $font-size-xs;
+    color: $neutral-600;
+    text-align: center;
+  }
+
+  // Loading state
+  &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+  }
+
+  // Empty state
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: $neutral-600;
+
+    &-icon {
+      font-size: 48px;
+      color: $neutral-400;
+      margin-bottom: $spacing-4;
+    }
+
+    &-message {
+      font-size: $font-size-base;
+    }
+  }
+
+  // Size variants
+  &--sm {
+    .chart-wrapper__container {
+      height: 200px;
+    }
+  }
+
+  &--lg {
+    .chart-wrapper__container {
+      height: 500px;
+    }
+  }
+
+  // Full height
+  &--full {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .chart-wrapper__container {
+      flex: 1;
+      height: auto;
+    }
+  }
+}

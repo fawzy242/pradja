@@ -1,0 +1,136 @@
+@use '../../abstracts' as *;
+
+/**
+ * Modal Molecule Styles
+ * Modal dialog component
+ *
+ * BEM: .modal
+ */
+
+.modal {
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($neutral-900, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: $spacing-4;
+    opacity: 0;
+    animation: modalFadeIn 0.2s ease-out forwards;
+  }
+
+  &__container {
+    background-color: $white;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-2xl;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.95);
+    animation: modalSlideUp 0.3s ease-out forwards;
+  }
+
+  &__header {
+    padding: $spacing-6 $spacing-6 $spacing-4;
+    border-bottom: 1px solid $neutral-200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-4;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $neutral-900;
+    margin: 0;
+  }
+
+  &__close {
+    padding: $spacing-2;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $neutral-600;
+    border-radius: $radius-md;
+    transition: all $transition-base;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: $neutral-100;
+      color: $neutral-900;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__body {
+    padding: $spacing-6;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  &__footer {
+    padding: $spacing-4 $spacing-6 $spacing-6;
+    border-top: 1px solid $neutral-200;
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-3;
+  }
+
+  // Size variants
+  &--sm .modal__container {
+    max-width: 400px;
+  }
+
+  &--lg .modal__container {
+    max-width: 800px;
+  }
+
+  &--xl .modal__container {
+    max-width: 1140px;
+  }
+
+  &--full .modal__container {
+    max-width: calc(100% - #{$spacing-8});
+    max-height: calc(100vh - #{$spacing-8});
+  }
+
+  // No header
+  &--no-header {
+    .modal__body {
+      padding-top: $spacing-6;
+    }
+  }
+
+  // No footer
+  &--no-footer {
+    .modal__body {
+      padding-bottom: $spacing-6;
+    }
+  }
+}
+
+@keyframes modalFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideUp {
+  to {
+    transform: scale(1);
+  }
+}

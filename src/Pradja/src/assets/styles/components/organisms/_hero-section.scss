@@ -1,0 +1,176 @@
+@use '../../abstracts' as *;
+
+/**
+ * Hero Section Organism Styles
+ * Homepage hero banner component
+ *
+ * BEM: .hero-section
+ */
+
+.hero-section {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, $primary-900, $primary-700);
+  color: $white;
+  overflow: hidden;
+
+  @include respond-below(md) {
+    min-height: 500px;
+  }
+
+  // Background overlay
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/assets/images/hero-bg.jpg') center/cover;
+    opacity: 0.1;
+  }
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: $spacing-12 $spacing-4;
+
+    @include respond-to(lg) {
+      padding: $spacing-16 $spacing-8;
+    }
+  }
+
+  &__content {
+    max-width: 700px;
+
+    @include respond-below(md) {
+      max-width: 100%;
+      text-align: center;
+    }
+  }
+
+  &__subtitle {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-medium;
+    color: rgba($white, 0.9);
+    margin-bottom: $spacing-4;
+    letter-spacing: 0.5px;
+  }
+
+  &__title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    line-height: 1.2;
+    margin-bottom: $spacing-6;
+
+    @include respond-to(lg) {
+      font-size: $font-size-5xl;
+    }
+
+    @include respond-below(md) {
+      font-size: $font-size-3xl;
+    }
+  }
+
+  &__description {
+    font-size: $font-size-lg;
+    line-height: 1.6;
+    color: rgba($white, 0.9);
+    margin-bottom: $spacing-8;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-4;
+    flex-wrap: wrap;
+
+    @include respond-below(md) {
+      justify-content: center;
+    }
+  }
+
+  &__search {
+    margin-top: $spacing-8;
+    background-color: $white;
+    border-radius: $radius-lg;
+    padding: $spacing-6;
+    box-shadow: $shadow-xl;
+    max-width: 800px;
+
+    @include respond-below(md) {
+      padding: $spacing-4;
+    }
+  }
+
+  // Decorative elements
+  &__decoration {
+    position: absolute;
+    opacity: 0.05;
+
+    &--circle-1 {
+      top: 10%;
+      right: 10%;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: $white;
+    }
+
+    &--circle-2 {
+      bottom: 20%;
+      left: 5%;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: $white;
+    }
+  }
+
+  // Stats
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: $spacing-6;
+    margin-top: $spacing-12;
+    padding-top: $spacing-8;
+    border-top: 1px solid rgba($white, 0.2);
+  }
+
+  &__stat {
+    text-align: center;
+
+    @include respond-below(md) {
+      text-align: left;
+    }
+
+    &-value {
+      font-size: $font-size-3xl;
+      font-weight: $font-weight-bold;
+      display: block;
+      margin-bottom: $spacing-2;
+    }
+
+    &-label {
+      font-size: $font-size-sm;
+      color: rgba($white, 0.8);
+    }
+  }
+
+  // Variants
+  &--compact {
+    min-height: 400px;
+
+    .hero-section__container {
+      padding: $spacing-8 $spacing-4;
+    }
+  }
+
+  &--full-height {
+    min-height: 100vh;
+  }
+}

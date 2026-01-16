@@ -1,0 +1,501 @@
+// ============================================================================
+// PROPERTY DETAIL PAGE STYLES
+// Version: 2.0.0
+// Detailed property view with gallery and contact form
+// ============================================================================
+
+@use '../abstracts' as *;
+
+// ============================================================================
+// BREADCRUMB
+// ============================================================================
+
+.breadcrumb-section {
+  background-color: $neutral-100;
+  padding: $spacing-4 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-sm;
+  
+  &__link {
+    color: $color-text-secondary;
+    text-decoration: none;
+    @include transition(color);
+    
+    &:hover {
+      color: $color-primary;
+    }
+  }
+  
+  &__separator {
+    color: $color-text-disabled;
+  }
+  
+  &__current {
+    color: $color-text-primary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+// ============================================================================
+// PROPERTY GALLERY
+// ============================================================================
+
+.property-gallery {
+  margin-bottom: $spacing-8;
+  
+  &__main {
+    position: relative;
+    width: 100%;
+    height: 32rem;
+    border-radius: $radius-xl;
+    overflow: hidden;
+    margin-bottom: $spacing-4;
+    background-color: $neutral-900;
+    
+    @include respond-below(md) {
+      height: 20rem;
+    }
+  }
+  
+  &__image {
+    @include image-cover;
+  }
+  
+  &__nav {
+    @include button-reset;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    background-color: rgba($color-white, 0.9);
+    color: $color-text-primary;
+    border-radius: $radius-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include transition(all);
+    
+    &:hover {
+      background-color: $color-white;
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    &--prev {
+      left: $spacing-4;
+    }
+    
+    &--next {
+      right: $spacing-4;
+    }
+    
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+  
+  &__counter {
+    position: absolute;
+    bottom: $spacing-4;
+    right: $spacing-4;
+    background-color: rgba($neutral-900, 0.8);
+    color: $color-white;
+    padding: $spacing-2 $spacing-3;
+    border-radius: $radius-full;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+  }
+  
+  &__thumbnails {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+    gap: $spacing-2;
+  }
+  
+  &__thumbnail {
+    @include button-reset;
+    width: 100%;
+    height: 5rem;
+    border-radius: $radius-md;
+    overflow: hidden;
+    border: 2px solid transparent;
+    @include transition(border-color);
+    
+    &:hover {
+      border-color: $color-primary;
+    }
+    
+    &--active {
+      border-color: $color-primary;
+    }
+    
+    img {
+      @include image-cover;
+    }
+  }
+}
+
+// ============================================================================
+// DETAIL LAYOUT
+// ============================================================================
+
+.property-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 24rem;
+  gap: $spacing-8;
+  
+  @include respond-below(lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ============================================================================
+// PROPERTY HEADER
+// ============================================================================
+
+.property-header {
+  margin-bottom: $spacing-8;
+  
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-4;
+  }
+  
+  &__title {
+    @include heading(1);
+    margin-bottom: $spacing-3;
+  }
+  
+  &__location {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    color: $color-text-secondary;
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-4;
+    
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+  
+  &__price {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+    
+    @include respond-below(md) {
+      font-size: $font-size-3xl;
+    }
+  }
+}
+
+.property-badges {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.property-actions {
+  display: flex;
+  gap: $spacing-2;
+}
+
+.property-action {
+  @include button-reset;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  color: $color-text-primary;
+  @include transition(all);
+  
+  &:hover {
+    background-color: $primary-50;
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+  
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+// ============================================================================
+// KEY FEATURES GRID
+// ============================================================================
+
+.property-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-4;
+  padding: $spacing-6;
+  background-color: $color-surface;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+  margin-bottom: $spacing-8;
+  
+  @include respond-below(lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-below(sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.property-feature-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  
+  &__icon {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $primary-50;
+    color: $color-primary;
+    border-radius: $radius-md;
+    flex-shrink: 0;
+  }
+  
+  &__content {
+    flex: 1;
+  }
+  
+  &__value {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    line-height: 1;
+  }
+  
+  &__label {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin-top: $spacing-1;
+  }
+}
+
+// ============================================================================
+// PROPERTY SECTIONS
+// ============================================================================
+
+.property-section {
+  margin-bottom: $spacing-8;
+  
+  &__title {
+    @include heading(3);
+    margin-bottom: $spacing-6;
+    padding-bottom: $spacing-3;
+    border-bottom: 2px solid $color-divider;
+  }
+}
+
+.property-description {
+  p {
+    color: $color-text-secondary;
+    line-height: $lh-relaxed;
+    margin-bottom: $spacing-4;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// ============================================================================
+// FEATURES LIST
+// ============================================================================
+
+.property-features-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-3;
+  
+  @include respond-below(md) {
+    grid-template-columns: 1fr;
+  }
+  
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-3;
+    background-color: $neutral-50;
+    border-radius: $radius-md;
+    color: $color-text-primary;
+  }
+  
+  &__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-primary;
+    color: $color-white;
+    border-radius: $radius-sm;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-sm;
+    flex-shrink: 0;
+  }
+}
+
+// ============================================================================
+// PROPERTY INFO GRID
+// ============================================================================
+
+.property-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-4;
+  
+  @include respond-below(sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.property-info-item {
+  padding: $spacing-4;
+  background-color: $neutral-50;
+  border-radius: $radius-md;
+  
+  &__label {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-2;
+  }
+  
+  &__value {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+}
+
+// ============================================================================
+// SIDEBAR
+// ============================================================================
+
+.property-detail-sidebar {
+  @include respond-below(lg) {
+    max-width: 32rem;
+    margin: 0 auto;
+  }
+}
+
+// ============================================================================
+// AGENT CONTACT CARD
+// ============================================================================
+
+.agent-contact-card {
+  @include card;
+  position: sticky;
+  top: calc($navbar-height + $spacing-4);
+  
+  &__title {
+    @include heading(4);
+    margin-bottom: $spacing-4;
+  }
+  
+  &__agent {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-4;
+    background-color: $neutral-50;
+    border-radius: $radius-md;
+    margin-bottom: $spacing-6;
+  }
+  
+  &__avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: $radius-full;
+    object-fit: cover;
+  }
+  
+  &__info {
+    flex: 1;
+  }
+  
+  &__name {
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-1;
+  }
+  
+  &__role {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+  
+  &__direct {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-2;
+    margin-top: $spacing-4;
+    padding-top: $spacing-4;
+    border-top: 1px solid $color-divider;
+  }
+}
+
+// ============================================================================
+// CONTACT FORM
+// ============================================================================
+
+.contact-form {
+  margin-bottom: $spacing-4;
+  
+  &__field {
+    margin-bottom: $spacing-4;
+  }
+  
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    margin-bottom: $spacing-2;
+    
+    svg {
+      width: 1rem;
+      height: 1rem;
+      color: $color-text-secondary;
+    }
+  }
+  
+  &__input,
+  &__textarea {
+    @include input-base;
+    width: 100%;
+  }
+  
+  &__input {
+    height: $input-height-md;
+  }
+  
+  &__textarea {
+    min-height: 6rem;
+    resize: vertical;
+    padding: $spacing-3 $input-padding-x;
+  }
+}

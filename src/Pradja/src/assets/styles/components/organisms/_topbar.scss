@@ -1,0 +1,142 @@
+// ============================================================================
+// TOPBAR COMPONENT - ORGANISM
+// Version: 2.0.0
+// Admin dashboard topbar
+// ============================================================================
+
+@use '../../abstracts' as *;
+
+.topbar {
+  background-color: $color-surface;
+  border-bottom: 1px solid $color-border;
+  padding: $spacing-4 $spacing-6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: $z-index-sticky;
+  
+  // ============================================================================
+  // LEFT SECTION
+  // ============================================================================
+  
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+  }
+  
+  &__menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: $spacing-2;
+    cursor: pointer;
+    color: $color-text-primary;
+    
+    @include respond-below(md) {
+      display: flex;
+    }
+    
+    &:hover {
+      background-color: $color-background;
+      border-radius: $radius-md;
+    }
+  }
+  
+  &__breadcrumb {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+  
+  // ============================================================================
+  // RIGHT SECTION
+  // ============================================================================
+  
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+  }
+  
+  &__search {
+    width: 300px;
+    
+    @include respond-below(md) {
+      display: none;
+    }
+  }
+  
+  &__notifications {
+    position: relative;
+    padding: $spacing-2;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $color-text-primary;
+    
+    &:hover {
+      background-color: $color-background;
+      border-radius: $radius-md;
+    }
+  }
+  
+  &__notifications-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: $color-error;
+    color: $color-white;
+    font-size: $font-size-2xs;
+    padding: 2px 4px;
+    border-radius: $radius-full;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  &__profile {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-2;
+    cursor: pointer;
+    border-radius: $radius-md;
+    @include transition(background-color);
+    
+    &:hover {
+      background-color: $color-background;
+    }
+  }
+  
+  &__profile-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: $radius-full;
+    object-fit: cover;
+  }
+  
+  &__profile-info {
+    display: flex;
+    flex-direction: column;
+    
+    @include respond-below(sm) {
+      display: none;
+    }
+  }
+  
+  &__profile-name {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+  }
+  
+  &__profile-role {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+}

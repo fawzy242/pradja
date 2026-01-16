@@ -1,0 +1,502 @@
+// ============================================================================
+// DESIGN TOKENS - PT PRADJA ARTHA SEJAHTERA
+// Version: 2.0.0 - Complete Rewrite
+// Real Estate Professional Design System
+// ============================================================================
+
+// ============================================================================
+// COLOR SYSTEM - SEMANTIC & BRAND COLORS
+// ============================================================================
+$white: #e8f5e9;
+
+// ----------------------------------------------------------------------------
+// Primary Color (Forest Green - Property/Real Estate Brand)
+// Represents: Trust, Growth, Stability, Nature
+// ----------------------------------------------------------------------------
+$primary-50: #e8f5e9;
+$primary-100: #c8e6c9;
+$primary-200: #a5d6a7;
+$primary-300: #81c784;
+$primary-400: #66bb6a;
+$primary-500: #1a4d2e;   // Main brand color
+$primary-600: #164426;
+$primary-700: #113a1f;
+$primary-800: #0d2f17;
+$primary-900: #08250f;
+
+// Primary color aliases
+$color-primary: $primary-500;
+$color-primary-light: $primary-300;
+$color-primary-dark: $primary-700;
+
+// ----------------------------------------------------------------------------
+// Secondary Color (Warm Beige/Gold - Luxury & Premium)
+// Represents: Elegance, Warmth, Premium Quality
+// ----------------------------------------------------------------------------
+$secondary-50: #fdfaf5;
+$secondary-100: #faf5eb;
+$secondary-200: #f5ebd7;
+$secondary-300: #efe1c3;
+$secondary-400: #ead7af;
+$secondary-500: #c8a882;   // Main secondary
+$secondary-600: #b08a5e;
+$secondary-700: #8f6d45;
+$secondary-800: #6e502d;
+$secondary-900: #4d3315;
+
+// Secondary color aliases
+$color-secondary: $secondary-500;
+$color-secondary-light: $secondary-200;
+$color-secondary-dark: $secondary-700;
+
+// ----------------------------------------------------------------------------
+// Neutral/Gray Scale (Professional & Clean)
+// ----------------------------------------------------------------------------
+$neutral-0: #ffffff;      // Pure white
+$neutral-25: #fcfcfc;     // Very subtle gray (for alternating rows)
+$neutral-50: #fafafa;     // Off white
+$neutral-100: #f5f5f5;    // Light gray
+$neutral-200: #eeeeee;    // Lighter gray
+$neutral-300: #e0e0e0;    // Light border
+$neutral-400: #bdbdbd;    // Medium border
+$neutral-500: #9e9e9e;    // Placeholder text
+$neutral-600: #757575;    // Secondary text
+$neutral-700: #616161;    // Body text
+$neutral-800: #424242;    // Heading text
+$neutral-900: #212121;    // Dark text
+$neutral-1000: #000000;   // Pure black
+
+// Neutral aliases
+$color-white: $neutral-0;
+$color-black: $neutral-1000;
+$color-text-primary: $neutral-900;
+$color-text-secondary: $neutral-600;
+$color-text-disabled: $neutral-400;
+$color-border: $neutral-300;
+$color-divider: $neutral-200;
+$color-background: $neutral-50;
+$color-surface: $neutral-0;
+
+// ----------------------------------------------------------------------------
+// Semantic Colors (Feedback & Status)
+// ----------------------------------------------------------------------------
+
+// Success (Green)
+$success-50: #e8f5e9;
+$success-100: #c8e6c9;
+$success-200: #a5d6a7;
+$success-300: #81c784;
+$success-400: #66bb6a;
+$success-500: #4caf50;
+$success-600: #43a047;
+$success-700: #388e3c;
+$success-800: #2e7d32;
+$success-900: #1b5e20;
+
+$color-success: $success-500;
+$color-success-light: $success-100;
+$color-success-dark: $success-700;
+
+// Warning (Amber/Orange)
+$warning-50: #fff8e1;
+$warning-100: #ffecb3;
+$warning-200: #ffe082;
+$warning-300: #ffd54f;
+$warning-400: #ffca28;
+$warning-500: #ffc107;
+$warning-600: #ffb300;
+$warning-700: #ffa000;
+$warning-800: #ff8f00;
+$warning-900: #ff6f00;
+
+$color-warning: $warning-500;
+$color-warning-light: $warning-100;
+$color-warning-dark: $warning-700;
+
+// Error/Danger (Red)
+$error-50: #ffebee;
+$error-100: #ffcdd2;
+$error-200: #ef9a9a;
+$error-300: #e57373;
+$error-400: #ef5350;
+$error-500: #f44336;
+$error-600: #e53935;
+$error-700: #d32f2f;
+$error-800: #c62828;
+$error-900: #b71c1c;
+
+$color-error: $error-500;
+$color-danger: $error-500;
+$color-error-light: $error-100;
+$color-error-dark: $error-700;
+
+// Info (Blue)
+$info-50: #e3f2fd;
+$info-100: #bbdefb;
+$info-200: #90caf9;
+$info-300: #64b5f6;
+$info-400: #42a5f5;
+$info-500: #2196f3;
+$info-600: #1e88e5;
+$info-700: #1976d2;
+$info-800: #1565c0;
+$info-900: #0d47a1;
+
+$color-info: $info-500;
+$color-info-light: $info-100;
+$color-info-dark: $info-700;
+
+// ============================================================================
+// TYPOGRAPHY SYSTEM
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// Font Families
+// ----------------------------------------------------------------------------
+$font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 
+                      'Helvetica Neue', Arial, sans-serif;
+$font-family-display: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+$font-family-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+// Font family aliases
+$font-body: $font-family-primary;
+$font-heading: $font-family-display;
+$font-code: $font-family-mono;
+
+// ----------------------------------------------------------------------------
+// Font Sizes (rem-based, 16px root)
+// ----------------------------------------------------------------------------
+$font-size-2xs: 0.625rem;   // 10px
+$font-size-xs: 0.75rem;     // 12px
+$font-size-sm: 0.875rem;    // 14px
+$font-size-base: 1rem;      // 16px (body)
+$font-size-lg: 1.125rem;    // 18px
+$font-size-xl: 1.25rem;     // 20px
+$font-size-2xl: 1.5rem;     // 24px
+$font-size-3xl: 1.875rem;   // 30px
+$font-size-4xl: 2.25rem;    // 36px
+$font-size-5xl: 3rem;       // 48px
+$font-size-6xl: 3.75rem;    // 60px
+$font-size-7xl: 4.5rem;     // 72px
+
+// Typography aliases
+$text-xs: $font-size-xs;
+$text-sm: $font-size-sm;
+$text-base: $font-size-base;
+$text-lg: $font-size-lg;
+$text-xl: $font-size-xl;
+$text-2xl: $font-size-2xl;
+$text-3xl: $font-size-3xl;
+$text-4xl: $font-size-4xl;
+
+// ----------------------------------------------------------------------------
+// Font Weights
+// ----------------------------------------------------------------------------
+$font-weight-thin: 100;
+$font-weight-extralight: 200;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+$font-weight-black: 900;
+
+// Weight aliases
+$fw-normal: $font-weight-normal;
+$fw-medium: $font-weight-medium;
+$fw-semibold: $font-weight-semibold;
+$fw-bold: $font-weight-bold;
+
+// ----------------------------------------------------------------------------
+// Line Heights
+// ----------------------------------------------------------------------------
+$line-height-none: 1;
+$line-height-tight: 1.25;
+$line-height-snug: 1.375;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.625;
+$line-height-loose: 2;
+
+// Line height aliases
+$lh-heading: $line-height-tight;
+$lh-body: $line-height-normal;
+$lh-relaxed: $line-height-relaxed;
+
+// ----------------------------------------------------------------------------
+// Letter Spacing
+// ----------------------------------------------------------------------------
+$letter-spacing-tighter: -0.05em;
+$letter-spacing-tight: -0.025em;
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 0.025em;
+$letter-spacing-wider: 0.05em;
+$letter-spacing-widest: 0.1em;
+
+// ============================================================================
+// SPACING SYSTEM (8px base grid)
+// ============================================================================
+$spacing-0: 0;
+$spacing-1: 0.25rem;    // 4px
+$spacing-2: 0.5rem;     // 8px
+$spacing-3: 0.75rem;    // 12px
+$spacing-4: 1rem;       // 16px
+$spacing-5: 1.25rem;    // 20px
+$spacing-6: 1.5rem;     // 24px
+$spacing-7: 1.75rem;    // 28px
+$spacing-8: 2rem;       // 32px
+$spacing-9: 2.25rem;    // 36px
+$spacing-10: 2.5rem;    // 40px
+$spacing-12: 3rem;      // 48px
+$spacing-14: 3.5rem;    // 56px
+$spacing-16: 4rem;      // 64px
+$spacing-20: 5rem;      // 80px
+$spacing-24: 6rem;      // 96px
+$spacing-28: 7rem;      // 112px
+$spacing-32: 8rem;      // 128px
+$spacing-36: 9rem;      // 144px
+$spacing-40: 10rem;     // 160px
+$spacing-48: 12rem;     // 192px
+$spacing-56: 14rem;     // 224px
+$spacing-64: 16rem;     // 256px
+
+// Spacing aliases for common use
+$space-xs: $spacing-2;
+$space-sm: $spacing-4;
+$space-md: $spacing-6;
+$space-lg: $spacing-8;
+$space-xl: $spacing-12;
+$space-2xl: $spacing-16;
+$space-3xl: $spacing-24;
+
+// ============================================================================
+// BORDER RADIUS SYSTEM
+// ============================================================================
+$radius-none: 0;
+$radius-sm: 0.25rem;    // 4px
+$radius-md: 0.5rem;     // 8px
+$radius-lg: 0.75rem;    // 12px
+$radius-xl: 1rem;       // 16px
+$radius-2xl: 1.25rem;   // 20px
+$radius-3xl: 1.5rem;    // 24px
+$radius-full: 9999px;   // Perfect circle
+$radius-pill: 9999px;   // Pill shape
+
+// Radius aliases
+$border-radius-base: $radius-md;
+$border-radius-card: $radius-lg;
+$border-radius-button: $radius-md;
+
+// ============================================================================
+// SHADOW SYSTEM (Material Design inspired)
+// ============================================================================
+$shadow-none: none;
+$shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+$shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+$shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+
+// Shadow aliases
+$box-shadow-card: $shadow-md;
+$box-shadow-dropdown: $shadow-lg;
+$box-shadow-modal: $shadow-2xl;
+
+// ============================================================================
+// TRANSITION & ANIMATION SYSTEM
+// ============================================================================
+
+// Duration
+$duration-fast: 150ms;
+$duration-base: 250ms;
+$duration-slow: 350ms;
+$duration-slower: 500ms;
+
+// Easing functions
+$ease-linear: linear;
+$ease-in: cubic-bezier(0.4, 0, 1, 1);
+$ease-out: cubic-bezier(0, 0, 0.2, 1);
+$ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+$ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+// Transition presets
+$transition-fast: $duration-fast $ease-in-out;
+$transition-base: $duration-base $ease-in-out;
+$transition-slow: $duration-slow $ease-in-out;
+$transition-all: all $transition-base;
+$transition-colors: background-color $transition-base, color $transition-base, 
+                    border-color $transition-base;
+$transition-transform: transform $transition-base;
+$transition-opacity: opacity $transition-base;
+
+// ============================================================================
+// Z-INDEX SYSTEM (Layering)
+// ============================================================================
+$z-base: 0;
+$z-dropdown: 100;
+$z-sticky: 200;
+$z-fixed: 300;
+$z-modal-backdrop: 400;
+$z-modal: 500;
+$z-popover: 600;
+$z-tooltip: 700;
+$z-toast: 800;
+$z-maximum: 9999;
+
+// ============================================================================
+// BREAKPOINTS (Mobile-first approach)
+// ============================================================================
+$breakpoint-xs: 375px;    // Mobile small
+$breakpoint-sm: 640px;    // Mobile large / Tablet small
+$breakpoint-md: 768px;    // Tablet
+$breakpoint-lg: 1024px;   // Desktop small / Laptop
+$breakpoint-xl: 1280px;   // Desktop
+$breakpoint-2xl: 1536px;  // Large desktop
+$breakpoint-3xl: 1920px;  // Extra large desktop
+
+// Container max-widths
+$container-xs: 100%;
+$container-sm: 640px;
+$container-md: 768px;
+$container-lg: 1024px;
+$container-xl: 1280px;
+$container-2xl: 1536px;
+
+// Default max container width (used in hero sections, etc)
+$container-max-width: $container-xl;
+
+// Container padding
+$container-padding-mobile: $spacing-4;
+$container-padding-tablet: $spacing-6;
+$container-padding-desktop: $spacing-8;
+
+// ============================================================================
+// BORDER SYSTEM
+// ============================================================================
+$border-width-thin: 1px;
+$border-width-base: 2px;
+$border-width-thick: 4px;
+
+$border-style-solid: solid;
+$border-style-dashed: dashed;
+$border-style-dotted: dotted;
+
+// Border presets
+$border-base: $border-width-thin $border-style-solid $color-border;
+$border-thick: $border-width-base $border-style-solid $color-border;
+$border-primary: $border-width-thin $border-style-solid $color-primary;
+$border-dashed: $border-width-thin $border-style-dashed $color-border;
+
+// ============================================================================
+// OPACITY SCALE
+// ============================================================================
+$opacity-0: 0;
+$opacity-10: 0.1;
+$opacity-20: 0.2;
+$opacity-30: 0.3;
+$opacity-40: 0.4;
+$opacity-50: 0.5;
+$opacity-60: 0.6;
+$opacity-70: 0.7;
+$opacity-80: 0.8;
+$opacity-90: 0.9;
+$opacity-100: 1;
+
+// ============================================================================
+// Z-INDEX SCALE
+// ============================================================================
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+$z-index-toast: 1080;
+
+// ============================================================================
+// COMPONENT-SPECIFIC TOKENS
+// ============================================================================
+
+// Buttons
+$button-padding-sm: $spacing-2 $spacing-4;
+$button-padding-md: $spacing-3 $spacing-6;
+$button-padding-lg: $spacing-4 $spacing-8;
+$button-font-size-sm: $font-size-sm;
+$button-font-size-md: $font-size-base;
+$button-font-size-lg: $font-size-lg;
+$button-border-radius: $radius-md;
+$button-font-weight: $font-weight-semibold;
+
+// Inputs
+$input-height-sm: 2.25rem;    // 36px
+$input-height-md: 2.75rem;    // 44px
+$input-height-lg: 3.25rem;    // 52px
+$input-padding-x: $spacing-4;
+$input-padding-y: $spacing-3;
+$input-border: $border-base;
+$input-border-radius: $radius-md;
+$input-focus-border-color: $color-primary;
+$input-placeholder-color: $neutral-500;
+
+// Cards
+$card-padding: $spacing-6;
+$card-border-radius: $radius-lg;
+$card-shadow: $shadow-md;
+$card-border: $border-base;
+
+// Modal
+$modal-padding: $spacing-8;
+$modal-border-radius: $radius-xl;
+$modal-shadow: $shadow-2xl;
+$modal-backdrop-bg: rgba($neutral-900, 0.75);
+
+// Navbar
+$navbar-height: 4rem;         // 64px
+$navbar-padding-y: $spacing-4;
+$navbar-padding-x: $spacing-6;
+$navbar-shadow: $shadow-sm;
+
+// Sidebar
+$sidebar-width: 16rem;        // 256px
+$sidebar-width-collapsed: 4.5rem;  // 72px
+$sidebar-padding: $spacing-6;
+
+// Footer
+$footer-padding-y: $spacing-12;
+$footer-padding-x: $spacing-6;
+
+// ============================================================================
+// MISC UTILITIES
+// ============================================================================
+$disabled-opacity: $opacity-40;
+$hover-opacity: $opacity-90;
+$focus-ring-width: 3px;
+$focus-ring-color: rgba($color-primary, 0.25);
+$focus-ring-offset: 2px;
+$focus-ring: 0 0 0 $focus-ring-width $focus-ring-color;
+
+// ============================================================================
+// COMPATIBILITY ALIASES
+// Added for backward compatibility and common naming conventions
+// ============================================================================
+
+// Font family aliases
+$font-family-base: $font-body;
+
+// Danger color aliases (map to error colors)
+$danger-50: $error-50;
+$danger-100: $error-100;
+$danger-200: $error-200;
+$danger-300: $error-300;
+$danger-400: $error-400;
+$danger-500: $error-500;
+$danger-600: $error-600;
+$danger-700: $error-700;
+$danger-800: $error-800;
+$danger-900: $error-900;
+
+// Environment variable
+$environment: 'production' !default;

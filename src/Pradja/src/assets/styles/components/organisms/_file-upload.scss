@@ -1,0 +1,220 @@
+@use '../../abstracts' as *;
+
+/**
+ * File Upload Organism Styles
+ * Drag-and-drop file upload component
+ *
+ * BEM: .file-upload
+ */
+
+.file-upload {
+  &__dropzone {
+    border: 2px dashed $neutral-300;
+    border-radius: $radius-lg;
+    padding: $spacing-8;
+    text-align: center;
+    cursor: pointer;
+    transition: all $transition-base;
+    background-color: $white;
+
+    &:hover,
+    &--dragover {
+      border-color: $primary-600;
+      background-color: $primary-50;
+    }
+
+    &--disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    &--error {
+      border-color: $error-600;
+      background-color: $error-50;
+    }
+  }
+
+  &__icon {
+    font-size: 48px;
+    color: $neutral-400;
+    margin-bottom: $spacing-4;
+  }
+
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-900;
+    margin-bottom: $spacing-2;
+  }
+
+  &__subtitle {
+    font-size: $font-size-sm;
+    color: $neutral-600;
+    margin-bottom: $spacing-4;
+  }
+
+  &__button {
+    margin-bottom: $spacing-2;
+  }
+
+  &__hint {
+    font-size: $font-size-xs;
+    color: $neutral-500;
+  }
+
+  &__input {
+    display: none;
+  }
+
+  // File list
+  &__files {
+    margin-top: $spacing-4;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+  }
+
+  &__file {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-3;
+    background-color: $neutral-50;
+    border: 1px solid $neutral-200;
+    border-radius: $radius-md;
+    transition: all $transition-base;
+
+    &:hover {
+      background-color: $neutral-100;
+    }
+
+    &--error {
+      border-color: $error-300;
+      background-color: $error-50;
+    }
+
+    &--uploading {
+      pointer-events: none;
+    }
+  }
+
+  &__file-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $primary-100;
+    border-radius: $radius-md;
+    color: $primary-700;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    // File type colors
+    &--image {
+      background-color: $info-100;
+      color: $info-700;
+    }
+
+    &--pdf {
+      background-color: $error-100;
+      color: $error-700;
+    }
+
+    &--document {
+      background-color: $success-100;
+      color: $success-700;
+    }
+  }
+
+  &__file-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__file-name {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $neutral-900;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__file-size {
+    font-size: $font-size-xs;
+    color: $neutral-600;
+  }
+
+  &__file-error {
+    font-size: $font-size-xs;
+    color: $error-600;
+    margin-top: $spacing-1;
+  }
+
+  &__file-progress {
+    width: 100%;
+    height: 4px;
+    background-color: $neutral-200;
+    border-radius: $radius-full;
+    overflow: hidden;
+    margin-top: $spacing-2;
+
+    &-bar {
+      height: 100%;
+      background-color: $primary-600;
+      transition: width $transition-base;
+      border-radius: $radius-full;
+    }
+  }
+
+  &__file-actions {
+    display: flex;
+    gap: $spacing-1;
+  }
+
+  &__file-remove {
+    padding: $spacing-1;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $neutral-600;
+    border-radius: $radius-sm;
+    transition: all $transition-base;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: $error-100;
+      color: $error-600;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  // Compact variant
+  &--compact {
+    .file-upload__dropzone {
+      padding: $spacing-4;
+    }
+
+    .file-upload__icon {
+      font-size: 32px;
+      margin-bottom: $spacing-2;
+    }
+
+    .file-upload__title {
+      font-size: $font-size-base;
+      margin-bottom: $spacing-1;
+    }
+  }
+}

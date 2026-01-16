@@ -1,0 +1,449 @@
+// ============================================================================
+// CONTACT PAGE STYLES
+// Version: 2.0.0
+// Contact form and information layout
+// ============================================================================
+
+@use '../abstracts' as *;
+
+// ============================================================================
+// CONTACT LAYOUT
+// ============================================================================
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: $spacing-8;
+  
+  @include respond-below(lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ============================================================================
+// CONTACT INFO SECTION
+// ============================================================================
+
+.contact-info {
+  &__title {
+    @include heading(2);
+    margin-bottom: $spacing-4;
+  }
+  
+  &__description {
+    color: $color-text-secondary;
+    line-height: $lh-relaxed;
+    margin-bottom: $spacing-8;
+  }
+}
+
+.contact-info-grid {
+  display: grid;
+  gap: $spacing-6;
+}
+
+.contact-info-item {
+  display: flex;
+  gap: $spacing-4;
+  padding: $spacing-6;
+  background: $color-surface;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  @include transition(transform);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+  
+  &__icon {
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, $primary-500 0%, $primary-700 100%);
+    color: $color-white;
+    border-radius: $radius-lg;
+    
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+  
+  &__content {
+    flex: 1;
+  }
+  
+  &__title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: $spacing-2;
+  }
+  
+  &__text {
+    color: $color-text-primary;
+    line-height: $line-height-normal;
+    
+    &--link {
+      color: $color-primary;
+      text-decoration: none;
+      @include transition(color);
+      
+      &:hover {
+        color: $primary-700;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// ============================================================================
+// CONTACT FORM SECTION
+// ============================================================================
+
+.contact-form-section {
+  @include respond-below(lg) {
+    order: -1; // Show form first on mobile
+  }
+}
+
+.contact-form-card {
+  @include card;
+  
+  &__title {
+    @include heading(3);
+    margin-bottom: $spacing-6;
+  }
+}
+
+// ============================================================================
+// MAP SECTION
+// ============================================================================
+
+.map-section {
+  margin-top: $spacing-12;
+}
+
+.map-placeholder {
+  background: $neutral-100;
+  border-radius: $radius-xl;
+  height: 24rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $color-text-secondary;
+  
+  &__icon {
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: $spacing-4;
+  }
+  
+  &__text {
+    font-size: $font-size-lg;
+  }
+}
+
+// ============================================================================
+// DASHBOARD COMPONENTS (for admin pages)
+// ============================================================================
+
+.dashboard-page {
+  padding: $spacing-6;
+  
+  @include respond-below(md) {
+    padding: $spacing-4;
+  }
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: $spacing-8;
+  
+  @include respond-below(md) {
+    flex-direction: column;
+    gap: $spacing-4;
+    
+    .button {
+      width: 100%;
+    }
+  }
+  
+  &__title {
+    @include heading(1);
+    margin-bottom: $spacing-2;
+  }
+  
+  &__subtitle {
+    color: $color-text-secondary;
+    font-size: $font-size-base;
+  }
+}
+
+// ============================================================================
+// STATS GRID
+// ============================================================================
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: $spacing-6;
+  margin-bottom: $spacing-8;
+}
+
+.stat-card {
+  @include card;
+  
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  &__info {
+    flex: 1;
+  }
+  
+  &__label {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-2;
+  }
+  
+  &__value {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    margin-bottom: $spacing-2;
+  }
+  
+  &__trend {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    
+    &--up {
+      color: $success-600;
+    }
+    
+    &--down {
+      color: $error-600;
+    }
+  }
+  
+  &__icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-lg;
+    
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+    
+    &--primary {
+      background: $primary-50;
+      color: $primary-600;
+    }
+    
+    &--success {
+      background: $success-50;
+      color: $success-600;
+    }
+    
+    &--warning {
+      background: $warning-50;
+      color: $warning-600;
+    }
+    
+    &--info {
+      background: $info-50;
+      color: $info-600;
+    }
+  }
+}
+
+// ============================================================================
+// DASHBOARD SECTION
+// ============================================================================
+
+.dashboard-section {
+  @include card;
+  margin-bottom: $spacing-8;
+  
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-6;
+    padding-bottom: $spacing-4;
+    border-bottom: 1px solid $color-divider;
+  }
+  
+  &__title {
+    @include heading(3);
+    margin: 0;
+  }
+  
+  &__link {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+    @include transition(color);
+    
+    &:hover {
+      color: $primary-700;
+    }
+  }
+}
+
+// ============================================================================
+// DATA TABLE
+// ============================================================================
+
+.data-table {
+  &__wrapper {
+    overflow-x: auto;
+  }
+  
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    
+    th {
+      text-align: left;
+      padding: $spacing-3 $spacing-4;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      color: $color-text-secondary;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid $color-divider;
+      white-space: nowrap;
+    }
+    
+    td {
+      padding: $spacing-4;
+      border-bottom: 1px solid $color-divider;
+      color: $color-text-primary;
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+    
+    tr:hover {
+      background-color: $neutral-50;
+    }
+  }
+  
+  &__cell--primary {
+    font-weight: $font-weight-semibold;
+  }
+  
+  &__views {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    color: $color-text-secondary;
+    
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+  
+  &__actions {
+    display: flex;
+    gap: $spacing-2;
+  }
+  
+  &__action {
+    @include button-reset;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $radius-md;
+    color: $color-text-secondary;
+    @include transition(all);
+    
+    &:hover {
+      background-color: $neutral-100;
+      color: $color-primary;
+    }
+    
+    &--danger:hover {
+      background-color: $error-50;
+      color: $error-600;
+    }
+    
+    svg {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+  }
+}
+
+// ============================================================================
+// QUICK ACTIONS
+// ============================================================================
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: $spacing-4;
+}
+
+.quick-action-card {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-3;
+  text-align: center;
+  text-decoration: none;
+  @include transition(all);
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+    border-color: $color-primary;
+  }
+  
+  &__icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, $primary-500 0%, $primary-700 100%);
+    color: $color-white;
+    border-radius: $radius-lg;
+    
+    svg {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  }
+  
+  &__title {
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+}

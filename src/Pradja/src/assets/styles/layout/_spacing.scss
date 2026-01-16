@@ -1,0 +1,149 @@
+// ============================================================================
+// SPACING UTILITIES
+// Version: 2.0.0
+// Margin and padding utility classes
+// ============================================================================
+
+@use '../abstracts' as *;
+
+// ============================================================================
+// SPACING SCALE MAP
+// ============================================================================
+
+$spacing-values: (
+  0: 0,
+  1: $spacing-1,
+  2: $spacing-2,
+  3: $spacing-3,
+  4: $spacing-4,
+  5: $spacing-5,
+  6: $spacing-6,
+  8: $spacing-8,
+  10: $spacing-10,
+  12: $spacing-12,
+  16: $spacing-16,
+  20: $spacing-20,
+  24: $spacing-24,
+  auto: auto,
+);
+
+// ============================================================================
+// MARGIN UTILITIES
+// ============================================================================
+
+@each $key, $value in $spacing-values {
+  // All sides
+  .m-#{$key} { margin: $value; }
+  
+  // Horizontal
+  .mx-#{$key} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+  
+  // Vertical
+  .my-#{$key} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+  
+  // Individual sides
+  .mt-#{$key} { margin-top: $value; }
+  .mr-#{$key} { margin-right: $value; }
+  .mb-#{$key} { margin-bottom: $value; }
+  .ml-#{$key} { margin-left: $value; }
+}
+
+// ============================================================================
+// PADDING UTILITIES
+// ============================================================================
+
+@each $key, $value in $spacing-values {
+  // All sides
+  .p-#{$key} { padding: $value; }
+  
+  // Horizontal
+  .px-#{$key} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+  
+  // Vertical
+  .py-#{$key} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+  
+  // Individual sides
+  .pt-#{$key} { padding-top: $value; }
+  .pr-#{$key} { padding-right: $value; }
+  .pb-#{$key} { padding-bottom: $value; }
+  .pl-#{$key} { padding-left: $value; }
+}
+
+// ============================================================================
+// NEGATIVE MARGINS
+// ============================================================================
+
+@each $key, $value in $spacing-values {
+  @if $value != auto and $value != 0 {
+    .-mt-#{$key} { margin-top: -$value; }
+    .-mr-#{$key} { margin-right: -$value; }
+    .-mb-#{$key} { margin-bottom: -$value; }
+    .-ml-#{$key} { margin-left: -$value; }
+    
+    .-mx-#{$key} {
+      margin-left: -$value;
+      margin-right: -$value;
+    }
+    
+    .-my-#{$key} {
+      margin-top: -$value;
+      margin-bottom: -$value;
+    }
+  }
+}
+
+// ============================================================================
+// SECTION SPACING
+// ============================================================================
+
+.section-spacing {
+  padding-top: $spacing-12;
+  padding-bottom: $spacing-12;
+  
+  @include respond-to(md) {
+    padding-top: $spacing-16;
+    padding-bottom: $spacing-16;
+  }
+  
+  @include respond-to(lg) {
+    padding-top: $spacing-24;
+    padding-bottom: $spacing-24;
+  }
+}
+
+.section-spacing--sm {
+  padding-top: $spacing-8;
+  padding-bottom: $spacing-8;
+  
+  @include respond-to(md) {
+    padding-top: $spacing-12;
+    padding-bottom: $spacing-12;
+  }
+}
+
+.section-spacing--lg {
+  padding-top: $spacing-16;
+  padding-bottom: $spacing-16;
+  
+  @include respond-to(md) {
+    padding-top: $spacing-24;
+    padding-bottom: $spacing-24;
+  }
+  
+  @include respond-to(lg) {
+    padding-top: $spacing-32;
+    padding-bottom: $spacing-32;
+  }
+}

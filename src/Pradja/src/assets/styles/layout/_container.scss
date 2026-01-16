@@ -1,0 +1,62 @@
+// ============================================================================
+// CONTAINER SYSTEM
+// Version: 2.0.0
+// Responsive container with max-width constraints
+// ============================================================================
+
+@use '../abstracts' as *;
+
+// ============================================================================
+// BASE CONTAINER
+// ============================================================================
+
+.container {
+  @include container(xl);
+  
+  // ============================================================================
+  // SIZE VARIANTS
+  // ============================================================================
+  
+  &--sm {
+    @include container(sm);
+  }
+  
+  &--md {
+    @include container(md);
+  }
+  
+  &--lg {
+    @include container(lg);
+  }
+  
+  &--xl {
+    @include container(xl);
+  }
+  
+  &--2xl {
+    @include container(2xl);
+  }
+  
+  &--fluid {
+    max-width: 100%;
+  }
+  
+  // ============================================================================
+  // PADDING VARIANTS
+  // ============================================================================
+  
+  &--no-padding {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  &--padding-sm {
+    padding-left: $spacing-4;
+    padding-right: $spacing-4;
+  }
+  
+  &--padding-lg {
+    padding-left: $spacing-8;
+    padding-right: $spacing-8;
+  }
+}

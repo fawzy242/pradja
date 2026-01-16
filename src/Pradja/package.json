@@ -1,0 +1,53 @@
+{
+  "name": "pradja-artha-sejahtera",
+  "version": "1.0.0",
+  "description": "PT Pradja Artha Sejahtera - Real Estate Platform Frontend",
+  "type": "module",
+  "author": "PT Pradja Artha Sejahtera",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write \"src/**/*.{js,jsx,scss,css,json}\""
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.0",
+    "react-i18next": "^13.5.0",
+    "i18next": "^23.7.0",
+    "i18next-browser-languagedetector": "^7.2.0",
+    "i18next-http-backend": "^2.4.2",
+    "react-icons": "^4.12.0",
+    "prop-types": "^15.8.1",
+    "clsx": "^2.1.0",
+    "axios": "^1.6.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8",
+    "sass": "^1.69.7",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "prettier": "^3.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "real-estate",
+    "property",
+    "react",
+    "vite",
+    "frontend",
+    "indonesia",
+    "jakarta"
+  ]
+}

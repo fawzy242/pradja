@@ -1,0 +1,16 @@
+/**
+ * Pages Index
+ * Centralized import for all page-specific styles
+ */
+
+@forward 'home';
+@forward 'properties';
+@forward 'property-detail';
+@forward 'agents';
+@forward 'about';
+@forward 'contact';
+@forward 'admin-login';
+@forward 'admin-dashboard';
+@forward 'admin-forms';
+@forward 'admin-utilities';
+@forward 'errors';

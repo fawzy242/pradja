@@ -1,0 +1,38 @@
+/**
+ * Light Theme
+ * Default light color scheme
+ */
+
+[data-theme="light"] {
+  // Background colors
+  --bg-primary: #{$white};
+  --bg-secondary: #{$neutral-50};
+  --bg-tertiary: #{$neutral-100};
+
+  // Text colors
+  --text-primary: #{$neutral-900};
+  --text-secondary: #{$neutral-700};
+  --text-tertiary: #{$neutral-600};
+  --text-muted: #{$neutral-500};
+
+  // Border colors
+  --border-primary: #{$neutral-200};
+  --border-secondary: #{$neutral-300};
+
+  // Brand colors
+  --brand-primary: #{$primary-600};
+  --brand-primary-hover: #{$primary-700};
+  --brand-primary-light: #{$primary-100};
+
+  // Semantic colors
+  --color-success: #{$success-600};
+  --color-error: #{$danger-600};
+  --color-warning: #{$warning-600};
+  --color-info: #{$info-600};
+
+  // Shadows
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-xl: #{$shadow-xl};
+}

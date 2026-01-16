@@ -1,0 +1,206 @@
+@use '../../abstracts' as *;
+
+/**
+ * Property Grid Organism Styles
+ * Grid layout for property listings
+ *
+ * BEM: .property-grid
+ */
+
+.property-grid {
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: $spacing-6;
+
+    @include respond-to(lg) {
+      gap: $spacing-8;
+    }
+
+    @include respond-below(md) {
+      grid-template-columns: 1fr;
+      gap: $spacing-4;
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $spacing-6;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-900;
+    margin: 0;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+  }
+
+  &__view-toggle {
+    display: flex;
+    gap: $spacing-1;
+    padding: $spacing-1;
+    background-color: $neutral-100;
+    border-radius: $radius-md;
+  }
+
+  &__view-button {
+    padding: $spacing-2;
+    background: none;
+    border: none;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    color: $neutral-600;
+    transition: all $transition-base;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      color: $neutral-900;
+    }
+
+    &--active {
+      background-color: $white;
+      color: $primary-600;
+      box-shadow: $shadow-sm;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &__sort {
+    .select {
+      min-width: 200px;
+    }
+  }
+
+  // Grid variants
+  &--list {
+    .property-grid__container {
+      grid-template-columns: 1fr;
+
+      .property-card {
+        @include respond-to(lg) {
+          flex-direction: row;
+
+          .property-card__image {
+            width: 35%;
+            height: auto;
+            min-height: 300px;
+          }
+
+          .property-card__content {
+            width: 65%;
+          }
+        }
+      }
+    }
+  }
+
+  &--compact {
+    .property-grid__container {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: $spacing-4;
+    }
+  }
+
+  // Empty state
+  &__empty {
+    text-align: center;
+    padding: $spacing-12 $spacing-4;
+    color: $neutral-600;
+
+    &-icon {
+      font-size: 64px;
+      color: $neutral-400;
+      margin-bottom: $spacing-4;
+    }
+
+    &-title {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-semibold;
+      color: $neutral-700;
+      margin-bottom: $spacing-2;
+    }
+
+    &-description {
+      font-size: $font-size-base;
+      margin-bottom: $spacing-6;
+    }
+  }
+
+  // Loading state
+  &__loading {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: $spacing-6;
+  }
+
+  &__skeleton {
+    background-color: $white;
+    border: 1px solid $neutral-200;
+    border-radius: $radius-lg;
+    overflow: hidden;
+
+    &-image {
+      height: 250px;
+      background: linear-gradient(
+        90deg,
+        $neutral-100 0%,
+        $neutral-200 50%,
+        $neutral-100 100%
+      );
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s ease-in-out infinite;
+    }
+
+    &-content {
+      padding: $spacing-5;
+
+      .skeleton-line {
+        height: 16px;
+        background: linear-gradient(
+          90deg,
+          $neutral-100 0%,
+          $neutral-200 50%,
+          $neutral-100 100%
+        );
+        background-size: 200% 100%;
+        animation: skeleton-loading 1.5s ease-in-out infinite;
+        border-radius: $radius-sm;
+        margin-bottom: $spacing-3;
+
+        &--title {
+          height: 20px;
+          width: 80%;
+        }
+
+        &--short {
+          width: 60%;
+        }
+      }
+    }
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

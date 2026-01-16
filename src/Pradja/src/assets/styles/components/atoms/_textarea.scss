@@ -1,0 +1,121 @@
+@use '../../abstracts' as *;
+
+/**
+ * Textarea Atom Styles
+ * Multi-line text input component
+ *
+ * BEM: .textarea
+ */
+
+.textarea {
+  position: relative;
+  display: block;
+  width: 100%;
+
+  // Textarea element
+  &__field {
+    width: 100%;
+    min-height: 120px;
+    padding: $spacing-3 $spacing-4;
+    font-size: $font-size-base;
+    font-family: $font-family-base;
+    color: $neutral-900;
+    background-color: $white;
+    border: 1px solid $neutral-300;
+    border-radius: $radius-md;
+    resize: vertical;
+    transition: all $transition-base;
+    line-height: 1.5;
+
+    &::placeholder {
+      color: $neutral-500;
+    }
+
+    &:hover {
+      border-color: $neutral-400;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary-600;
+      box-shadow: 0 0 0 3px rgba($primary-600, 0.1);
+    }
+
+    &:disabled {
+      background-color: $neutral-100;
+      color: $neutral-500;
+      cursor: not-allowed;
+      border-color: $neutral-300;
+      resize: none;
+    }
+  }
+
+  // Size variants
+  &--sm {
+    .textarea__field {
+      min-height: 80px;
+      padding: $spacing-2 $spacing-3;
+      font-size: $font-size-sm;
+    }
+  }
+
+  &--lg {
+    .textarea__field {
+      min-height: 160px;
+      padding: $spacing-4 $spacing-5;
+      font-size: $font-size-lg;
+    }
+  }
+
+  // Fixed height (no resize)
+  &--no-resize {
+    .textarea__field {
+      resize: none;
+    }
+  }
+
+  // Auto-grow
+  &--auto-grow {
+    .textarea__field {
+      overflow: hidden;
+      resize: none;
+    }
+  }
+
+  // Error state
+  &--error {
+    .textarea__field {
+      border-color: $error-600;
+
+      &:focus {
+        border-color: $error-600;
+        box-shadow: 0 0 0 3px rgba($error-600, 0.1);
+      }
+    }
+  }
+
+  // Success state
+  &--success {
+    .textarea__field {
+      border-color: $success-600;
+
+      &:focus {
+        border-color: $success-600;
+        box-shadow: 0 0 0 3px rgba($success-600, 0.1);
+      }
+    }
+  }
+
+  // Character counter
+  &__counter {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: $spacing-1;
+    font-size: $font-size-xs;
+    color: $neutral-600;
+
+    &--error {
+      color: $error-600;
+    }
+  }
+}

@@ -1,0 +1,142 @@
+@use '../../abstracts' as *;
+
+/**
+ * Divider Atom Styles
+ * Horizontal or vertical separator line
+ *
+ * BEM: .divider
+ */
+
+.divider {
+  border: 0;
+  border-top: 1px solid $neutral-200;
+  margin: $spacing-4 0;
+  width: 100%;
+
+  // Vertical variant
+  &--vertical {
+    height: 100%;
+    width: 1px;
+    border-top: none;
+    border-left: 1px solid $neutral-200;
+    margin: 0 $spacing-4;
+    display: inline-block;
+  }
+
+  // Thickness variants
+  &--thin {
+    border-top-width: 1px;
+
+    &.divider--vertical {
+      border-left-width: 1px;
+    }
+  }
+
+  &--thick {
+    border-top-width: 2px;
+
+    &.divider--vertical {
+      border-left-width: 2px;
+    }
+  }
+
+  &--bold {
+    border-top-width: 3px;
+
+    &.divider--vertical {
+      border-left-width: 3px;
+    }
+  }
+
+  // Color variants
+  &--primary {
+    border-color: $primary-300;
+  }
+
+  &--secondary {
+    border-color: $neutral-300;
+  }
+
+  &--muted {
+    border-color: $neutral-100;
+  }
+
+  // Style variants
+  &--dashed {
+    border-style: dashed;
+  }
+
+  &--dotted {
+    border-style: dotted;
+  }
+
+  // Spacing variants
+  &--sm {
+    margin: $spacing-2 0;
+
+    &.divider--vertical {
+      margin: 0 $spacing-2;
+    }
+  }
+
+  &--lg {
+    margin: $spacing-6 0;
+
+    &.divider--vertical {
+      margin: 0 $spacing-6;
+    }
+  }
+
+  &--xl {
+    margin: $spacing-8 0;
+
+    &.divider--vertical {
+      margin: 0 $spacing-8;
+    }
+  }
+
+  // With text/label
+  &--with-label {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: $spacing-6 0;
+    border-top: none;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      border-top: 1px solid $neutral-200;
+    }
+
+    .divider__label {
+      padding: 0 $spacing-4;
+      font-size: $font-size-sm;
+      color: $neutral-600;
+      font-weight: $font-weight-medium;
+      white-space: nowrap;
+    }
+
+    &.divider--primary::before,
+    &.divider--primary::after {
+      border-color: $primary-300;
+    }
+
+    &.divider__label {
+      color: $primary-700;
+    }
+  }
+
+  // Gradient
+  &--gradient {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      $neutral-300,
+      transparent
+    );
+    border: none;
+  }
+}

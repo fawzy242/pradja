@@ -1,0 +1,13 @@
+// ============================================================================
+// ABSTRACTS INDEX - PT PRADJA ARTHA SEJAHTERA
+// Version: 2.0.0
+// Central export for all abstract utilities
+// ============================================================================
+
+// Forward all abstracts modules
+// These can be imported with: @use 'abstracts' as *;
+
+@forward 'variables';
+@forward 'functions';
+@forward 'breakpoints';
+@forward 'mixins';

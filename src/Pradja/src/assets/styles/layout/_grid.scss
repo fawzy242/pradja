@@ -1,0 +1,111 @@
+// ============================================================================
+// GRID SYSTEM
+// Version: 2.0.0
+// CSS Grid layout utilities
+// ============================================================================
+
+@use '../abstracts' as *;
+
+// ============================================================================
+// BASE GRID
+// ============================================================================
+
+.grid {
+  display: grid;
+  gap: $spacing-4;
+  
+  // ============================================================================
+  // COLUMN VARIANTS
+  // ============================================================================
+  
+  &--1 { grid-template-columns: repeat(1, 1fr); }
+  &--2 { grid-template-columns: repeat(2, 1fr); }
+  &--3 { grid-template-columns: repeat(3, 1fr); }
+  &--4 { grid-template-columns: repeat(4, 1fr); }
+  &--5 { grid-template-columns: repeat(5, 1fr); }
+  &--6 { grid-template-columns: repeat(6, 1fr); }
+  &--12 { grid-template-columns: repeat(12, 1fr); }
+  
+  // ============================================================================
+  // AUTO FIT/FILL
+  // ============================================================================
+  
+  &--auto {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  &--auto-sm {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  &--auto-lg {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  // ============================================================================
+  // GAP VARIANTS
+  // ============================================================================
+  
+  &--gap-0 { gap: 0; }
+  &--gap-1 { gap: $spacing-1; }
+  &--gap-2 { gap: $spacing-2; }
+  &--gap-3 { gap: $spacing-3; }
+  &--gap-4 { gap: $spacing-4; }
+  &--gap-6 { gap: $spacing-6; }
+  &--gap-8 { gap: $spacing-8; }
+  
+  // ============================================================================
+  // RESPONSIVE VARIANTS
+  // ============================================================================
+  
+  // Mobile: 1 column
+  // Tablet: 2 columns
+  // Desktop: 3 columns
+  &--responsive {
+    grid-template-columns: 1fr;
+    
+    @include respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include respond-to(lg) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  // Mobile: 1 column
+  // Desktop: 4 columns
+  &--responsive-4 {
+    grid-template-columns: 1fr;
+    
+    @include respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include respond-to(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+// ============================================================================
+// GRID ITEM UTILITIES
+// ============================================================================
+
+.grid-col {
+  &-span-1 { grid-column: span 1; }
+  &-span-2 { grid-column: span 2; }
+  &-span-3 { grid-column: span 3; }
+  &-span-4 { grid-column: span 4; }
+  &-span-5 { grid-column: span 5; }
+  &-span-6 { grid-column: span 6; }
+  &-span-full { grid-column: 1 / -1; }
+}
+
+.grid-row {
+  &-span-1 { grid-row: span 1; }
+  &-span-2 { grid-row: span 2; }
+  &-span-3 { grid-row: span 3; }
+  &-span-4 { grid-row: span 4; }
+  &-span-full { grid-row: 1 / -1; }
+}

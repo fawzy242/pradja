@@ -1,0 +1,124 @@
+@use '../../abstracts' as *;
+
+/**
+ * Contact Form Organism Styles
+ * Contact form component with validation
+ *
+ * BEM: .contact-form
+ */
+
+.contact-form {
+  background-color: $white;
+  border: 1px solid $neutral-200;
+  border-radius: $radius-lg;
+  padding: $spacing-8;
+
+  @include respond-below(md) {
+    padding: $spacing-6 $spacing-4;
+  }
+
+  &__header {
+    margin-bottom: $spacing-6;
+    text-align: center;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $neutral-900;
+    margin: 0 0 $spacing-2;
+  }
+
+  &__subtitle {
+    font-size: $font-size-base;
+    color: $neutral-600;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-5;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-4;
+
+    @include respond-below(sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__footer {
+    margin-top: $spacing-6;
+    padding-top: $spacing-5;
+    border-top: 1px solid $neutral-100;
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-3;
+
+    @include respond-below(sm) {
+      flex-direction: column;
+    }
+  }
+
+  &__success {
+    text-align: center;
+    padding: $spacing-8;
+
+    &-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto $spacing-4;
+      background-color: $success-100;
+      border-radius: $radius-full;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $success-600;
+
+      svg {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    &-title {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      color: $neutral-900;
+      margin-bottom: $spacing-2;
+    }
+
+    &-message {
+      font-size: $font-size-base;
+      color: $neutral-600;
+      margin-bottom: $spacing-6;
+    }
+  }
+
+  // Loading state
+  &--loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  // Compact variant
+  &--compact {
+    padding: $spacing-5;
+
+    .contact-form__header {
+      margin-bottom: $spacing-4;
+    }
+
+    .contact-form__title {
+      font-size: $font-size-xl;
+    }
+
+    .contact-form__body {
+      gap: $spacing-4;
+    }
+  }
+}

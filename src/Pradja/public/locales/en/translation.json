@@ -1,0 +1,247 @@
+{
+  "app": {
+    "name": "PT Pradja Artha Sejahtera",
+    "tagline": "Your Trusted Real Estate Partner",
+    "copyright": "© 2025 PT Pradja Artha Sejahtera. All rights reserved."
+  },
+  "nav": {
+    "home": "Home",
+    "properties": "Properties",
+    "agents": "Agents",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "logout": "Logout",
+    "dashboard": "Dashboard"
+  },
+  "home": {
+    "hero": {
+      "title": "Find Your Dream Property",
+      "subtitle": "Discover the perfect home, office, or investment property with Indonesia's leading real estate company",
+      "searchPlaceholder": "Search by location, property type...",
+      "searchButton": "Search Properties"
+    },
+    "stats": {
+      "properties": "Properties",
+      "clients": "Happy Clients",
+      "agents": "Expert Agents",
+      "experience": "Years Experience"
+    },
+    "features": {
+      "title": "Why Choose Us",
+      "property": {
+        "title": "Wide Selection",
+        "description": "Browse thousands of quality properties across Indonesia"
+      },
+      "price": {
+        "title": "Best Prices",
+        "description": "Competitive pricing with transparent transactions"
+      },
+      "agent": {
+        "title": "Expert Agents",
+        "description": "Professional agents ready to help you find the perfect property"
+      },
+      "consultation": {
+        "title": "Free Consultation",
+        "description": "Get expert advice on property investment and financing"
+      }
+    },
+    "featuredProperties": {
+      "title": "Featured Properties",
+      "subtitle": "Handpicked exclusive properties just for you",
+      "viewAll": "View All Properties"
+    },
+    "testimonials": {
+      "title": "What Our Clients Say",
+      "subtitle": "Real experiences from satisfied clients"
+    },
+    "cta": {
+      "title": "Ready to Find Your Dream Property?",
+      "subtitle": "Let our expert agents help you every step of the way",
+      "contact": "Contact Us",
+      "browse": "Browse Properties"
+    }
+  },
+  "properties": {
+    "title": "Properties",
+    "subtitle": "Find your perfect property from our extensive collection",
+    "filter": {
+      "title": "Filter Properties",
+      "type": "Property Type",
+      "allTypes": "All Types",
+      "priceRange": "Price Range",
+      "minPrice": "Min Price",
+      "maxPrice": "Max Price",
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "any": "Any",
+      "orMore": "+ or more",
+      "search": "Search",
+      "searchPlaceholder": "Search by title or location",
+      "clearFilters": "Clear Filters"
+    },
+    "sort": {
+      "label": "Sort By",
+      "newest": "Newest First",
+      "oldest": "Oldest First",
+      "priceLow": "Price: Low to High",
+      "priceHigh": "Price: High to Low"
+    },
+    "results": {
+      "showing": "Showing {{count}} properties",
+      "noResults": "No properties found",
+      "noResultsDesc": "Try adjusting your filters or search criteria"
+    },
+    "card": {
+      "forSale": "For Sale",
+      "forRent": "For Rent",
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "area": "Area",
+      "viewDetails": "View Details"
+    }
+  },
+  "propertyDetail": {
+    "overview": "Overview",
+    "features": "Features",
+    "location": "Location",
+    "agent": "Contact Agent",
+    "share": "Share",
+    "favorite": "Save",
+    "propertyInfo": {
+      "title": "Property Information",
+      "type": "Type",
+      "status": "Status",
+      "yearBuilt": "Year Built",
+      "propertyId": "Property ID"
+    },
+    "specifications": {
+      "bedrooms": "Bedrooms",
+      "bathrooms": "Bathrooms",
+      "area": "Area",
+      "landArea": "Land Area",
+      "carSpace": "Car Spaces"
+    },
+    "contactForm": {
+      "title": "Interested in this property?",
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "message": "Message",
+      "messagePlaceholder": "I'm interested in this property...",
+      "submit": "Send Message",
+      "call": "Call Agent",
+      "email": "Email Agent"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team",
+    "info": {
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "hours": "Business Hours"
+    },
+    "form": {
+      "title": "Send Us a Message",
+      "name": "Your Name",
+      "email": "Your Email",
+      "phone": "Phone Number (Optional)",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send Message",
+      "subjects": {
+        "general": "General Inquiry",
+        "property": "Property Information",
+        "viewing": "Schedule Viewing",
+        "partnership": "Partnership Opportunity",
+        "other": "Other"
+      }
+    },
+    "success": "Thank you for contacting us! We'll get back to you soon."
+  },
+  "footer": {
+    "description": "Leading real estate company providing premium property solutions in Indonesia. Your trusted partner in finding the perfect home.",
+    "quickLinks": "Quick Links",
+    "company": "Company",
+    "contact": "Contact",
+    "followUs": "Follow Us",
+    "aboutUs": "About Us",
+    "careers": "Careers",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "allRightsReserved": "All Rights Reserved",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email"
+  },
+  "admin": {
+    "menu": {
+      "dashboard": "Dashboard",
+      "properties": "Properties",
+      "agents": "Agents",
+      "companyInfo": "Company Info",
+      "profile": "Profile",
+      "logout": "Logout"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Welcome back! Here's an overview of your business",
+      "stats": {
+        "properties": "Total Properties",
+        "agents": "Total Agents",
+        "sales": "Total Sales",
+        "inquiries": "Inquiries"
+      },
+      "recentProperties": "Recent Properties",
+      "quickActions": {
+        "title": "Quick Actions",
+        "addProperty": "Add Property",
+        "addAgent": "Add Agent",
+        "editCompany": "Edit Company Info"
+      }
+    },
+    "login": {
+      "title": "Admin Login",
+      "subtitle": "Sign in to your account",
+      "email": "Email",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign In",
+      "demo": "Demo Credentials",
+      "error": "Invalid email or password"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "close": "Close",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "errors": {
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "Sorry, the page you're looking for doesn't exist. It might have been moved or deleted.",
+      "goHome": "Go to Homepage",
+      "goBack": "Go Back",
+      "quickLinks": "Quick Links:",
+      "searchPlaceholder": "Search for properties..."
+    },
+    "generic": "Something went wrong. Please try again later."
+  }
+}

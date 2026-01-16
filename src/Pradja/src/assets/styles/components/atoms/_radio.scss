@@ -1,0 +1,193 @@
+@use '../../abstracts' as *;
+
+/**
+ * Radio Atom Styles
+ * Custom styled radio button component
+ *
+ * BEM: .radio
+ */
+
+.radio {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+
+  // Hidden native radio
+  &__input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  // Custom radio circle
+  &__circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: 2px solid $neutral-400;
+    border-radius: 50%;
+    background-color: $white;
+    transition: all $transition-base;
+    flex-shrink: 0;
+    position: relative;
+
+    // Inner dot
+    &::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: $white;
+      transform: scale(0);
+      transition: all $transition-fast;
+    }
+  }
+
+  // Label text
+  &__label {
+    font-size: $font-size-sm;
+    color: $neutral-700;
+    line-height: 1.5;
+  }
+
+  // Checked state
+  &__input:checked + &__circle {
+    background-color: $primary-600;
+    border-color: $primary-600;
+
+    &::after {
+      transform: scale(1);
+    }
+  }
+
+  // Focus state
+  &__input:focus + &__circle {
+    @include focus-ring($primary-600);
+  }
+
+  // Disabled state
+  &__input:disabled + &__circle {
+    background-color: $neutral-100;
+    border-color: $neutral-300;
+    cursor: not-allowed;
+
+    & ~ .radio__label {
+      color: $neutral-400;
+      cursor: not-allowed;
+    }
+  }
+
+  &__input:disabled:checked + &__circle {
+    background-color: $neutral-400;
+    border-color: $neutral-400;
+  }
+
+  // Hover state
+  &:hover &__input:not(:disabled) + &__circle {
+    border-color: $primary-600;
+  }
+
+  // Size variants
+  &--sm {
+    .radio__circle {
+      width: 16px;
+      height: 16px;
+
+      &::after {
+        width: 8px;
+        height: 8px;
+      }
+    }
+
+    .radio__label {
+      font-size: $font-size-xs;
+    }
+  }
+
+  &--lg {
+    .radio__circle {
+      width: 24px;
+      height: 24px;
+
+      &::after {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    .radio__label {
+      font-size: $font-size-base;
+    }
+  }
+
+  // Color variants
+  &--success {
+    .radio__input:checked + .radio__circle {
+      background-color: $success-600;
+      border-color: $success-600;
+    }
+
+    &:hover .radio__input:not(:disabled) + .radio__circle {
+      border-color: $success-600;
+    }
+  }
+
+  &--danger {
+    .radio__input:checked + .radio__circle {
+      background-color: $error-600;
+      border-color: $error-600;
+    }
+
+    &:hover .radio__input:not(:disabled) + .radio__circle {
+      border-color: $error-600;
+    }
+  }
+
+  &--warning {
+    .radio__input:checked + .radio__circle {
+      background-color: $warning-600;
+      border-color: $warning-600;
+    }
+
+    &:hover .radio__input:not(:disabled) + .radio__circle {
+      border-color: $warning-600;
+    }
+  }
+
+  // Error state
+  &--error {
+    .radio__circle {
+      border-color: $error-600;
+    }
+
+    .radio__label {
+      color: $error-600;
+    }
+  }
+}
+
+// Radio group
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+
+  &__label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $neutral-700;
+    margin-bottom: $spacing-1;
+  }
+
+  &--horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+  }
+}

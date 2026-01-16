@@ -1,0 +1,118 @@
+/**
+ * Animation Utilities
+ * Animation and transition utility classes
+ */
+
+// Transitions
+.transition-none { transition: none !important; }
+.transition-all { 
+  transition-property: all !important;
+  transition-duration: $transition-base !important;
+  transition-timing-function: ease-in-out !important;
+}
+.transition-colors {
+  transition-property: background-color, border-color, color, fill, stroke !important;
+  transition-duration: $transition-base !important;
+}
+.transition-opacity {
+  transition-property: opacity !important;
+  transition-duration: $transition-base !important;
+}
+.transition-transform {
+  transition-property: transform !important;
+  transition-duration: $transition-base !important;
+}
+
+// Duration
+.duration-fast { transition-duration: $transition-fast !important; }
+.duration-base { transition-duration: $transition-base !important; }
+.duration-slow { transition-duration: $transition-slow !important; }
+
+// Animation keyframes
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  50% { opacity: 0.5; }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Animation classes
+.animate-spin { animation: spin 1s linear infinite !important; }
+.animate-ping { animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite !important; }
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important; }
+.animate-bounce { animation: bounce 1s infinite !important; }
+.animate-fade-in { animation: fade-in 0.3s ease-out !important; }
+.animate-slide-in-up { animation: slide-in-up 0.3s ease-out !important; }
+.animate-slide-in-down { animation: slide-in-down 0.3s ease-out !important; }
+
+// Transform utilities
+.scale-0 { transform: scale(0) !important; }
+.scale-50 { transform: scale(0.5) !important; }
+.scale-75 { transform: scale(0.75) !important; }
+.scale-90 { transform: scale(0.9) !important; }
+.scale-95 { transform: scale(0.95) !important; }
+.scale-100 { transform: scale(1) !important; }
+.scale-105 { transform: scale(1.05) !important; }
+.scale-110 { transform: scale(1.1) !important; }
+.scale-125 { transform: scale(1.25) !important; }
+.scale-150 { transform: scale(1.5) !important; }
+
+// Rotate
+.rotate-0 { transform: rotate(0deg) !important; }
+.rotate-45 { transform: rotate(45deg) !important; }
+.rotate-90 { transform: rotate(90deg) !important; }
+.rotate-180 { transform: rotate(180deg) !important; }
+.rotate-270 { transform: rotate(270deg) !important; }
+
+// Transform origin
+.origin-center { transform-origin: center !important; }
+.origin-top { transform-origin: top !important; }
+.origin-right { transform-origin: right !important; }
+.origin-bottom { transform-origin: bottom !important; }
+.origin-left { transform-origin: left !important; }

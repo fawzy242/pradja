@@ -1,0 +1,38 @@
+/**
+ * Dark Theme
+ * Dark color scheme
+ */
+
+[data-theme="dark"] {
+  // Background colors
+  --bg-primary: #{$neutral-900};
+  --bg-secondary: #{$neutral-800};
+  --bg-tertiary: #{$neutral-700};
+
+  // Text colors
+  --text-primary: #{$white};
+  --text-secondary: #{$neutral-200};
+  --text-tertiary: #{$neutral-300};
+  --text-muted: #{$neutral-400};
+
+  // Border colors
+  --border-primary: #{$neutral-700};
+  --border-secondary: #{$neutral-600};
+
+  // Brand colors
+  --brand-primary: #{$primary-500};
+  --brand-primary-hover: #{$primary-400};
+  --brand-primary-light: #{$primary-900};
+
+  // Semantic colors
+  --color-success: #{$success-500};
+  --color-error: #{$danger-500};
+  --color-warning: #{$warning-500};
+  --color-info: #{$info-500};
+
+  // Shadows (darker for dark theme)
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}

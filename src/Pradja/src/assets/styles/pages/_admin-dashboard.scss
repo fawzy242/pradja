@@ -1,0 +1,25 @@
+@use '../abstracts' as *;
+
+/**
+ * Admin Dashboard Page Styles
+ */
+
+.page-admin-dashboard {
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-6;
+    margin-bottom: $spacing-8;
+  }
+
+  &__charts {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: $spacing-6;
+    margin-bottom: $spacing-8;
+
+    @include respond-below(lg) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

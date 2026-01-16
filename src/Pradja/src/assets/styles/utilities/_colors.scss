@@ -1,0 +1,25 @@
+/**
+ * Color Utilities
+ * Utility classes for colors
+ */
+
+// Text colors
+@each $name, $value in $colors-map {
+  .text-#{$name} {
+    color: $value !important;
+  }
+}
+
+// Background colors
+@each $name, $value in $colors-map {
+  .bg-#{$name} {
+    background-color: $value !important;
+  }
+}
+
+// Border colors
+@each $name, $value in $colors-map {
+  .border-#{$name} {
+    border-color: $value !important;
+  }
+}

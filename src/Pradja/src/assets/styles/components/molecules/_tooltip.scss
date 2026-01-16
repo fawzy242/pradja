@@ -1,0 +1,147 @@
+@use '../../abstracts' as *;
+
+/**
+ * Tooltip Molecule Styles
+ * Hoverable tooltip component
+ *
+ * BEM: .tooltip
+ */
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+
+  &__content {
+    position: absolute;
+    z-index: 9999;
+    padding: $spacing-2 $spacing-3;
+    background-color: $neutral-900;
+    color: $white;
+    font-size: $font-size-xs;
+    line-height: 1.4;
+    border-radius: $radius-md;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all $transition-base;
+    pointer-events: none;
+    max-width: 250px;
+
+    // Arrow
+    &::before {
+      content: '';
+      position: absolute;
+      border: 5px solid transparent;
+    }
+
+    // Show tooltip
+    .tooltip:hover & {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  // Position variants
+  &--top {
+    .tooltip__content {
+      bottom: calc(100% + $spacing-2);
+      left: 50%;
+      transform: translateX(-50%) translateY(-5px);
+
+      &::before {
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-top-color: $neutral-900;
+      }
+    }
+
+    &:hover .tooltip__content {
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  &--bottom {
+    .tooltip__content {
+      top: calc(100% + $spacing-2);
+      left: 50%;
+      transform: translateX(-50%) translateY(5px);
+
+      &::before {
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-bottom-color: $neutral-900;
+      }
+    }
+
+    &:hover .tooltip__content {
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  &--left {
+    .tooltip__content {
+      right: calc(100% + $spacing-2);
+      top: 50%;
+      transform: translateY(-50%) translateX(-5px);
+
+      &::before {
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        border-left-color: $neutral-900;
+      }
+    }
+
+    &:hover .tooltip__content {
+      transform: translateY(-50%) translateX(0);
+    }
+  }
+
+  &--right {
+    .tooltip__content {
+      left: calc(100% + $spacing-2);
+      top: 50%;
+      transform: translateY(-50%) translateX(5px);
+
+      &::before {
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        border-right-color: $neutral-900;
+      }
+    }
+
+    &:hover .tooltip__content {
+      transform: translateY(-50%) translateX(0);
+    }
+  }
+
+  // Color variants
+  &--light {
+    .tooltip__content {
+      background-color: $white;
+      color: $neutral-900;
+      border: 1px solid $neutral-200;
+      box-shadow: $shadow-md;
+
+      &::before {
+        border-color: transparent;
+      }
+    }
+  }
+
+  &--primary {
+    .tooltip__content {
+      background-color: $primary-600;
+
+      &::before {
+        border-top-color: $primary-600;
+        border-bottom-color: $primary-600;
+        border-left-color: $primary-600;
+        border-right-color: $primary-600;
+      }
+    }
+  }
+}

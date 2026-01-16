@@ -1,0 +1,151 @@
+@use '../../abstracts' as *;
+
+/**
+ * Pagination Molecule Styles
+ * Page navigation component
+ *
+ * BEM: .pagination
+ */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    display: flex;
+  }
+
+  &__link,
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: $spacing-2 $spacing-3;
+    border: 1px solid $neutral-300;
+    background-color: $white;
+    color: $neutral-700;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+    border-radius: $radius-md;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover:not(:disabled) {
+      border-color: $primary-600;
+      background-color: $primary-50;
+      color: $primary-700;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__link--active {
+    border-color: $primary-600;
+    background-color: $primary-600;
+    color: $white;
+
+    &:hover {
+      background-color: $primary-700;
+      border-color: $primary-700;
+    }
+  }
+
+  &__ellipsis {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    color: $neutral-600;
+  }
+
+  // Size variants
+  &--sm {
+    .pagination__link,
+    .pagination__button {
+      min-width: 32px;
+      height: 32px;
+      padding: $spacing-1 $spacing-2;
+      font-size: $font-size-xs;
+    }
+
+    .pagination__ellipsis {
+      min-width: 32px;
+      height: 32px;
+    }
+  }
+
+  &--lg {
+    .pagination__link,
+    .pagination__button {
+      min-width: 48px;
+      height: 48px;
+      padding: $spacing-3 $spacing-4;
+      font-size: $font-size-base;
+    }
+
+    .pagination__ellipsis {
+      min-width: 48px;
+      height: 48px;
+    }
+  }
+
+  // Rounded variant
+  &--rounded {
+    .pagination__link,
+    .pagination__button {
+      border-radius: $radius-full;
+    }
+  }
+
+  // Simple variant (no borders)
+  &--simple {
+    .pagination__link,
+    .pagination__button {
+      border: none;
+      background-color: transparent;
+
+      &:hover:not(:disabled) {
+        background-color: $neutral-100;
+      }
+    }
+
+    .pagination__link--active {
+      background-color: $primary-600;
+      color: $white;
+
+      &:hover {
+        background-color: $primary-700;
+      }
+    }
+  }
+
+  // Info text
+  &__info {
+    font-size: $font-size-sm;
+    color: $neutral-600;
+    margin: 0 $spacing-4;
+  }
+}

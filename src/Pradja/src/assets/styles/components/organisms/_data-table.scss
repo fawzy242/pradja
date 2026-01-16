@@ -1,0 +1,250 @@
+@use '../../abstracts' as *;
+
+/**
+ * Data Table Organism Styles
+ * Admin data table component with sorting and pagination
+ *
+ * BEM: .data-table
+ */
+
+.data-table {
+  background-color: $white;
+  border: 1px solid $neutral-200;
+  border-radius: $radius-lg;
+  overflow: hidden;
+
+  &__header {
+    padding: $spacing-5 $spacing-6;
+    background-color: $neutral-50;
+    border-bottom: 1px solid $neutral-200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+  }
+
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $neutral-900;
+    margin: 0;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-2;
+  }
+
+  &__container {
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      background-color: $neutral-50;
+      border-bottom: 2px solid $neutral-200;
+    }
+
+    th {
+      padding: $spacing-4 $spacing-4;
+      text-align: left;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      color: $neutral-900;
+      white-space: nowrap;
+
+      &.sortable {
+        cursor: pointer;
+        user-select: none;
+        transition: background-color $transition-base;
+
+        &:hover {
+          background-color: $neutral-100;
+        }
+      }
+    }
+
+    td {
+      padding: $spacing-4;
+      font-size: $font-size-sm;
+      color: $neutral-700;
+      border-bottom: 1px solid $neutral-100;
+    }
+
+    tbody tr {
+      transition: background-color $transition-base;
+
+      &:hover {
+        background-color: $neutral-50;
+      }
+
+      &.selected {
+        background-color: $primary-50;
+      }
+    }
+  }
+
+  &__sort-icon {
+    display: inline-flex;
+    margin-left: $spacing-1;
+    color: $neutral-400;
+
+    &--asc,
+    &--desc {
+      color: $primary-600;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+  }
+
+  &__cell {
+    &--actions {
+      display: flex;
+      gap: $spacing-2;
+      justify-content: flex-end;
+    }
+
+    &--status {
+      .badge {
+        display: inline-flex;
+      }
+    }
+
+    &--center {
+      text-align: center;
+    }
+
+    &--right {
+      text-align: right;
+    }
+  }
+
+  &__footer {
+    padding: $spacing-4 $spacing-6;
+    background-color: $neutral-50;
+    border-top: 1px solid $neutral-200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+  }
+
+  &__info {
+    font-size: $font-size-sm;
+    color: $neutral-600;
+  }
+
+  &__pagination {
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+  }
+
+  // Empty state
+  &__empty {
+    text-align: center;
+    padding: $spacing-12 $spacing-4;
+
+    &-icon {
+      font-size: 48px;
+      color: $neutral-400;
+      margin-bottom: $spacing-4;
+    }
+
+    &-message {
+      font-size: $font-size-base;
+      color: $neutral-600;
+    }
+  }
+
+  // Loading state
+  &__loading {
+    padding: $spacing-12 $spacing-4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-4;
+  }
+
+  // Responsive
+  @include respond-below(md) {
+    &__table {
+      thead {
+        display: none;
+      }
+
+      tbody,
+      tr,
+      td {
+        display: block;
+      }
+
+      tr {
+        margin-bottom: $spacing-4;
+        border: 1px solid $neutral-200;
+        border-radius: $radius-md;
+        padding: $spacing-4;
+      }
+
+      td {
+        padding: $spacing-2 0;
+        border-bottom: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &::before {
+          content: attr(data-label);
+          font-weight: $font-weight-semibold;
+          color: $neutral-900;
+        }
+      }
+    }
+  }
+
+  // Compact variant
+  &--compact {
+    .data-table__table {
+      th,
+      td {
+        padding: $spacing-2 $spacing-3;
+      }
+    }
+
+    .data-table__header,
+    .data-table__footer {
+      padding: $spacing-3 $spacing-4;
+    }
+  }
+
+  // Striped variant
+  &--striped {
+    .data-table__table tbody tr:nth-child(even) {
+      background-color: $neutral-25;
+    }
+  }
+
+  // Bordered variant
+  &--bordered {
+    .data-table__table {
+      th,
+      td {
+        border: 1px solid $neutral-200;
+      }
+    }
+  }
+}

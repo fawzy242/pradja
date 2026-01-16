@@ -1,0 +1,511 @@
+// ============================================================================
+// TYPOGRAPHY SYSTEM - PT PRADJA ARTHA SEJAHTERA
+// Version: 2.0.0
+// Complete typography styles and utilities
+// ============================================================================
+
+@use 'sass:color';
+@use '../abstracts' as *;
+
+// ============================================================================
+// HEADING STYLES
+// ============================================================================
+
+.heading {
+  font-family: $font-heading;
+  font-weight: $font-weight-bold;
+  line-height: $lh-heading;
+  color: $color-text-primary;
+  margin-bottom: $spacing-4;
+  
+  &--display {
+    letter-spacing: $letter-spacing-tight;
+  }
+}
+
+// H1
+.heading-1,
+h1:not([class]) {
+  @include heading(1);
+}
+
+// H2
+.heading-2,
+h2:not([class]) {
+  @include heading(2);
+}
+
+// H3
+.heading-3,
+h3:not([class]) {
+  @include heading(3);
+}
+
+// H4
+.heading-4,
+h4:not([class]) {
+  @include heading(4);
+}
+
+// H5
+.heading-5,
+h5:not([class]) {
+  @include heading(5);
+}
+
+// H6
+.heading-6,
+h6:not([class]) {
+  @include heading(6);
+}
+
+// ============================================================================
+// DISPLAY TEXT (Extra large headings)
+// ============================================================================
+
+.display {
+  font-family: $font-heading;
+  font-weight: $font-weight-extrabold;
+  line-height: $line-height-tight;
+  letter-spacing: $letter-spacing-tight;
+  color: $color-text-primary;
+  margin-bottom: $spacing-6;
+  
+  &-1 {
+    font-size: $font-size-6xl;
+    
+    @include respond-to(md) {
+      font-size: $font-size-7xl;
+    }
+  }
+  
+  &-2 {
+    font-size: $font-size-5xl;
+    
+    @include respond-to(md) {
+      font-size: $font-size-6xl;
+    }
+  }
+  
+  &-3 {
+    font-size: $font-size-4xl;
+    
+    @include respond-to(md) {
+      font-size: $font-size-5xl;
+    }
+  }
+}
+
+// ============================================================================
+// BODY TEXT
+// ============================================================================
+
+.text {
+  font-family: $font-body;
+  line-height: $lh-body;
+  color: $color-text-primary;
+  margin-bottom: $spacing-4;
+  
+  // Sizes
+  &--2xs { font-size: $font-size-2xs; }
+  &--xs { font-size: $font-size-xs; }
+  &--sm { font-size: $font-size-sm; }
+  &--base { font-size: $font-size-base; }
+  &--lg { font-size: $font-size-lg; }
+  &--xl { font-size: $font-size-xl; }
+  &--2xl { font-size: $font-size-2xl; }
+  &--3xl { font-size: $font-size-3xl; }
+  
+  // Weights
+  &--light { font-weight: $font-weight-light; }
+  &--normal { font-weight: $font-weight-normal; }
+  &--medium { font-weight: $font-weight-medium; }
+  &--semibold { font-weight: $font-weight-semibold; }
+  &--bold { font-weight: $font-weight-bold; }
+  &--extrabold { font-weight: $font-weight-extrabold; }
+  
+  // Colors
+  &--primary { color: $color-text-primary; }
+  &--secondary { color: $color-text-secondary; }
+  &--disabled { color: $color-text-disabled; }
+  &--brand { color: $color-primary; }
+  &--success { color: $color-success; }
+  &--warning { color: $color-warning; }
+  &--error { color: $color-error; }
+  &--info { color: $color-info; }
+  
+  // Alignment
+  &--left { text-align: left; }
+  &--center { text-align: center; }
+  &--right { text-align: right; }
+  &--justify { text-align: justify; }
+  
+  // Transform
+  &--uppercase { text-transform: uppercase; }
+  &--lowercase { text-transform: lowercase; }
+  &--capitalize { text-transform: capitalize; }
+  
+  // Decoration
+  &--underline { text-decoration: underline; }
+  &--line-through { text-decoration: line-through; }
+  &--no-decoration { text-decoration: none; }
+  
+  // Line height
+  &--tight { line-height: $line-height-tight; }
+  &--normal { line-height: $line-height-normal; }
+  &--relaxed { line-height: $line-height-relaxed; }
+  &--loose { line-height: $line-height-loose; }
+  
+  // Letter spacing
+  &--tighter { letter-spacing: $letter-spacing-tighter; }
+  &--tight-spacing { letter-spacing: $letter-spacing-tight; }
+  &--normal-spacing { letter-spacing: $letter-spacing-normal; }
+  &--wide { letter-spacing: $letter-spacing-wide; }
+  &--wider { letter-spacing: $letter-spacing-wider; }
+  &--widest { letter-spacing: $letter-spacing-widest; }
+}
+
+// ============================================================================
+// PARAGRAPH
+// ============================================================================
+
+// Basic paragraph (no class)
+p:not([class]) {
+  @include body-text(base);
+  margin-bottom: $spacing-4;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Paragraph component with modifiers
+.paragraph {
+  @include body-text(base);
+  margin-bottom: $spacing-4;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  &--lead {
+    font-size: $font-size-lg;
+    line-height: $lh-relaxed;
+    color: $color-text-secondary;
+    
+    @include respond-to(md) {
+      font-size: $font-size-xl;
+    }
+  }
+  
+  &--small {
+    font-size: $font-size-sm;
+  }
+}
+
+// ============================================================================
+// LINKS
+// ============================================================================
+
+.link {
+  color: $color-primary;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  @include transition(color);
+  cursor: pointer;
+  
+  &:hover {
+    color: $color-primary-dark;
+  }
+  
+  &:active {
+    color: color.adjust($color-primary, $lightness: -15%);
+  }
+  
+  &--no-underline {
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  &--external {
+    &::after {
+      content: ' ↗';
+      font-size: 0.875em;
+      opacity: 0.7;
+    }
+  }
+}
+
+// ============================================================================
+// LISTS
+// ============================================================================
+
+.list {
+  margin-bottom: $spacing-4;
+  padding-left: $spacing-6;
+  
+  &--unordered,
+  &--ul {
+    list-style: disc;
+    
+    ul {
+      list-style: circle;
+      margin-top: $spacing-2;
+    }
+  }
+  
+  &--ordered,
+  &--ol {
+    list-style: decimal;
+    
+    ol {
+      list-style: lower-alpha;
+      margin-top: $spacing-2;
+    }
+  }
+  
+  &--unstyled {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  &__item {
+    margin-bottom: $spacing-2;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+ul:not([class]),
+ol:not([class]) {
+  @extend .list;
+  
+  li {
+    margin-bottom: $spacing-2;
+  }
+}
+
+ul:not([class]) {
+  list-style: disc;
+}
+
+ol:not([class]) {
+  list-style: decimal;
+}
+
+// ============================================================================
+// BLOCKQUOTE
+// ============================================================================
+
+// Basic blockquote (no class)
+blockquote:not([class]) {
+  padding: $spacing-4 $spacing-6;
+  margin: $spacing-6 0;
+  border-left: 4px solid $color-primary;
+  background-color: $neutral-50;
+  font-style: italic;
+  color: $color-text-secondary;
+  
+  p {
+    margin-bottom: $spacing-2;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Blockquote component with BEM elements
+.blockquote {
+  padding: $spacing-4 $spacing-6;
+  margin: $spacing-6 0;
+  border-left: 4px solid $color-primary;
+  background-color: $neutral-50;
+  font-style: italic;
+  color: $color-text-secondary;
+  
+  p {
+    margin-bottom: $spacing-2;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__cite {
+    display: block;
+    margin-top: $spacing-3;
+    font-style: normal;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    
+    &::before {
+      content: '— ';
+    }
+  }
+}
+
+// ============================================================================
+// CODE
+// ============================================================================
+
+.code,
+code:not([class]) {
+  font-family: $font-code;
+  font-size: 0.875em;
+  padding: 0.2em 0.4em;
+  background-color: $neutral-100;
+  border-radius: $radius-sm;
+  color: $color-text-primary;
+}
+
+.code-block,
+pre:not([class]) {
+  font-family: $font-code;
+  font-size: $font-size-sm;
+  line-height: $lh-relaxed;
+  padding: $spacing-4;
+  margin: $spacing-4 0;
+  background-color: $neutral-900;
+  color: $neutral-50;
+  border-radius: $radius-md;
+  overflow-x: auto;
+  @include custom-scrollbar(6px, $neutral-800, $neutral-600);
+  
+  code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+}
+
+// ============================================================================
+// KEYBOARD KEY
+// ============================================================================
+
+.kbd,
+kbd:not([class]) {
+  display: inline-block;
+  padding: 0.2em 0.5em;
+  font-family: $font-code;
+  font-size: 0.875em;
+  line-height: 1;
+  color: $neutral-900;
+  background-color: $neutral-100;
+  border: 1px solid $neutral-300;
+  border-radius: $radius-sm;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+// ============================================================================
+// MARK/HIGHLIGHT
+// ============================================================================
+
+.mark,
+mark:not([class]) {
+  padding: 0.1em 0.3em;
+  background-color: $warning-200;
+  color: $neutral-900;
+  border-radius: $radius-sm;
+}
+
+// ============================================================================
+// ABBREVIATION
+// ============================================================================
+
+.abbr,
+abbr[title]:not([class]) {
+  text-decoration: underline dotted;
+  cursor: help;
+  border-bottom: 1px dotted currentColor;
+}
+
+// ============================================================================
+// HORIZONTAL RULE
+// ============================================================================
+
+// Basic hr (no class)
+hr:not([class]) {
+  margin: $spacing-8 0;
+  border: 0;
+  border-top: $border-base;
+}
+
+// HR component with modifiers
+.hr {
+  margin: $spacing-8 0;
+  border: 0;
+  border-top: $border-base;
+  
+  &--thick {
+    border-top-width: $border-width-thick;
+  }
+  
+  &--dashed {
+    border-top-style: dashed;
+  }
+  
+  &--primary {
+    border-color: $color-primary;
+  }
+}
+
+// ============================================================================
+// TEXT UTILITIES
+// ============================================================================
+
+// Truncate
+.text-truncate {
+  @include text-truncate;
+}
+
+// Line clamp
+.line-clamp {
+  &-1 { @include line-clamp(1); }
+  &-2 { @include line-clamp(2); }
+  &-3 { @include line-clamp(3); }
+  &-4 { @include line-clamp(4); }
+  &-5 { @include line-clamp(5); }
+  &-6 { @include line-clamp(6); }
+}
+
+// No wrap
+.text-nowrap {
+  white-space: nowrap;
+}
+
+// Break word
+.text-break {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+// Monospace
+.text-mono {
+  font-family: $font-code;
+}
+
+// Smooth rendering
+.text-smooth {
+  @include smooth-font;
+}
+
+// ============================================================================
+// RESPONSIVE TYPOGRAPHY
+// ============================================================================
+
+@include respond-to(md) {
+  .heading-1 { font-size: $font-size-5xl; }
+  .heading-2 { font-size: $font-size-4xl; }
+  .heading-3 { font-size: $font-size-3xl; }
+  .heading-4 { font-size: $font-size-2xl; }
+}
+
+@include respond-to(lg) {
+  .heading-1 { font-size: $font-size-6xl; }
+}

@@ -1,0 +1,282 @@
+// ============================================================================
+// FOOTER COMPONENT - ORGANISM
+// Version: 2.0.0
+// Main footer with company info and links
+// ============================================================================
+
+@use 'sass:color';
+@use '../../abstracts' as *;
+
+.footer {
+  background-color: $color-primary;
+  color: $neutral-100;
+  
+  // ============================================================================
+  // MAIN FOOTER CONTENT
+  // ============================================================================
+  
+  &__main {
+    padding: $footer-padding-y 0;
+  }
+  
+  &__content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: $spacing-8;
+    
+    @include respond-below(lg) {
+      grid-template-columns: 1fr 1fr;
+      gap: $spacing-6;
+    }
+    
+    @include respond-below(md) {
+      grid-template-columns: 1fr;
+      gap: $spacing-8;
+    }
+  }
+  
+  // ============================================================================
+  // SECTIONS
+  // ============================================================================
+  
+  &__section {
+    &--brand {
+      @include respond-below(lg) {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+  
+  // ============================================================================
+  // BRAND
+  // ============================================================================
+  
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    margin-bottom: $spacing-4;
+  }
+  
+  &__logo {
+    width: 3rem;
+    height: 3rem;
+    background-color: $color-white;
+    border-radius: $radius-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  &__logo-icon {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-primary;
+  }
+  
+  &__brand-name {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-white;
+    margin: 0;
+  }
+  
+  &__description {
+    color: $primary-100;
+    line-height: $lh-relaxed;
+    margin-bottom: $spacing-6;
+    max-width: 400px;
+  }
+  
+  // ============================================================================
+  // SOCIAL MEDIA
+  // ============================================================================
+  
+  &__social {
+    margin-top: $spacing-6;
+  }
+  
+  &__social-title {
+    font-weight: $font-weight-semibold;
+    color: $color-white;
+    margin-bottom: $spacing-3;
+  }
+  
+  &__social-links {
+    display: flex;
+    gap: $spacing-3;
+  }
+  
+  &__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: rgba($color-white, 0.1);
+    color: $color-white;
+    border-radius: $radius-md;
+    @include transition(all);
+    
+    &:hover {
+      background-color: $color-white;
+      color: $color-primary;
+      transform: translateY(-2px);
+    }
+    
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+  
+  // ============================================================================
+  // TITLES
+  // ============================================================================
+  
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $color-white;
+    margin-bottom: $spacing-4;
+  }
+  
+  // ============================================================================
+  // LINKS
+  // ============================================================================
+  
+  &__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  &__link-item {
+    margin-bottom: $spacing-2;
+  }
+  
+  &__link {
+    color: $primary-100;
+    text-decoration: none;
+    @include transition(color);
+    display: inline-block;
+    
+    &:hover {
+      color: $color-white;
+      padding-left: $spacing-2;
+    }
+  }
+  
+  // ============================================================================
+  // CONTACT INFO
+  // ============================================================================
+  
+  &__contacts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  &__contact-item {
+    display: flex;
+    gap: $spacing-3;
+    margin-bottom: $spacing-4;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__contact-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba($color-white, 0.1);
+    border-radius: $radius-md;
+    color: $color-white;
+    flex-shrink: 0;
+    
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+  
+  &__contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+  }
+  
+  &__contact-label {
+    font-size: $font-size-sm;
+    color: $primary-200;
+    font-weight: $font-weight-medium;
+  }
+  
+  &__contact-value {
+    color: $color-white;
+    
+    &--link {
+      text-decoration: none;
+      @include transition(color);
+      
+      &:hover {
+        color: $primary-200;
+      }
+    }
+  }
+  
+  // ============================================================================
+  // BOTTOM BAR
+  // ============================================================================
+  
+  &__bottom {
+    border-top: 1px solid rgba($color-white, 0.1);
+    padding: $spacing-6 0;
+    background-color: color.adjust($color-primary, $lightness: -5%);
+  }
+  
+  &__bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+    
+    @include respond-below(md) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+  
+  &__copyright {
+    color: $primary-200;
+    font-size: $font-size-sm;
+    margin: 0;
+  }
+  
+  &__bottom-links {
+    display: flex;
+    align-items: center;
+    gap: $spacing-4;
+  }
+  
+  &__bottom-link {
+    color: $primary-100;
+    text-decoration: none;
+    font-size: $font-size-sm;
+    @include transition(color);
+    
+    &:hover {
+      color: $color-white;
+    }
+  }
+  
+  &__bottom-separator {
+    color: rgba($color-white, 0.3);
+  }
+}

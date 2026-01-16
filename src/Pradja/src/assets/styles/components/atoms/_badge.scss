@@ -1,0 +1,155 @@
+@use '../../abstracts' as *;
+
+/**
+ * Badge Atom Styles
+ * Small label component for counts and status
+ *
+ * BEM: .badge
+ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-1 $spacing-2;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  line-height: 1;
+  border-radius: $radius-full;
+  white-space: nowrap;
+  
+  // Color variants
+  &--primary {
+    background-color: $primary-100;
+    color: $primary-700;
+  }
+
+  &--secondary {
+    background-color: $neutral-100;
+    color: $neutral-700;
+  }
+
+  &--success {
+    background-color: $success-100;
+    color: $success-700;
+  }
+
+  &--danger {
+    background-color: $error-100;
+    color: $error-700;
+  }
+
+  &--warning {
+    background-color: $warning-100;
+    color: $warning-700;
+  }
+
+  &--info {
+    background-color: $info-100;
+    color: $info-700;
+  }
+
+  // Solid variants
+  &--solid {
+    &.badge--primary {
+      background-color: $primary-600;
+      color: $white;
+    }
+
+    &.badge--secondary {
+      background-color: $neutral-600;
+      color: $white;
+    }
+
+    &.badge--success {
+      background-color: $success-600;
+      color: $white;
+    }
+
+    &.badge--danger {
+      background-color: $error-600;
+      color: $white;
+    }
+
+    &.badge--warning {
+      background-color: $warning-600;
+      color: $white;
+    }
+
+    &.badge--info {
+      background-color: $info-600;
+      color: $white;
+    }
+  }
+
+  // Outline variants
+  &--outline {
+    background-color: transparent;
+    border: 1px solid;
+
+    &.badge--primary {
+      border-color: $primary-600;
+      color: $primary-600;
+    }
+
+    &.badge--secondary {
+      border-color: $neutral-600;
+      color: $neutral-600;
+    }
+
+    &.badge--success {
+      border-color: $success-600;
+      color: $success-600;
+    }
+
+    &.badge--danger {
+      border-color: $error-600;
+      color: $error-600;
+    }
+
+    &.badge--warning {
+      border-color: $warning-600;
+      color: $warning-600;
+    }
+
+    &.badge--info {
+      border-color: $info-600;
+      color: $info-600;
+    }
+  }
+
+  // Size variants
+  &--sm {
+    padding: 2px $spacing-1;
+    font-size: 10px;
+  }
+
+  &--lg {
+    padding: $spacing-2 $spacing-3;
+    font-size: $font-size-sm;
+  }
+
+  // With dot
+  &--dot {
+    padding-left: $spacing-3;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: $spacing-2;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: currentColor;
+    }
+  }
+
+  // Pill shape
+  &--pill {
+    border-radius: $radius-full;
+    padding: $spacing-1 $spacing-3;
+  }
+}
