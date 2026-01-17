@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Pradja",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Pradja",
+      "program": "${workspaceFolder}/src/Pradja/bin/Debug/net8.0/Pradja.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/Pradja",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "Now listening on: (https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  ]
+}

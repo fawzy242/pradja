@@ -1,0 +1,53 @@
+<!-- Reports Page -->
+<div id="reportsPage">
+    <div class="page-header">
+        <div>
+            <h1><i class="fas fa-file-download me-2"></i>Download Reports</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#" data-route="dashboard">Home</a></li>
+                    <li class="breadcrumb-item active">Reports</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Single Report Card -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Download Reports</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Select Report</label>
+                        <select class="form-select" id="selectReport">
+                            <option value="">-- Pilih Report --</option>
+                        </select>
+                        <div class="form-text">Pilih jenis report yang ingin di-download</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Format</label>
+                        <select class="form-select" id="selectFormat">
+                            <option value="excel" selected>Excel (.xlsx)</option>
+                            <option value="pdf" disabled>PDF (.pdf) - Coming Soon</option>
+                        </select>
+                        <div class="form-text">Pilih format file untuk download</div>
+                    </div>
+
+                    <button class="btn btn-danger w-100" id="btnDownloadReport">
+                        <i class="fas fa-download me-2"></i>Download Report
+                    </button>
+                </div>
+                <div class="card-footer bg-light">
+                    <div class="small text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Report akan langsung di-download ke perangkat Anda dalam format Excel.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

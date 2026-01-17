@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>RedAdmin Pro - Enterprise Dashboard</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="RedAdmin Pro - Enterprise-grade Admin Dashboard Template">
+    <meta name="keywords" content="dashboard, admin, enterprise, management, SPA">
+    <meta name="author" content="RedAdmin Pro Team">
+    <meta name="theme-color" content="#dc3545">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Security Headers -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar-container" id="sidebar-container">
+        <!-- Loaded dynamically via router -->
+    </aside>
+    
+    <!-- Main Content Area -->
+    <div class="main-content" id="mainContent">
+        <!-- Topbar -->
+        <header id="topbar-container">
+            <!-- Loaded dynamically via router -->
+        </header>
+        
+        <!-- Page Content -->
+        <main class="content-area">
+            <div id="pageContent">
+                <!-- Pages loaded dynamically via router -->
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modals Container -->
+    <div id="modals-container"></div>
+    
+    <!-- Scripts -->
+    <!-- Main Application (ES Module) -->
+    <script type="module" src="src/main.js"></script>
+    
+    <!-- Service Worker Registration (Optional - for PWA) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // navigator.serviceWorker.register('/sw.js');
+            });
+        }
+    </script>
+</body>
+</html>
