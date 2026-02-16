@@ -6,7 +6,6 @@ using Microsoft.OpenApi.Models;
 using Pradja.App.Features;
 using Pradja.Infra.Features.Common;
 using MapsterMapper;
-using Pradja.App.Features.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -109,7 +108,7 @@ builder.Services.AddGenericRepositories();
 builder.Services.AddMapster();
 
 // Configure Mapster mappings
-PropertyMappingConfig.RegisterMappings();
+MappingConfig.RegisterMappings();
 var mapsterConfig = TypeAdapterConfig.GlobalSettings;
 
 mapsterConfig.Default.PreserveReference(true);

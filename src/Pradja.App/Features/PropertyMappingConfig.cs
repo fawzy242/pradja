@@ -1,13 +1,13 @@
 using Mapster;
 using Pradja.Domain.Features.Properties;
 
-namespace Pradja.App.Features.Mapping
+namespace Pradja.App.Features;
+
+public static class MappingConfig
 {
-    public static class PropertyMappingConfig
+    public static void RegisterMappings()
     {
-        public static void RegisterMappings()
-        {
-            TypeAdapterConfig<PropertyEntity, PropertyView>.NewConfig();
-        }
+        TypeAdapterConfig<PropertyEntity, PropertyView>.NewConfig();
     }
 }
+
