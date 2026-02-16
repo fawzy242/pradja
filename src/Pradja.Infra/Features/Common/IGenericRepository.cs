@@ -10,5 +10,6 @@ namespace Pradja.Infra.Features.Common
         Task<int> UpdateAsync(T entity);
         Task<int> DeleteAsync(object id);
         Task<IEnumerable<T>> QueryAsync(string sql, object? parameters = null);
+        Task<TResult> QuerySingleAsync<TResult>(string sql, object? parameters = null);
     }
 }

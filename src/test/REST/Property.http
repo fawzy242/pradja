@@ -1,0 +1,41 @@
+@host=https://localhost:7259
+@api={{host}}/api/property
+
+### Create Property
+POST {{api}}
+Content-Type: application/json
+
+{
+  "name": "Rumah Minimalis BSD",
+
+  "propertyType": 1,
+  "propertyStatus": 1,
+  "listingType": 1,
+
+  "isPrimary": true,
+
+  "landArea": 120.5,
+  "buildingArea": 90.0,
+
+  "numOfFloors": 2,
+  "numOfBedroom": 3,
+  "numOfBathroom": 2,
+  "numOfAdditionalRoom": 1,
+  "numOfAdditionalBathroom": 1,
+
+  "garageSpace": 1,
+
+  "provinceID": 31,
+  "cityID": 3171,
+
+  "district": 101,
+  "subDistrict": 202,
+  "postalCode": 15310,
+
+  "address": "Jl. Raya BSD No. 10"
+}
+
+### Get Property Grid Data
+GET {{api}}/grid
+?Page=1
+&Search=BSD

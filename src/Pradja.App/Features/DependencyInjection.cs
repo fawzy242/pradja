@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Pradja.App.Features.Auth.Interfaces;
 using Pradja.App.Features.Auth.Service;
+using Pradja.App.Features.Properties.Interfaces;
+using Pradja.App.Features.Properties.Services;
 
 namespace Pradja.App.Features
 {
@@ -10,6 +12,8 @@ namespace Pradja.App.Features
         {
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IPropertyService, PropertyService>();
+
             return services;
         }
     }

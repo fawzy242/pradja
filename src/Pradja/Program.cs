@@ -4,12 +4,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Pradja.App.Features;
-using Pradja.Domain.Common.Auth;
 using Pradja.Infra.Features.Common;
-using Pradja.App.Features.Auth.Service;
-using Pradja.App.Features.Auth.Interfaces;
-using Pradja.Infra.Features.Auth;
 using MapsterMapper;
+using Pradja.App.Features.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -111,12 +108,8 @@ builder.Services.AddApplicationServices();
 builder.Services.AddGenericRepositories();
 builder.Services.AddMapster();
 
-// 6. AUTH SERVICES
-builder.Services.AddScoped<IAuthReps, AuthReps>();
-builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-
 // Configure Mapster mappings
+PropertyMappingConfig.RegisterMappings();
 var mapsterConfig = TypeAdapterConfig.GlobalSettings;
 
 mapsterConfig.Default.PreserveReference(true);
@@ -125,16 +118,16 @@ mapsterConfig.Default.IgnoreNullValues(true);
 builder.Services.AddSingleton(mapsterConfig);
 builder.Services.AddScoped<IMapper, ServiceMapper>();
 
-// 7. LOGGING
+// 6. LOGGING
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
-// 8. HTTP CONTEXT ACCESSOR
+// 7. HTTP CONTEXT ACCESSOR
 builder.Services.AddHttpContextAccessor();
 
-// 9. API BEHAVIOR CONFIGURATION
+// 8. API BEHAVIOR CONFIGURATION
 builder.Services.Configure<RouteOptions>(options =>
 {
     options.LowercaseUrls = true;
