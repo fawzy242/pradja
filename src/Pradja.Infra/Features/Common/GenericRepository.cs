@@ -3,10 +3,12 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Pradja.Domain.Common.Entities;
 
 namespace Pradja.Infra.Features.Common
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T>
+    where T : AuditableEntity
     {
         private readonly string _connectionString;
         private readonly ILogger<GenericRepository<T>> _logger;
@@ -82,36 +84,63 @@ namespace Pradja.Infra.Features.Common
             using var connection = new SqlConnection(_connectionString);
 
             var tableName = GetTableName();
-            var pkName = GetPrimaryKeyName();
+            var pkName = entity.PrimaryKeyName;
 
-            // Exclude primary key if auto-increment
+          var excludedColumns = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            {
+                nameof(AuditableEntity.PrimaryKeyName),
+                nameof(AuditableEntity.PrimaryKeyValue),
+                nameof(AuditableEntity.DbtsString),
+                nameof(AuditableEntity.Dbts),
+                pkName,
+                "DbUser",
+                "DbHost",
+                "DbLastUpdate"
+            };
+
             var properties = typeof(T).GetProperties()
-                .Where(p => !p.PropertyType.IsClass || p.PropertyType == typeof(string))
-                .Where(p => !p.Name.Equals(pkName, StringComparison.OrdinalIgnoreCase));
+                .Where(p =>
+                    p.CanWrite &&
+                    (
+                        p.PropertyType.IsValueType ||
+                        p.PropertyType == typeof(string)
+                    ) &&
+                    !excludedColumns.Contains(p.Name)
+                );
 
-            var columns = string.Join(", ", properties.Select(p => p.Name));
+            var columns = string.Join(", ", properties.Select(p => $"[{p.Name}]"));
             var values = string.Join(", ", properties.Select(p => $"@{p.Name}"));
 
-            var query = $"INSERT INTO {tableName} ({columns}) VALUES ({values}); SELECT SCOPE_IDENTITY();";
+            var query = $@"
+                declare @inserted table
+                (
+                    Pk bigint,
+                    Status int,
+                    HistoryPk int,
+                    Dbts varbinary(8)
+                );
 
-            try
+                insert into [{tableName}] ({columns})
+                output
+                    inserted.[{pkName}],
+                    inserted.[Status],
+                    inserted.[HistoryPk],
+                    inserted.[Dbts]
+                into @inserted
+                values ({values});
+
+                select * from @inserted;
+            ";
+
+            var result = await connection.QuerySingleAsync(query, entity);
+
+            return new
             {
-                var newId = await connection.ExecuteScalarAsync<object>(query, entity);
-
-                // Set ID back to entity
-                var idProperty = typeof(T).GetProperty(pkName);
-                if (idProperty != null && newId != null)
-                {
-                    idProperty.SetValue(entity, Convert.ChangeType(newId, idProperty.PropertyType));
-                }
-
-                return newId ?? throw new InvalidOperationException("Insert operation did not return a valid ID.");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error inserting {Type}", typeof(T).Name);
-                throw;
-            }
+                result.Pk,
+                result.Status,
+                result.HistoryPk,
+                result.Dbts
+            };
         }
 
         public async Task<int> UpdateAsync(T entity)
@@ -119,24 +148,24 @@ namespace Pradja.Infra.Features.Common
             using var connection = new SqlConnection(_connectionString);
 
             var tableName = GetTableName();
-            var pkName = GetPrimaryKeyName();
+            var pkName = entity.PrimaryKeyName;
 
             var properties = typeof(T).GetProperties()
-                .Where(p => !p.PropertyType.IsClass || p.PropertyType == typeof(string))
+                .Where(p =>
+                    (!p.PropertyType.IsClass || p.PropertyType == typeof(string)) &&
+                    p.PropertyType != typeof(byte[]) &&
+                    p.Name != nameof(AuditableEntity.DbtsString))
                 .Where(p => !p.Name.Equals(pkName, StringComparison.OrdinalIgnoreCase));
 
             var setClause = string.Join(", ", properties.Select(p => $"{p.Name} = @{p.Name}"));
-            var query = $"UPDATE {tableName} SET {setClause} WHERE {pkName} = @{pkName}";
 
-            try
-            {
-                return await connection.ExecuteAsync(query, entity);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error updating {Type}", typeof(T).Name);
-                throw;
-            }
+            var query = $@"
+                UPDATE {tableName}
+                SET {setClause}
+                WHERE {pkName} = @{pkName};
+            ";
+
+            return await connection.ExecuteAsync(query, entity);
         }
 
         public async Task<int> DeleteAsync(object id)
@@ -144,18 +173,24 @@ namespace Pradja.Infra.Features.Common
             using var connection = new SqlConnection(_connectionString);
 
             var tableName = GetTableName();
-            var pkName = GetPrimaryKeyName();
-            var query = $"DELETE FROM {tableName} WHERE {pkName} = @id";
 
-            try
+            // Ambil PK name via instance kecil
+            var instance = (AuditableEntity)Activator.CreateInstance(typeof(T))!;
+            var pkName = instance.PrimaryKeyName;
+
+            var query = $@"
+                UPDATE {tableName}
+                SET Status = @Status,
+                    VoidTime = SYSDATETIMEOFFSET(),
+                    LastUpdate = SYSDATETIMEOFFSET()
+                WHERE {pkName} = @Id;
+            ";
+
+            return await connection.ExecuteAsync(query, new
             {
-                return await connection.ExecuteAsync(query, new { id });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error deleting {Type} with id {Id}", typeof(T).Name, id);
-                throw;
-            }
+                Id = id,
+                Status = 3
+            });
         }
 
         public async Task<IEnumerable<T>> QueryAsync(string sql, object? parameters = null)
@@ -171,6 +206,12 @@ namespace Pradja.Infra.Features.Common
                 _logger.LogError(ex, "Error executing query: {Sql}", sql);
                 throw;
             }
+        }
+
+        public async Task<TResult> QuerySingleAsync<TResult>(string sql, object? parameters = null)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            return await connection.QuerySingleAsync<TResult>(sql, parameters);
         }
     }
 }

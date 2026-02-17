@@ -43,11 +43,6 @@ namespace Pradja.App.Features.Auth.Service
                     return Result<LoginResponse>.Failure("Invalid email or password");
                 }
 
-                if (!user.IsActive)
-                {
-                    return Result<LoginResponse>.Failure("Account is inactive");
-                }
-
                 // Update last login
                 await _authRepository.UpdateLastLoginAsync(user.UserId);
 
@@ -82,7 +77,7 @@ namespace Pradja.App.Features.Auth.Service
             {
                 var user = await _authRepository.GetUserByEmailAsync(email);
 
-                if (user == null || !user.IsActive)
+                if (user == null)
                 {
                     // Untuk keamanan, tetap return success meski email tidak ditemukan
                     return Result.Success("If your email is registered, you will receive a password reset link");
@@ -120,7 +115,7 @@ namespace Pradja.App.Features.Auth.Service
             try
             {
                 var user = await _authRepository.GetUserByIdAsync(userId);
-                if (user == null || !user.IsActive)
+                if (user == null)
                     return Result.Failure("User not found");
 
                 if (!BCrypt.Net.BCrypt.Verify(request.CurrentPassword, user.PasswordHash))
@@ -173,7 +168,7 @@ namespace Pradja.App.Features.Auth.Service
             try
             {
                 var user = await _authRepository.GetUserByIdAsync(userId);
-                if (user == null || !user.IsActive)
+                if (user == null)
                     return Result<UserDto>.Failure("User not found");
 
                 var userDto = new UserDto
@@ -198,7 +193,7 @@ namespace Pradja.App.Features.Auth.Service
             try
             {
                 var user = await _authRepository.GetUserByIdAsync(userId);
-                if (user == null || !user.IsActive)
+                if (user == null)
                     return Result.Failure("User not found");
 
                 if (!BCrypt.Net.BCrypt.Verify(request.OldPassword, user.PasswordHash))
