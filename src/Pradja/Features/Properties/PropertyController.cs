@@ -1,8 +1,9 @@
 // File: PropertyController.cs
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using Pradja.App.Features.Common.Service;
 using Pradja.App.Features.Properties.Interfaces;
-using Pradja.Domain.Common;
+using Pradja.Domain.Common.Queries;
 using Pradja.Domain.Features.Properties;
 using Pradja.Features.Common;
 
@@ -14,79 +15,83 @@ namespace Pradja.Features.Properties
     public class PropertyController : ControllerBase
     {
         private readonly IPropertyService _propertyService;
+        private readonly IMapper _mapper;
 
-        public PropertyController(IPropertyService propertyService)
+        public PropertyController(
+            IPropertyService propertyService
+            ,IMapper mapper
+        )
         {
             _propertyService = propertyService;
+            _mapper = mapper;
         }
 
 
         [HttpGet]
         [ProducesResponseType(typeof(Result<IEnumerable<PropertyView>>), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(
+            [FromQuery] int? status
+        )
         {
-            var result = await _propertyService.GetAllAsync();
+            var cmd = new SimpleQuery
+            {
+                Status = status ?? 2
+            };
+            var result = await _propertyService.GetAllAsync(cmd);
             return this.HandleResult(result);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{pk:long}")]
         [ProducesResponseType(typeof(Result<PropertyView>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(
+            [FromRoute] long? pk
+        )
         {
-            var result = await _propertyService.GetByIdAsync(id);
+            var cmd = new IdQuery()
+            {
+                Pk = pk
+            };
+            var result = await _propertyService.GetByIdAsync(cmd);
             return this.HandleResult(result);
         }
 
 
         [HttpGet("grid")]
-        public async Task<IActionResult> GetGridData([FromQuery] SimpleQuery query)
+        public async Task<IActionResult> GetGridData(
+            [FromQuery] int? status,
+            [FromQuery] int? page,
+            [FromQuery] int? pageSize,
+            [FromQuery] string? search
+        )
         {
-            query.Page ??= 1;
-            query.PageSize ??= 10;
-            
-            if (query.Page < 1) query.Page = 1;
-            if (query.PageSize < 1 || query.PageSize > 100) query.PageSize = 10;
+            var cmd = new SimpleQuery
+            {
+                Status = status ?? 2,
+                Page = page ?? 1,
+                PageSize = pageSize ?? 100,
+                Search = search
+            };
 
-            var result = await _propertyService.GetGridDataAsync(query);
+            var result = await _propertyService.GetGridDataAsync(cmd);
             return this.HandleResult(result);
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(Result<PropertyEntity>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create([FromBody] PropertyAddDto property)
+        public async Task<IActionResult> Create(
+            [FromBody] PropertyAddDto property
+        )
         {
             var validationResult = this.HandleModelState();
             if (validationResult != null)
                 return validationResult;
 
-            var cmd = new PropertyAdd
-            {
-                Name = property.Name,
-                PropertyType = property.PropertyType,
-                PropertyStatus = property.PropertyStatus,
-                ListingType = property.ListingType,
-                IsPrimary = property.IsPrimary,
-                LandArea = property.LandArea,
-                BuildingArea = property.BuildingArea,
-                NumOfFloors = property.NumOfFloors,
-                NumOfBedroom = property.NumOfBedroom,
-                NumOfBathroom = property.NumOfBathroom,
-                NumOfAdditionalRoom = property.NumOfAdditionalRoom,
-                NumOfAdditionalBathroom = property.NumOfAdditionalBathroom,
-                GarageSpace = property.GarageSpace,
-                ProvinceID = property.ProvinceID,
-                CityID = property.CityID,
-                District = property.District,
-                SubDistrict = property.SubDistrict,
-                PostalCode = property.PostalCode,
-                Address = property.Address,
-                Notes = property.Notes
-            };
+           var cmd = _mapper.Map<PropertyAdd>(property);
 
             var result = await _propertyService.CreateAsync(cmd);
-            return this.HandleResult(result, nameof(GetById));
+            return this.HandleResult(result);
         }
 
         [HttpPut("{id:int}")]

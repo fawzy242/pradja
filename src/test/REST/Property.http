@@ -37,5 +37,14 @@ Content-Type: application/json
 
 ### Get Property Grid Data
 GET {{api}}/grid
-?Page=1
+?Status=2
+&Page=1
+&PageSize=5
 &Search=BSD
+
+### Get All
+GET {{api}}/
+?Status=1
+
+### Get By Id
+GET {{api}}/54

@@ -31,32 +31,9 @@ public abstract class AuditableEntity
     }
 
     public int HistoryPk { get; set; }
-
     public int? Status { get; set; }
-
     public string? Notes { get; set; }
 
-   public virtual string PrimaryKeyName
-    {
-        get
-        {
-            var pkProp = GetType()
-                .GetProperties()
-                .FirstOrDefault(x =>
-                    x.Name.EndsWith("Pk") &&
-                    x.Name != nameof(HistoryPk));
-
-            return pkProp?.Name
-                ?? throw new Exception($"Primary key not found for {GetType().Name}");
-        }
-    }
-
-    public virtual object? PrimaryKeyValue
-    {
-        get
-        {
-            var prop = GetType().GetProperty(PrimaryKeyName);
-            return prop?.GetValue(this);
-        }
-    }
+    public virtual string? GetKeyName() => null;
+    public virtual object? GetKeyValue() => null;
 }

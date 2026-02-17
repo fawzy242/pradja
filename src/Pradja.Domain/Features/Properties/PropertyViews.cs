@@ -1,4 +1,4 @@
-using Pradja.Domain.Common;
+using Pradja.Domain.Common.Views;
 
 namespace Pradja.Domain.Features.Properties;
 

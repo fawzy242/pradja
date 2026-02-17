@@ -1,4 +1,4 @@
-namespace Pradja.Domain.Common;
+namespace Pradja.Domain.Common.Views;
 
 public enum Status
 {
