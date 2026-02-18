@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using Pradja.App.Features;
 using Pradja.Infra.Features.Common;
 using MapsterMapper;
+using Pradja.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 

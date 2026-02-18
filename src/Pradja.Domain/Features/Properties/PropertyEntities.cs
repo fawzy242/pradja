@@ -34,6 +34,6 @@ public class PropertyEntity : AuditableEntity
 
     public string? Address { get; set; }
 
-    public override string PrimaryKeyName => nameof(PropertyPk);
-    public override object? PrimaryKeyValue => PropertyPk;
+    public override string? GetKeyName() => nameof(PropertyPk);
+    public override object? GetKeyValue() => PropertyPk;
 }

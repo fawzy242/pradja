@@ -1,98 +1,75 @@
 using System.Data;
 using Dapper;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Pradja.Domain.Common.Entities;
+using InterpolatedSql.Dapper;
+using Pradja.Domain.Common.Queries;
 
 namespace Pradja.Infra.Features.Common
 {
     public class GenericRepository<T> : IGenericRepository<T>
     where T : AuditableEntity
     {
-        private readonly string _connectionString;
-        private readonly ILogger<GenericRepository<T>> _logger;
-
-        public GenericRepository(IConfiguration configuration, ILogger<GenericRepository<T>> logger)
+        protected readonly IDbConnectionFactory _connFactory;
+       protected readonly ILogger _logger;
+       public GenericRepository(
+            IDbConnectionFactory connFactory,
+            ILogger<GenericRepository<T>> logger)
         {
-            _connectionString = configuration.GetConnectionString("PradjaDb") 
-                                 ?? throw new InvalidOperationException("Connection string 'PradjaDb' not found.");
+            _connFactory = connFactory;
             _logger = logger;
         }
 
         private string GetTableName()
         {
             var typeName = typeof(T).Name;
-            return typeName.EndsWith("Entity", StringComparison.OrdinalIgnoreCase)
-                ? typeName[..^6]
-                : typeName;
+
+            return typeName.Replace("Entity", "");
         }
 
-        private string GetPrimaryKeyName()
+        public virtual async Task<T?> GetByIdAsync(IdQuery query)
         {
-            var tableName = GetTableName();
-            var pkName = $"{tableName}Id";
-
-            // Check if property exists
-            var pkProperty = typeof(T).GetProperty(pkName) ??
-                           typeof(T).GetProperty("Id") ??
-                           typeof(T).GetProperty("ID");
-
-            return pkProperty?.Name ?? throw new InvalidOperationException("Primary key not found");
-        }
-
-        public async Task<T?> GetByIdAsync(object id)
-        {
-            using var connection = new SqlConnection(_connectionString);
-
-            var tableName = GetTableName();
-            var pkName = GetPrimaryKeyName();
-
-            var query = $"SELECT * FROM {tableName} WHERE {pkName} = @id";
-
             try
             {
-                return await connection.QueryFirstOrDefaultAsync<T>(query, new { id });
+                using var conn = _connFactory.CreateConnection();
+
+                var tableName = typeof(T).Name.Replace("Entity", "");
+
+                var temp = Activator.CreateInstance<T>();
+                var pkName = temp.GetKeyName() ?? throw new InvalidOperationException("Primary key not defined");
+
+                var sql = @$"
+                    select *
+                    from {tableName}
+                    where {pkName} = @pk
+                ";
+
+                var parameters = new DynamicParameters();
+                parameters.Add("pk", query.Pk);
+
+                var result = await conn.QueryFirstOrDefaultAsync<T>(sql, parameters);
+
+                return result;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error getting {Type} by id {Id}", typeof(T).Name, id);
-                throw;
-            }
-        }
-
-        public async Task<IEnumerable<T>> GetAllAsync()
-        {
-            using var connection = new SqlConnection(_connectionString);
-
-            var tableName = GetTableName();
-            var query = $"SELECT * FROM {tableName}";
-
-            try
-            {
-                return await connection.QueryAsync<T>(query);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error getting all {Type}", typeof(T).Name);
+                _logger.LogError(ex, "Error getting {Type} by id {Id}", typeof(T).Name, query.Pk);
                 throw;
             }
         }
 
         public async Task<object> InsertAsync(T entity)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using var conn = _connFactory.CreateConnection();
 
             var tableName = GetTableName();
-            var pkName = entity.PrimaryKeyName;
+            var pkName = entity.GetKeyName();
 
-          var excludedColumns = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            var excludedColumns = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
-                nameof(AuditableEntity.PrimaryKeyName),
-                nameof(AuditableEntity.PrimaryKeyValue),
                 nameof(AuditableEntity.DbtsString),
                 nameof(AuditableEntity.Dbts),
-                pkName,
+                pkName ?? string.Empty,
                 "DbUser",
                 "DbHost",
                 "DbLastUpdate"
@@ -101,10 +78,7 @@ namespace Pradja.Infra.Features.Common
             var properties = typeof(T).GetProperties()
                 .Where(p =>
                     p.CanWrite &&
-                    (
-                        p.PropertyType.IsValueType ||
-                        p.PropertyType == typeof(string)
-                    ) &&
+                    (p.PropertyType.IsValueType || p.PropertyType == typeof(string)) &&
                     !excludedColumns.Contains(p.Name)
                 );
 
@@ -132,7 +106,7 @@ namespace Pradja.Infra.Features.Common
                 select * from @inserted;
             ";
 
-            var result = await connection.QuerySingleAsync(query, entity);
+            var result = await conn.QuerySingleAsync(query, entity);
 
             return new
             {
@@ -145,10 +119,10 @@ namespace Pradja.Infra.Features.Common
 
         public async Task<int> UpdateAsync(T entity)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using var conn = _connFactory.CreateConnection();
 
             var tableName = GetTableName();
-            var pkName = entity.PrimaryKeyName;
+            var pkName = entity.GetKeyName();
 
             var properties = typeof(T).GetProperties()
                 .Where(p =>
@@ -165,18 +139,17 @@ namespace Pradja.Infra.Features.Common
                 WHERE {pkName} = @{pkName};
             ";
 
-            return await connection.ExecuteAsync(query, entity);
+            return await conn.ExecuteAsync(query, entity);
         }
 
         public async Task<int> DeleteAsync(object id)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using var conn = _connFactory.CreateConnection();
 
             var tableName = GetTableName();
 
-            // Ambil PK name via instance kecil
             var instance = (AuditableEntity)Activator.CreateInstance(typeof(T))!;
-            var pkName = instance.PrimaryKeyName;
+            var pkName = instance.GetKeyName(); // ✅ ganti dari PrimaryKeyName
 
             var query = $@"
                 UPDATE {tableName}
@@ -186,7 +159,7 @@ namespace Pradja.Infra.Features.Common
                 WHERE {pkName} = @Id;
             ";
 
-            return await connection.ExecuteAsync(query, new
+            return await conn.ExecuteAsync(query, new
             {
                 Id = id,
                 Status = 3
@@ -195,11 +168,11 @@ namespace Pradja.Infra.Features.Common
 
         public async Task<IEnumerable<T>> QueryAsync(string sql, object? parameters = null)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using var conn = _connFactory.CreateConnection();
 
             try
             {
-                return await connection.QueryAsync<T>(sql, parameters);
+                return await conn.QueryAsync<T>(sql, parameters);
             }
             catch (Exception ex)
             {
@@ -210,8 +183,8 @@ namespace Pradja.Infra.Features.Common
 
         public async Task<TResult> QuerySingleAsync<TResult>(string sql, object? parameters = null)
         {
-            using var connection = new SqlConnection(_connectionString);
-            return await connection.QuerySingleAsync<TResult>(sql, parameters);
+            using var conn = _connFactory.CreateConnection();
+            return await conn.QuerySingleAsync<TResult>(sql, parameters);
         }
     }
 }

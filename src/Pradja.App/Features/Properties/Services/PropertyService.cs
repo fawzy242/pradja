@@ -2,9 +2,8 @@ using Dapper;
 using MapsterMapper;
 using Pradja.App.Features.Common.Service;
 using Pradja.App.Features.Properties.Interfaces;
-using Pradja.Domain.Common;
+using Pradja.Domain.Common.Queries;
 using Pradja.Domain.Features.Properties;
-using Pradja.Infra.Features.Common;
 using Pradja.Infra.Features.Properties;
 
 namespace Pradja.App.Features.Properties.Services;
@@ -28,6 +27,8 @@ public class PropertyService : IPropertyService
 
             entity.Status = 1;
             entity.HistoryPk = 1;
+            entity.EntryTime = DateTimeOffset.Now;
+            entity.LastUpdate = DateTimeOffset.Now;
 
             await _propertyReps.InsertAsync(entity);
 
@@ -45,14 +46,39 @@ public class PropertyService : IPropertyService
         throw new NotImplementedException();
     }
 
-    public Task<Result<IEnumerable<PropertyView>>> GetAllAsync()
+    public async Task<Result<IEnumerable<PropertyView>>> GetAllAsync(SimpleQuery query)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var data = await _propertyReps.GetAllAsync(query);
+
+            if (data == null || !data.Any())
+                return Result<IEnumerable<PropertyView>>.Failure("No data found");
+
+            return Result<IEnumerable<PropertyView>>.Success(data);
+        }
+        catch (Exception ex)
+        {
+            return Result<IEnumerable<PropertyView>>.Failure(ex.Message);
+        }
     }
 
-    public Task<Result<PropertyView>> GetByIdAsync(int id)
+    public async Task<Result<PropertyView>> GetByIdAsync(IdQuery query)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var entity = await _propertyReps.GetByIdAsync(query);
+
+            if (entity == null)
+                return Result<PropertyView>.Failure("No data found");
+
+            var view = _mapper.Map<PropertyView>(entity);
+            return Result<PropertyView>.Success(view);
+        }
+        catch (Exception ex)
+        {
+            return Result<PropertyView>.Failure(ex.Message);
+        }
     }
 
     public async Task<PaginatedResult<PropertyView>> GetGridDataAsync(SimpleQuery query)

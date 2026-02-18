@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "ms-dotnettools.csharp",
+    "formulahendry.dotnet-test-explorer",
+    "ms-mssql.mssql",
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "github.vscode-pull-request-github",
+    "humao.rest-client",
+    "taoklerks.poor-mans-t-sql-formatter-vscode"
+  ]
+}

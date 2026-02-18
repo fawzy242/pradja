@@ -1,11 +1,11 @@
 using System.Data;
+using Pradja.Domain.Common.Queries;
 
 namespace Pradja.Infra.Features.Common
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<T?> GetByIdAsync(object id);
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<T?> GetByIdAsync(IdQuery query);
         Task<object> InsertAsync(T entity);
         Task<int> UpdateAsync(T entity);
         Task<int> DeleteAsync(object id);
