@@ -3,6 +3,7 @@
 using Pradja.App.Features.Common.Service;
 using Pradja.Domain.Common;
 using Pradja.Domain.Common.Queries;
+using Pradja.Domain.Features.DatAttachments;
 using Pradja.Domain.Features.Properties;
 
 namespace Pradja.App.Features.Properties.Interfaces
@@ -15,5 +16,6 @@ namespace Pradja.App.Features.Properties.Interfaces
         Task<Result<PropertyEntity>> UpdateAsync(int id, PropertyUpdate property);
         Task<Result> DeleteAsync(int id);
         Task<PaginatedResult<PropertyView>> GetGridDataAsync(SimpleQuery query);
+        Task<Result> AddAttachmentAsync(AddDataAttachment cmd);
     }
 }

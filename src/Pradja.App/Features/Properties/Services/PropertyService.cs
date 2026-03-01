@@ -1,8 +1,10 @@
 using Dapper;
 using MapsterMapper;
 using Pradja.App.Features.Common.Service;
+using Pradja.App.Features.DataAttachments.Interfaces;
 using Pradja.App.Features.Properties.Interfaces;
 using Pradja.Domain.Common.Queries;
+using Pradja.Domain.Features.DatAttachments;
 using Pradja.Domain.Features.Properties;
 using Pradja.Infra.Features.Properties;
 
@@ -12,14 +14,16 @@ public class PropertyService : IPropertyService
 {
         private readonly IPropertyReps _propertyReps;
         private readonly IMapper _mapper;
+        private readonly IDataAttachmentService _attachmentService;
 
-        public PropertyService(IPropertyReps propertyReps, IMapper mapper)
+        public PropertyService(IPropertyReps propertyReps, IMapper mapper, IDataAttachmentService attachmentService)
         {
             _propertyReps = propertyReps;
             _mapper = mapper;
+            _attachmentService = attachmentService;
         }
 
-   public async Task<Result<PropertyEntity>> CreateAsync(PropertyAdd property)
+    public async Task<Result<PropertyEntity>> CreateAsync(PropertyAdd property)
     {
         try
         {
@@ -128,9 +132,48 @@ public class PropertyService : IPropertyService
     }
 
 
-
     public Task<Result<PropertyEntity>> UpdateAsync(int id, PropertyUpdate property)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<Result> AddAttachmentAsync(AddDataAttachment cmd)
+    {
+        try
+        {
+            // 1️⃣ Validate property exists
+            var property = await _propertyReps.GetByIdAsync(
+                new IdQuery { Pk = cmd.DataKey }
+            );
+
+            if (property == null)
+                return Result.Failure("Property not found");
+
+            // 2️⃣ Mapping ke CreateDataAttachmentCommand
+            var attachmentCommand = new AddDataAttachment
+            {
+                DataKind = cmd.DataKind,
+                DataKey = cmd.DataKey,
+                FileName = cmd.FileName,
+                FilePath = cmd.FilePath,
+                FileType = cmd.FileType,
+                FileExtension = cmd.FileExtension,
+                FileSize = cmd.FileSize,
+                ThumbnailPath = cmd.ThumbnailPath,
+                IsPrimary = cmd.IsPrimary
+            };
+
+            // 3️⃣ Call AttachmentService
+            var result = await _attachmentService.CreateAsync(attachmentCommand);
+
+            if (!result.IsSuccess)
+                return Result.Failure(result.Message);
+
+            return Result.Success("Attachment added successfully");
+        }
+        catch (Exception ex)
+        {
+            return Result.Failure($"Failed to add attachment: {ex.Message}");
+        }
     }
 }

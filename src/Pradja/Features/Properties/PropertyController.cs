@@ -3,9 +3,12 @@ using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using Pradja.App.Features.Common.Service;
 using Pradja.App.Features.Properties.Interfaces;
+using Pradja.Domain.Common;
 using Pradja.Domain.Common.Queries;
+using Pradja.Domain.Features.DatAttachments;
 using Pradja.Domain.Features.Properties;
 using Pradja.Features.Common;
+using Pradja.Features.DataAttachments;
 
 namespace Pradja.Features.Properties
 {
@@ -114,6 +117,29 @@ namespace Pradja.Features.Properties
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _propertyService.DeleteAsync(id);
+            return this.HandleResult(result);
+        }
+
+        [HttpPost("{pk:long}/attachment")]
+        [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> AddAttachment(
+            [FromRoute] long pk,
+            [FromBody] AddDataAttachmentDto dto
+        )
+        {
+            var validationResult = this.HandleModelState();
+            if (validationResult != null)
+                return validationResult;
+
+            dto.DataKind = DataKinds.Property;
+            dto.DataKey = pk;
+
+            var cmd = _mapper.Map<AddDataAttachment>(dto);
+
+            var result = await _propertyService.AddAttachmentAsync(cmd);
+
             return this.HandleResult(result);
         }
     }

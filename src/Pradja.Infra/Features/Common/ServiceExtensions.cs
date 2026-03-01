@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Pradja.Infra.Features.Auth;
+using Pradja.Infra.Features.DataAttachments;
 using Pradja.Infra.Features.Properties;
 
 namespace Pradja.Infra.Features.Common
@@ -12,6 +13,7 @@ namespace Pradja.Infra.Features.Common
             services.AddScoped<IDbConnectionFactory, SqlConnectionFactory>();
             services.AddScoped<IAuthReps, AuthReps>();
             services.AddScoped<IPropertyReps, PropertyReps>();
+            services.AddScoped<IDataAttachmentReps, DataAttachmentReps>();
 
             return services;
         }
