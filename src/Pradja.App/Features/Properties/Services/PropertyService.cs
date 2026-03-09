@@ -1,8 +1,10 @@
 using Dapper;
+using Mapster;
 using MapsterMapper;
 using Pradja.App.Features.Common.Service;
 using Pradja.App.Features.DataAttachments.Interfaces;
 using Pradja.App.Features.Properties.Interfaces;
+using Pradja.Domain.Common.Entities;
 using Pradja.Domain.Common.Queries;
 using Pradja.Domain.Features.DatAttachments;
 using Pradja.Domain.Features.Properties;
@@ -27,14 +29,16 @@ public class PropertyService : IPropertyService
     {
         try
         {
-            var entity = _mapper.Map<PropertyEntity>(property);
+            var entity = property.Adapt<PropertyEntity>();
 
             entity.Status = 1;
             entity.HistoryPk = 1;
             entity.EntryTime = DateTimeOffset.Now;
             entity.LastUpdate = DateTimeOffset.Now;
 
-            await _propertyReps.InsertAsync(entity);
+            var result = await _propertyReps.InsertAsync(entity);
+            if (result is IDictionary<string, object> dict)
+                entity.ApplyInsertResult(dict);
 
             return Result<PropertyEntity>.Success(entity, "Property created successfully");
         }
@@ -141,7 +145,6 @@ public class PropertyService : IPropertyService
     {
         try
         {
-            // 1️⃣ Validate property exists
             var property = await _propertyReps.GetByIdAsync(
                 new IdQuery { Pk = cmd.DataKey }
             );
@@ -149,7 +152,6 @@ public class PropertyService : IPropertyService
             if (property == null)
                 return Result.Failure("Property not found");
 
-            // 2️⃣ Mapping ke CreateDataAttachmentCommand
             var attachmentCommand = new AddDataAttachment
             {
                 DataKind = cmd.DataKind,
@@ -163,11 +165,10 @@ public class PropertyService : IPropertyService
                 IsPrimary = cmd.IsPrimary
             };
 
-            // 3️⃣ Call AttachmentService
             var result = await _attachmentService.CreateAsync(attachmentCommand);
 
             if (!result.IsSuccess)
-                return Result.Failure(result.Message);
+                return Result.Failure(result.Message ?? "");
 
             return Result.Success("Attachment added successfully");
         }

@@ -108,13 +108,13 @@ namespace Pradja.Infra.Features.Common
 
             var result = await conn.QuerySingleAsync(query, entity);
 
-            return new
-            {
-                result.Pk,
-                result.Status,
-                result.HistoryPk,
-                result.Dbts
-            };
+            var dict = new System.Dynamic.ExpandoObject() as IDictionary<string, object>;
+            dict[pkName ?? "Pk"] = result.Pk;
+            dict["Status"] = result.Status;
+            dict["HistoryPk"] = result.HistoryPk;
+            dict["Dbts"] = result.Dbts;
+
+            return dict;
         }
 
         public async Task<int> UpdateAsync(T entity)

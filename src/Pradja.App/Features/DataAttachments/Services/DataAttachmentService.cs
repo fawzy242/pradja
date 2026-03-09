@@ -1,6 +1,6 @@
 using Pradja.App.Features.Common.Service;
 using Pradja.App.Features.DataAttachments.Interfaces;
-using Pradja.Domain.Common;
+using Pradja.Domain.Common.Entities;
 using Pradja.Domain.Common.Queries;
 using Pradja.Domain.Features.DatAttachments;
 using Pradja.Infra.Features.DataAttachments;
@@ -28,6 +28,10 @@ public class DataAttachmentService : IDataAttachmentService
 
         var entity = new DataAttachmentEntity
         {
+            Status = 2,
+            HistoryPk = 1,
+            EntryTime = DateTimeOffset.Now,
+            LastUpdate = DateTimeOffset.Now,
             DataKind = cmd.DataKind,
             DataKey = cmd.DataKey,
             FileName = cmd.FileName,
@@ -37,18 +41,21 @@ public class DataAttachmentService : IDataAttachmentService
             FileSize = cmd.FileSize,
             ThumbnailPath = cmd.ThumbnailPath,
             DisplayOrder = maxOrder + 1,
-            IsPrimary = cmd.IsPrimary,
-            Status = 1
+            IsPrimary = cmd.IsPrimary
         };
 
         var insertResult = await _reps.InsertAsync(entity);
+        if (insertResult is IDictionary<string, object> dict)
+            entity.ApplyInsertResult(dict);
 
         if (cmd.IsPrimary)
         {
-            await SetPrimaryAsync((long)((dynamic)insertResult).Pk);
+            var pk = insertResult?.GetType().GetProperty("Pk")?.GetValue(insertResult);
+            if (pk != null)
+                await SetPrimaryAsync(Convert.ToInt64(pk));
         }
 
-        return Result<object>.Success(insertResult);
+        return Result<object>.Success(insertResult!);
     }
 
     public async Task<Result> DeleteAsync(long pk)

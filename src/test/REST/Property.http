@@ -48,3 +48,18 @@ GET {{api}}/
 
 ### Get By Id
 GET {{api}}/54
+
+### Upload attachment
+POST {{api}}/109/attachment
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="isPrimary"
+
+true
+--boundary
+Content-Disposition: form-data; name="file"; filename="house.jpg"
+Content-Type: image/jpeg
+
+< ./files/house.jpg
+--boundary--

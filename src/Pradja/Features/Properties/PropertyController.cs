@@ -1,5 +1,5 @@
 // File: PropertyController.cs
-using MapsterMapper;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Pradja.App.Features.Common.Service;
 using Pradja.App.Features.Properties.Interfaces;
@@ -18,15 +18,12 @@ namespace Pradja.Features.Properties
     public class PropertyController : ControllerBase
     {
         private readonly IPropertyService _propertyService;
-        private readonly IMapper _mapper;
 
         public PropertyController(
             IPropertyService propertyService
-            ,IMapper mapper
         )
         {
             _propertyService = propertyService;
-            _mapper = mapper;
         }
 
 
@@ -91,7 +88,7 @@ namespace Pradja.Features.Properties
             if (validationResult != null)
                 return validationResult;
 
-           var cmd = _mapper.Map<PropertyAdd>(property);
+           var cmd = property.Adapt<PropertyAdd>();
 
             var result = await _propertyService.CreateAsync(cmd);
             return this.HandleResult(result);
@@ -124,19 +121,42 @@ namespace Pradja.Features.Properties
         [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
+        [Consumes("multipart/form-data")]
         public async Task<IActionResult> AddAttachment(
             [FromRoute] long pk,
-            [FromBody] AddDataAttachmentDto dto
+            [FromForm] AddDataAttachmentDto dto,
+            IFormFile file
         )
         {
+            if (file == null || file.Length == 0)
+                return BadRequest("File is required");
+
             var validationResult = this.HandleModelState();
             if (validationResult != null)
                 return validationResult;
 
+            // save file
+            var folder = Path.Combine("wwwroot", "uploads", "properties", pk.ToString());
+
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+            var fullPath = Path.Combine(folder, fileName);
+
+            using var stream = new FileStream(fullPath, FileMode.Create);
+            await file.CopyToAsync(stream);
+
+            dto.FileName = file.FileName;
+            dto.FileExtension = Path.GetExtension(file.FileName);
+            dto.FileSize = file.Length;
+            dto.FilePath = $"/uploads/properties/{pk}/{fileName}";
+            dto.FileType = "image";
+
             dto.DataKind = DataKinds.Property;
             dto.DataKey = pk;
 
-            var cmd = _mapper.Map<AddDataAttachment>(dto);
+            var cmd = dto.Adapt<AddDataAttachment>();
 
             var result = await _propertyService.AddAttachmentAsync(cmd);
 
