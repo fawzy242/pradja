@@ -50,7 +50,7 @@ public class DataAttachmentService : IDataAttachmentService
 
         if (cmd.IsPrimary)
         {
-            var pk = insertResult?.GetType().GetProperty("Pk")?.GetValue(insertResult);
+            var pk = entity.GetKeyValue();
             if (pk != null)
                 await SetPrimaryAsync(Convert.ToInt64(pk));
         }

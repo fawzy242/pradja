@@ -17,5 +17,6 @@ namespace Pradja.App.Features.Properties.Interfaces
         Task<Result> DeleteAsync(int id);
         Task<PaginatedResult<PropertyView>> GetGridDataAsync(SimpleQuery query);
         Task<Result> AddAttachmentAsync(AddDataAttachment cmd);
+        Task<Result> ReorderAttachmentsAsync(ReorderDataAttachment cmd);
     }
 }

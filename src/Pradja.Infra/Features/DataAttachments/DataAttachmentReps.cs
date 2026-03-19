@@ -24,7 +24,7 @@ select *
 from DataAttachment
 where DataKind = @DataKind
     and DataKey = @DataKey
-    and Status = 1
+    and status = 2
 order by DisplayOrder
 ";
 
@@ -36,11 +36,11 @@ order by DisplayOrder
         long dataKey)
     {
         var sql = @"
-select isnull(max(DisplayOrder),0)
+select isnull(max(DisplayOrder), 0)
 from DataAttachment
 where DataKind = @DataKind
     and DataKey = @DataKey
-    and Status = 1
+    and status = 2
 ";
 
         return await QuerySingleAsync<int>(sql, new { DataKind = dataKind, DataKey = dataKey });
@@ -57,7 +57,7 @@ update DataAttachment
 set IsPrimary = 0
 where DataKind = @DataKind
     and DataKey = @DataKey
-    and Status = 1
+    and Status = 2
 ";
 
         await conn.ExecuteAsync(sql, new { DataKind = dataKind, DataKey = dataKey });

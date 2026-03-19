@@ -16,3 +16,10 @@ public class AddDataAttachment : BaseCommand
 
     public bool IsPrimary { get; set; }
 }
+
+public class ReorderDataAttachment : BaseCommand
+{
+    public string? DataKind { get; set; }
+    public long DataKey { get; set; }
+    public Dictionary<long, int> AttachmentOrders { get; set; } = [];
+}

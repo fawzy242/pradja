@@ -153,13 +153,33 @@ namespace Pradja.Features.Properties
             dto.FilePath = $"/uploads/properties/{pk}/{fileName}";
             dto.FileType = "image";
 
-            dto.DataKind = DataKinds.Property;
-            dto.DataKey = pk;
-
             var cmd = dto.Adapt<AddDataAttachment>();
+            cmd.DataKind = DataKinds.Property;
+            cmd.DataKey = pk;
 
             var result = await _propertyService.AddAttachmentAsync(cmd);
 
+            return this.HandleResult(result);
+        }
+
+        [HttpPut("{pk:long}/attachment-order")]
+        [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Result), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ReorderAttachments(
+            [FromRoute] long pk,
+            [FromBody] ReorderDataAttachmentDto dto
+        )
+        {
+            var validationResult = this.HandleModelState();
+            if (validationResult != null)
+                return validationResult;
+
+            var cmd = dto.Adapt<ReorderDataAttachment>();
+            cmd.DataKind = DataKinds.Property;
+            cmd.DataKey = pk;
+
+            var result = await _propertyService.ReorderAttachmentsAsync(cmd);
             return this.HandleResult(result);
         }
     }

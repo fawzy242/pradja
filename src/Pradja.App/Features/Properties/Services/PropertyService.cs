@@ -177,4 +177,31 @@ public class PropertyService : IPropertyService
             return Result.Failure($"Failed to add attachment: {ex.Message}");
         }
     }
+
+    public async Task<Result> ReorderAttachmentsAsync(ReorderDataAttachment cmd)
+    {
+        try
+        {
+            if (cmd.AttachmentOrders == null || cmd.AttachmentOrders.Count == 0)
+                return Result.Failure("No attachments to reorder");
+
+            var property = await _propertyReps.GetByIdAsync(
+                new IdQuery { Pk = cmd.DataKey }
+            );
+
+            if (property == null)
+                return Result.Failure("Property not found");
+
+            var result = await _attachmentService.ReorderAsync(cmd.DataKind!, cmd.DataKey, cmd.AttachmentOrders);
+
+            if (!result.IsSuccess)
+                return Result.Failure(result.Message ?? "");
+
+            return Result.Success("Attachments reordered successfully");
+        }
+        catch (Exception ex)
+        {
+            return Result.Failure($"Failed to reorder attachments: {ex.Message}");
+        }
+    }
 }
