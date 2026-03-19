@@ -149,7 +149,7 @@ namespace Pradja.Infra.Features.Common
             var tableName = GetTableName();
 
             var instance = (AuditableEntity)Activator.CreateInstance(typeof(T))!;
-            var pkName = instance.GetKeyName(); // ✅ ganti dari PrimaryKeyName
+            var pkName = instance.GetKeyName();
 
             var query = $@"
                 UPDATE {tableName}
