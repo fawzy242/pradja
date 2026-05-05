@@ -1,8 +1,12 @@
 using Dapper;
+using Mapster;
 using MapsterMapper;
 using Pradja.App.Features.Common.Service;
+using Pradja.App.Features.DataAttachments.Interfaces;
 using Pradja.App.Features.Properties.Interfaces;
+using Pradja.Domain.Common.Entities;
 using Pradja.Domain.Common.Queries;
+using Pradja.Domain.Features.DatAttachments;
 using Pradja.Domain.Features.Properties;
 using Pradja.Infra.Features.Properties;
 
@@ -12,25 +16,29 @@ public class PropertyService : IPropertyService
 {
         private readonly IPropertyReps _propertyReps;
         private readonly IMapper _mapper;
+        private readonly IDataAttachmentService _attachmentService;
 
-        public PropertyService(IPropertyReps propertyReps, IMapper mapper)
+        public PropertyService(IPropertyReps propertyReps, IMapper mapper, IDataAttachmentService attachmentService)
         {
             _propertyReps = propertyReps;
             _mapper = mapper;
+            _attachmentService = attachmentService;
         }
 
-   public async Task<Result<PropertyEntity>> CreateAsync(PropertyAdd property)
+    public async Task<Result<PropertyEntity>> CreateAsync(PropertyAdd property)
     {
         try
         {
-            var entity = _mapper.Map<PropertyEntity>(property);
+            var entity = property.Adapt<PropertyEntity>();
 
             entity.Status = 1;
             entity.HistoryPk = 1;
             entity.EntryTime = DateTimeOffset.Now;
             entity.LastUpdate = DateTimeOffset.Now;
 
-            await _propertyReps.InsertAsync(entity);
+            var result = await _propertyReps.InsertAsync(entity);
+            if (result is IDictionary<string, object> dict)
+                entity.ApplyInsertResult(dict);
 
             return Result<PropertyEntity>.Success(entity, "Property created successfully");
         }
@@ -128,9 +136,72 @@ public class PropertyService : IPropertyService
     }
 
 
-
     public Task<Result<PropertyEntity>> UpdateAsync(int id, PropertyUpdate property)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<Result> AddAttachmentAsync(AddDataAttachment cmd)
+    {
+        try
+        {
+            var property = await _propertyReps.GetByIdAsync(
+                new IdQuery { Pk = cmd.DataKey }
+            );
+
+            if (property == null)
+                return Result.Failure("Property not found");
+
+            var attachmentCommand = new AddDataAttachment
+            {
+                DataKind = cmd.DataKind,
+                DataKey = cmd.DataKey,
+                FileName = cmd.FileName,
+                FilePath = cmd.FilePath,
+                FileType = cmd.FileType,
+                FileExtension = cmd.FileExtension,
+                FileSize = cmd.FileSize,
+                ThumbnailPath = cmd.ThumbnailPath,
+                IsPrimary = cmd.IsPrimary
+            };
+
+            var result = await _attachmentService.CreateAsync(attachmentCommand);
+
+            if (!result.IsSuccess)
+                return Result.Failure(result.Message ?? "");
+
+            return Result.Success("Attachment added successfully");
+        }
+        catch (Exception ex)
+        {
+            return Result.Failure($"Failed to add attachment: {ex.Message}");
+        }
+    }
+
+    public async Task<Result> ReorderAttachmentsAsync(ReorderDataAttachment cmd)
+    {
+        try
+        {
+            if (cmd.AttachmentOrders == null || cmd.AttachmentOrders.Count == 0)
+                return Result.Failure("No attachments to reorder");
+
+            var property = await _propertyReps.GetByIdAsync(
+                new IdQuery { Pk = cmd.DataKey }
+            );
+
+            if (property == null)
+                return Result.Failure("Property not found");
+
+            var result = await _attachmentService.ReorderAsync(cmd.DataKind!, cmd.DataKey, cmd.AttachmentOrders);
+
+            if (!result.IsSuccess)
+                return Result.Failure(result.Message ?? "");
+
+            return Result.Success("Attachments reordered successfully");
+        }
+        catch (Exception ex)
+        {
+            return Result.Failure($"Failed to reorder attachments: {ex.Message}");
+        }
     }
 }

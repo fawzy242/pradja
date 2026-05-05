@@ -8,7 +8,10 @@ namespace Pradja.Infra.Features.Properties;
 
 public class PropertyReps : GenericRepository<PropertyEntity>, IPropertyReps
 {
-    public PropertyReps(IDbConnectionFactory connFactory, ILogger<GenericRepository<PropertyEntity>> logger) : base(connFactory, logger)
+    public PropertyReps(
+        IDbConnectionFactory connFactory,
+        ILogger<GenericRepository<PropertyEntity>> logger
+    ) : base(connFactory, logger)
     {
     }
 
